@@ -6,6 +6,7 @@ function App() {
     const responseMessage = (response) => {
         console.log("Inlog succes")
         console.log(response);
+        window.history.pushState(null, null, '/swagger/index.html');
     };
     const errorMessage = (error) => {
         console.log("Inlog gefaald")
