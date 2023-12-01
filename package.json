@@ -4,6 +4,9 @@
     "@azure/msal-common": "^14.4.0",
     "@azure/msal-react": "^2.0.7",
     "@react-oauth/google": "^0.12.1",
-    "react-microsoft-login": "^2.0.1"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-microsoft-login": "^2.0.1",
+    "react-router-dom": "^6.20.1"
   }
 }

@@ -1,30 +1,20 @@
 import { useEffect, useState } from 'react';
-import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Home from './pages/Home'
+import Dashboard from './pages/Dashboard'
 import './App.css';
 
 function App() {
-    const responseMessage = (response) => {
-        console.log("Inlog succes")
-        console.log(response);
-        window.history.pushState(null, null, '/swagger/index.html');
-    };
-    const errorMessage = (error) => {
-        console.log("Inlog gefaald")
-        console.log(error);
-    };
 
     return (
-        <div>
-            <h2>Aanmelden</h2>
-            <br />
-            <GoogleLogin
-                theme="filled_blue"
-                size="large"
-                text="signup_with"
-                width="300px"
-                onSuccess={responseMessage}
-                onError={errorMessage} />
-        </div>
+        <BrowserRouter>
+            <Routes>
+                <Route index element={<Home />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+            </Routes>
+        </BrowserRouter>
     );
 }
 
