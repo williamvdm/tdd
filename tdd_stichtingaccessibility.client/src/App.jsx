@@ -1,7 +1,7 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 /*Import hieronder de pagina die je hebt aangemaakt*/
-import Home from './pages/Home'
-import Dashboard from './pages/Dashboard'
+import Home from './pages/Home';
+import Dashboard from './pages/Dashboard';
 import './App.css';
 
 function App() {
