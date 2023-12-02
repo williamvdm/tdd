@@ -5,7 +5,7 @@ import Dashboard from './pages/Dashboard';
 import './App.css';
 
 function App() {
-
+    console.error("Error: no errors")
     return (
         <BrowserRouter>
             <Routes>
