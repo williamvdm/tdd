@@ -6,6 +6,17 @@ import './App.css';
 
 function App() {
     console.error("Error: no errors")
+  
+    const responseMessage = (response) => {
+        console.log("Inlog succes")
+        console.log(response);
+        window.history.pushState(null, null, '/swagger/index.html');
+    };
+    const errorMessage = (error) => {
+        console.log("Inlog gefaald")
+        console.log(error);
+    };
+
     return (
         <BrowserRouter>
             <Routes>
