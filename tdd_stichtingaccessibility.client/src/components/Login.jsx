@@ -8,6 +8,14 @@ function Login() {
     const responseMessage = (response) => {
         console.log("Inlog succes");
         console.log(jwtDecode(response.credential));
+        // Eerste manier:
+        // In de browser storage opslaan en later opvragen daaruit
+        // Geheime stuff meesturen om daar wat mee te kunnen
+        // Nog een manier:
+        // React vanuit componenten stuff meegeven, maar blijf maar bij de eerste manier
+        // Uitzoeken wat de verschillende browser storages zijn en welke het handigst is en hoe je het gebruikt in JavaScript.
+        // Nog een 3e manier:
+        // COOKIES
         navigate('/dashboard', { credential: response.credential });
     };
 
