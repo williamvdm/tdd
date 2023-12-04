@@ -1,8 +1,12 @@
-import { useEffect, useState } from 'react';
-import { GoogleLogin } from '@react-oauth/google';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+/*Import hieronder de pagina die je hebt aangemaakt*/
+import Home from './pages/Home';
+import Dashboard from './pages/Dashboard';
 import './App.css';
 
 function App() {
+    console.error("Error: no errors")
+  
     const responseMessage = (response) => {
         console.log("Inlog succes")
         console.log(response);
@@ -14,17 +18,14 @@ function App() {
     };
 
     return (
-        <div>
-            <h2>Aanmelden</h2>
-            <br />
-            <GoogleLogin
-                theme="filled_blue"
-                size="large"
-                text="signup_with"
-                width="300px"
-                onSuccess={responseMessage}
-                onError={errorMessage} />
-        </div>
+        <BrowserRouter>
+            <Routes>
+                {/*Voeg onderaan een nieuwe route toe met de import*/}
+                <Route index element={<Home />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+            </Routes>
+        </BrowserRouter>
     );
 }
 
