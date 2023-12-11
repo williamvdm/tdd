@@ -4,10 +4,23 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <link href="dist/output.css" rel="stylesheet">
+    <title>Ablox - Enable the unable to be able</title>
   </head>
-  <body>
-    <div id="root"></div>
+  <body class="min-h-screen">
+    <nav class="bg-white mb-3 p-4 drop-shadow">
+      <div class="container mx-auto flex justify-between items-center">
+        <!-- Logo -->
+        <a href="#" class="text-black text-lg font-bold">Ablox</a>
+        <!-- Navigatie links -->
+        <ul class="flex space-x-4">
+          <li><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Inloggen
+          </button></li>
+        </ul>
+      </div>
+    </nav>
+    <div id="root" class="p-10"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
