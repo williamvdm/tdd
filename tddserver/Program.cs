@@ -26,8 +26,6 @@ namespace tdd_stichtingaccessibility.Server
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
-
             app.UseAuthorization();
 
 
