@@ -16,6 +16,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: npm install
+        run: npm i
       - name: Build React front-end
         run: cd tddweb && npm run build
 
