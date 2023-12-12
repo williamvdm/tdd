@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tdd_stichtingaccessibility.Server", "tdd_stichtingaccessibility.Server\tdd_stichtingaccessibility.Server.csproj", "{4EE04E02-BFF9-4B1D-BF4B-CD87810E82B7}"
-EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "tdd_stichtingaccessibility.client", "tdd_stichtingaccessibility.client\tdd_stichtingaccessibility.client.esproj", "{C9C21DF2-2EDD-4FEE-9162-01C5C5A6E7F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tdd.Server", "tddserver\tdd.Server.csproj", "{4EE04E02-BFF9-4B1D-BF4B-CD87810E82B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,12 +15,6 @@ Global
 		{4EE04E02-BFF9-4B1D-BF4B-CD87810E82B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EE04E02-BFF9-4B1D-BF4B-CD87810E82B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EE04E02-BFF9-4B1D-BF4B-CD87810E82B7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C9C21DF2-2EDD-4FEE-9162-01C5C5A6E7F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C9C21DF2-2EDD-4FEE-9162-01C5C5A6E7F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C9C21DF2-2EDD-4FEE-9162-01C5C5A6E7F4}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{C9C21DF2-2EDD-4FEE-9162-01C5C5A6E7F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C9C21DF2-2EDD-4FEE-9162-01C5C5A6E7F4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C9C21DF2-2EDD-4FEE-9162-01C5C5A6E7F4}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
