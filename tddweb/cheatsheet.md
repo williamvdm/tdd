@@ -59,3 +59,31 @@ Open een git-bash in de tdd-map.
 ```bash
 git checkout -b myamazingbranch
 ```
+
+# Pagina toevoegen
+In de pages folder voeg je de pagina's toe.
+
+## Components folder
+### Nav.jsx
+Daar zit de navigatie in. De bar aan de bovenkant zeg maar.
+
+## Assets folder
+Daar zitten assets in, zoals fonts, afbeeldingen en dergelijken.
+
+## Node modules
+Daar zitten de node-modules in.
+
+## Pages folder
+Daarin zitten de pagina's, hier moet je ook een nieuwe pagina toevoegen als je die nodig hebt.
+
+# Kleur toevoegen
+In `tailwind.config.js` kan je kleuren toevoegen met naam. Dan kan je die ook gebruiken in CSS etc.
+
+# Om de applicatie de bouwen
+```bash
+npm run build
+```
+
+# Q & A
+## Wat is het verschil tussen een component en een pagina?
+Een component is een deel van een pagina, en kan op meerder pagina's worden gebruikt.
