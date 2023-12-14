@@ -1,7 +1,18 @@
-import { useState } from 'react'
-import { GoogleLogin } from '@react-oauth/google';
+import React, { useState } from 'react';
 
-function Index() {
+const Index = () => {
+  const [weatherData, setWeatherData] = useState([]);
+
+  const fetchWeatherData = async () => {
+    try {
+      const response = await fetch('http://ablox.azurewebsites.net/WeatherForecast');
+      const data = await response.json();
+      setWeatherData(data);
+    } catch (error) {
+      console.error('Error fetching weather data:', error);
+    }
+  };
+
   return (
     <>
       <div className='flex justify-center'>
@@ -11,7 +22,9 @@ function Index() {
             <p className='m-2 mb-8'>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
             </p>
-            <button className='w-full bg-accessblue hover: text-white py-2 px-4 rounded outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue'>
+            <button
+              className='w-full bg-accessblue hover: text-white py-2 px-4 rounded outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue'
+              onClick={fetchWeatherData}>
               Naar onderzoeksportaal
             </button>
           </div>
@@ -20,7 +33,8 @@ function Index() {
             <p className='m-2 mb-8'>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
             </p>
-            <button className='w-full bg-accessorange text-white py-2 px-4 rounded outline-none hover:outline-solid hover:outline-2 hover:outline-accessorange'>
+            <button
+              className='w-full bg-accessorange text-white py-2 px-4 rounded outline-none hover:outline-solid hover:outline-2 hover:outline-accessorange'>
               Naar bedrijvenportaal
             </button>
           </div>
@@ -29,14 +43,23 @@ function Index() {
             <p className='m-2 mb-8'>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
             </p>
-            <button className='w-full bg-accessgreen text-white py-2 px-4 rounded outline-none hover:outline-solid hover:outline-2 hover:outline-accessgreen'>
+            <button
+              className='w-full bg-accessgreen text-white py-2 px-4 rounded outline-none hover:outline-solid hover:outline-2 hover:outline-accessgreen'>
               Naar beheerdersportaal
             </button>
           </div>
         </div>
       </div>
+      <div className='flex justify-center'>
+        <p id="weatherapi" className="m-2 mb-8">
+          {weatherData.map((item) => (
+            <div key={item.id}>
+              <span>{item.date}</span>: {item.summary}</div>
+          ))}
+        </p>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;
