@@ -21,18 +21,24 @@ Je applicatie draait al, bezoek het. Je kan ook de containers uit je docker verw
 
 # Git commands
 ## Lokale main up to date maken met remote main
+Open een git-bash in de tdd-map.
+
 ```bash
 git checkout main
 git pull
 ```
 
 ## Lokale branch up to date maken met lokale main
+Open een git-bash in de tdd-map.
+
 ```bash
 git pull origin main
 git push
 ```
 
 ## Lokale branch naar de remote yeeten
+Open een git-bash in de tdd-map.
+
 ```bash
 git add .
 git commit -m "My amazing commit-message"
@@ -40,11 +46,15 @@ git push
 ```
 
 ## Nieuwe branch maken
+Open een git-bash in de tdd-map.
+
 ```bash
 git branch myamazingbranch
 ```
 
 OF
+
+Open een git-bash in de tdd-map.
 
 ```bash
 git checkout -b myamazingbranch
