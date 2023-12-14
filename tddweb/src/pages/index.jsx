@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 
-const Index = () => {
+function Index() {
   const [weatherData, setWeatherData] = useState([]);
 
-  const fetchWeatherData = async () => {
+  async function fetchWeatherData() {
     try {
       const response = await fetch('http://ablox.azurewebsites.net/WeatherForecast');
       const data = await response.json();
       setWeatherData(data);
     } catch (error) {
-      console.error('Error fetching weather data:', error);
+      console.error('Kutzooi:', error);
     }
   };
 
@@ -51,12 +51,13 @@ const Index = () => {
         </div>
       </div>
       <div className='flex justify-center'>
-        <p id="weatherapi" className="m-2 mb-8">
-          {weatherData.map((item) => (
-            <div key={item.id}>
-              <span>{item.date}</span>: {item.summary}</div>
+        <div id="weatherapi" className="m-2 mb-8">
+          {weatherData.map((item, index) => (
+            <div key={index}>
+              <span>{item.date}</span>: {item.summary}
+            </div>
           ))}
-        </p>
+        </div>
       </div>
     </>
   );
