@@ -8,6 +8,7 @@ export default function Nav() {
                 <ul class="flex space-x-4">
                     <li><a href="/login" class="text-black hover:underline-offset-8 hover:underline">Inloggen</a></li>
                     <li><a href="/ervaringsdeskundigeportaal" class="text-black hover:underline-offset-8 hover:underline">Ervaringsdeskundigeportaal</a></li>
+                    <li><a href="/bedrijven" class="text-black hover:underline-offset-8 hover:underline">Bedrijven</a></li>
 
                 </ul>
             </div>

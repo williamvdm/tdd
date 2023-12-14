@@ -1,4 +1,4 @@
-const Ervaringsdeskundige = () => {
+function Ervaringsdeskundige () {
     return (
         <h1>Ervaringsdeskundige</h1>
     )
