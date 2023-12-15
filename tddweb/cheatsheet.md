@@ -87,6 +87,16 @@ npm run build
 # On een pagina te beveiligen tegen oningelogde gebruikers
 Check of de gebruiker is ingelogd, zo niet, redirect naar de login pagina.
 
+# Mogelijke oplossing om onderzoeken op te halen en te weergeven (niet volledig)
+```js
+{onderzoeksData.map((onderzoek) => (
+  <div key={onderzoek.id}>
+    <h1>{onderzoek.title}</h1>
+    <p>{onderzoek.beschrijving}</p>
+  </div>
+))}
+```
+
 # Q & A
 ## Wat is het verschil tussen een component en een pagina?
 Een component is een deel van een pagina, en kan op meerder pagina's worden gebruikt.
