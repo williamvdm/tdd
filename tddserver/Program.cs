@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using tdd.Server.Context;
 
 namespace tdd_stichtingaccessibility.Server
 {
@@ -13,6 +15,11 @@ namespace tdd_stichtingaccessibility.Server
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDbContext<DatabaseContext>(options =>
+            {
+                options.UseInMemoryDatabase("testdb");
+            });
 
             var app = builder.Build();
 
