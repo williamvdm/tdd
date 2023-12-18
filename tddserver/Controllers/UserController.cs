@@ -28,10 +28,27 @@ namespace tdd.Server.Controllers
             return Ok(users);
         }
 
+        // Route: /api/User/GetUserById/{id}
+        [HttpGet]
+        [Route("GetUserById/{id}")]
+        public async Task<IActionResult> GetUserByIdAsync([FromRoute] string id)
+        {
+            // Error handling wanneer een user geen toegang heeft tot deze functie
+
+            var user = await _context.Users.FirstOrDefaultAsync((user) => user.Id.ToString() == id);
+
+            if (user == null)
+            {
+                return BadRequest("Gebruiker bestaat niet");
+            }
+
+            return Ok(user);
+        }
+
         // Route: /api/User/PostUser
         [HttpPost]
-        [Route("PostUser")]
-        public async Task<IActionResult> PostAsync(UserModel obj)
+        [Route("RegisterUser")]
+        public async Task<IActionResult> RegisterUserAsync(UserModel obj)
         {
             // Error handling wanneer een user bestaat toevoegen
             UserModel postUser = new UserModel();
@@ -41,25 +58,28 @@ namespace tdd.Server.Controllers
             _context.Users.Add(postUser);
             await _context.SaveChangesAsync();
 
-            return Ok(postUser);
+            return Ok();
         }
 
         // Route: /api/User/PutUser
         [HttpPut]
-        [Route("PutUser")]
-        public async Task<IActionResult> PutAsync(UserModel obj)
+        [Route("EditUser/{id}")]
+        public async Task<IActionResult> EditUserByIdAsync([FromRoute] string id, UserModel obj)
         {
             // Functionaliteit om een User aan te passen
-            UserModel user = await _context.FindAsync(obj.Id);
+            UserModel? user = await _context.Users.FirstOrDefaultAsync((user) => user.Id.ToString() == id);
 
-            if(user == null)
+            if (user == null)
             {
-                return Ok(user);
+                return NotFound("Gebruiker niet gevonden");
             }
+
+            user.Achternaam = obj.Achternaam;
+            user.Voornaam = obj.Voornaam;
 
             await _context.SaveChangesAsync();
 
-            return Ok(user);
+            return Ok();
         }
     }
 }
