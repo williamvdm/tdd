@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using tdd.Server.Context;
 using tdd.Server.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace tdd.Server.Controllers
 {
@@ -20,17 +20,18 @@ namespace tdd.Server.Controllers
 
         // Route: /api/User/GetUserList
         [HttpGet]
-        [Route("GetUserList")]
+        [Route("GetUserList"), Authorize]
         public async Task<IActionResult> GetAsync()
         {
             // Error handling wanneer een user geen toegang heeft tot deze functie
+
             var users = await _context.Users.ToListAsync();
             return Ok(users);
         }
 
         // Route: /api/User/GetUserById/{id}
         [HttpGet]
-        [Route("GetUserById/{id}")]
+        [Route("GetUserById/{id}"), Authorize]
         public async Task<IActionResult> GetUserByIdAsync([FromRoute] string id)
         {
             // Error handling wanneer een user geen toegang heeft tot deze functie
@@ -45,12 +46,19 @@ namespace tdd.Server.Controllers
             return Ok(user);
         }
 
-        // Route: /api/User/PostUser
+        // Route: /api/User/RegisterUser
         [HttpPost]
         [Route("RegisterUser")]
         public async Task<IActionResult> RegisterUserAsync(UserModel obj)
         {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // use jwt token authentication here
             // Error handling wanneer een user bestaat toevoegen
+
             UserModel postUser = new UserModel();
             postUser.Achternaam = obj.Achternaam;
             postUser.Voornaam = obj.Voornaam;
@@ -61,12 +69,13 @@ namespace tdd.Server.Controllers
             return Ok();
         }
 
-        // Route: /api/User/PutUser
+        // Route: /api/User/EditUser/{id}
         [HttpPut]
-        [Route("EditUser/{id}")]
+        [Route("EditUser/{id}"), Authorize]
         public async Task<IActionResult> EditUserByIdAsync([FromRoute] string id, UserModel obj)
         {
-            // Functionaliteit om een User aan te passen
+            // Functionaliteit om een User aan te passen met error handling
+
             UserModel? user = await _context.Users.FirstOrDefaultAsync((user) => user.Id.ToString() == id);
 
             if (user == null)
@@ -78,6 +87,26 @@ namespace tdd.Server.Controllers
             user.Voornaam = obj.Voornaam;
 
             await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        // Route: /api/User/DeleteUser/{id}
+        [HttpDelete]
+        [Route("DeleteUser/{id}"), Authorize]
+        public async Task<IActionResult> DeleteUserByIdAsync([FromRoute] string id)
+        {
+            // Error handling
+
+            var user = await _context.Users.FirstOrDefaultAsync(user => user.Id.ToString() == id);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            _context.Remove(user);
+
+            await _context.SaveChangesAsync(); 
 
             return Ok();
         }
