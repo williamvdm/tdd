@@ -1,24 +1,47 @@
-const Login = () => {
+import { GoogleLogin } from '@react-oauth/google';
+import '../css/login.css'; 
+
+function Login() {
+    
+    const handleLogin = (event) => {
+        event.preventDefault();
+        console.log('Formulier verzonden');
+    };
+
     return (
         <>
-            <table style={{ margin: 'auto', marginTop: '10%', marginBottom: '10%' }}>
-                <tr>
-                    <td colSpan="2" style={{ textAlign: 'center' }}>Login</td>
-                </tr>
-                <tr>
-                    <td>Username:</td>
-                    <td><input type="text" style={{ marginBottom: '10px', padding: '5px', background: 'white', borderColor: 'black', borderStyle: 'solid', borderWidth: '2px' }} /></td>
-                </tr>
-                <tr>
-                    <td>Password:</td>
-                    <td><input type="password" style={{ marginBottom: '10px', padding: '5px', background: 'white', borderColor: 'black', borderStyle: 'solid', borderWidth: '2px' }} /></td>
-                </tr>
-                <tr>
-                    <td colSpan="2" style={{ textAlign: 'center' }}><button style={{ marginBottom: '10px', padding: '5px', background: 'white', borderColor: 'black', borderStyle: 'solid', borderWidth: '2px', width: '100%'}}>Inloggen</button></td>
-                </tr>
-            </table>
-            <br/>
-            
+        <div className='login-container'>
+            <h1>Login</h1>
+            <form onSubmit={handleLogin}>
+                <div>
+                    <label htmlFor="gebruikersnaam" aria-required="true"> Gebruikersnaam: <span class="verplicht">(verplicht)</span></label>
+                    <input type="text" id="gebruikersnaam" required />
+                </div>
+                <div>
+                    <label htmlFor="wachtwoord" aria-required="true">Wachtwoord: <span class="verplicht">(verplicht)</span></label>
+                    <input type="password" id="wachtwoord" required />
+                </div>
+
+                <div>
+                    <button>Inloggen</button>
+                </div>
+            </form>
+
+                <div className="scheiding" role="seperator" aria-label="Scheidinstekst">
+                    <span className="scheiding-tekst">of gebruik Google Login:</span>
+                </div>
+
+                <div  id="googlelogin">
+                    <GoogleLogin
+                            onSuccess={credentialResponse => {
+                                console.log(credentialResponse);
+                            }}
+                            onError={() => {
+                                console.log('Het inloggen is niet gelukt.');
+                            }}
+                        />
+                </div>
+        </div>
         </>
     );
 };
