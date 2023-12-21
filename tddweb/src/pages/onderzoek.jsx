@@ -5,45 +5,45 @@ const Onderzoek = () => {
 
             <div style={{ display: 'flex', marginLeft: '5vw' }}>
 
-                <div style={{ width: '30vh', height: '60vw', backgroundColor: 'pink' }}>
-                    Lorem ipsum
+                <div style={{ width: '30vh', height: '60vw', backgroundColor: 'pink', marginRight: '10vw' }}>
+                    <p style={{ textAlign: 'center' }}>Lorem ipsum</p>
                 </div>
 
-                <div style={{ width: '30vw', display: 'flex', flexDirection: 'column', marginBottom: '10vw' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', marginRight: '5vw', marginTop: '5vw' }}>
 
-                    <div style={{ width: '30vh', height: '20vw', marginBottom: '5vw', marginLeft: '10vw', marginTop: '5vw' }}>
-                        <img src="/src/assets/stuff.png" width='70%'></img>
-                        Lorem ipsum
+                    <div style={{ width: '15vw', height: '20vw', marginBottom: '5vw' }}>
+                        <img src="/src/assets/stuff.png" width='70%' alt="stuff"></img>
+                        <p style={{ textAlign: 'center' }}>Lorem ipsum</p>
                     </div>
-                    <div style={{ width: '30vh', height: '20vw', marginBottom: '5vw', marginLeft: '10vw', marginTop: '5vw' }}>
-                        <img src="/src/assets/stuff.png" width='70%'></img>
-                        Lorem ipsum
-                    </div>
-
-                </div>
-
-                <div style={{ width: '30vw', display: 'flex', flexDirection: 'column', marginBottom: '10vw' }}>
-
-                    <div style={{ width: '30vh', height: '20vw', marginBottom: '5vw', marginLeft: '10vw', marginTop: '5vw' }}>
-                        <img src="/src/assets/stuff.png" width='70%'></img>
-                        Lorem ipsum
-                    </div>
-                    <div style={{ width: '30vh', height: '20vw', marginBottom: '5vw', marginLeft: '10vw', marginTop: '5vw' }}>
-                        <img src="/src/assets/stuff.png" width='70%'></img>
-                        Lorem ipsum
+                    <div style={{ width: '15vw', height: '20vw', marginBottom: '5vw' }}>
+                        <img src="/src/assets/stuff.png" width='70%' alt="stuff"></img>
+                        <p style={{ textAlign: 'center' }}>Lorem ipsum</p>
                     </div>
 
                 </div>
 
-                <div style={{ width: '30vw', display: 'flex', flexDirection: 'column', marginBottom: '10vw', marginRight: '5vw' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', marginRight: '5vw', marginTop: '5vw'  }}>
 
-                    <div style={{ width: '30vh', height: '20vw', marginBottom: '5vw', marginLeft: '10vw', marginTop: '5vw' }}>
-                        <img src="/src/assets/stuff.png" width='70%'></img>
-                        Lorem ipsum
+                    <div style={{ width: '15vw', height: '20vw', marginBottom: '5vw' }}>
+                        <img src="/src/assets/stuff.png" width='70%' alt="stuff"></img>
+                        <p style={{ textAlign: 'center' }}>Lorem ipsum</p>
                     </div>
-                    <div style={{ width: '30vh', height: '20vw', marginBottom: '5vw', marginLeft: '10vw', marginTop: '5vw' }}>
-                        <img src="/src/assets/stuff.png" width='70%'></img>
-                        Lorem ipsum
+                    <div style={{ width: '15vw', height: '20vw', marginBottom: '5vw' }}>
+                        <img src="/src/assets/stuff.png" width='70%' alt="stuff"></img>
+                        <p style={{ textAlign: 'center' }}>Lorem ipsum</p>
+                    </div>
+
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', marginTop: '5vw'  }}>
+
+                    <div style={{ width: '15vw', height: '20vw', marginBottom: '5vw' }}>
+                        <img src="/src/assets/stuff.png" width='70%' alt="stuff"></img>
+                        <p style={{ textAlign: 'center' }}>Lorem ipsum</p>
+                    </div>
+                    <div style={{ width: '15vw', height: '20vw', marginBottom: '5vw' }}>
+                        <img src="/src/assets/stuff.png" width='70%' alt="stuff"></img>
+                        <p style={{ textAlign: 'center' }}>Lorem ipsum</p>
                     </div>
 
                 </div>
