@@ -11,6 +11,8 @@ import Index from './pages/index.jsx';
 import Login from './pages/login.jsx';
 import Ervaringsdeskundige from './pages/ervaringsdeskundige.jsx';
 import Bedrijven from './pages/bedrijven.jsx'
+import Onderzoek from './pages/onderzoek.jsx';
+import Chat from './pages/chat.jsx';
 
 function App() {
   return (
@@ -21,7 +23,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/ervaringsdeskundigeportaal" element={<Ervaringsdeskundige />} />
         <Route path="/bedrijven" element={<Bedrijven />} />
-
+        <Route path="/onderzoek" element={<Onderzoek />} />
+        <Route path="/chat" element={<Chat />} />
       </Routes>
     </>
   )
