@@ -9,6 +9,7 @@ export default function Nav() {
                     <li><a href="/login" class="text-black hover:underline-offset-8 hover:underline">Inloggen</a></li>
                     <li><a href="/ervaringsdeskundigeportaal" class="text-black hover:underline-offset-8 hover:underline">Ervaringsdeskundigeportaal</a></li>
                     <li><a href="/bedrijven" class="text-black hover:underline-offset-8 hover:underline">Bedrijven</a></li>
+                    <li><a href="/onderzoek" class="text-black hover:underline-offset-8 hover:underline">Onderzoek</a></li>
                 </ul>
             </div>
         </nav>
