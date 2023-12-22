@@ -21,9 +21,16 @@ function App() {
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/ervaringsdeskundigeportaal" element={<Ervaringsdeskundige />} />
-        <Route path="/bedrijven" element={<Bedrijven />} />
-        <Route path="/onderzoek" element={<Onderzoek />} />
+        <Route
+          path="/portaal"
+          element={
+            <>
+              <Route path="/ervaringsdeskundigeportaal" element={<Ervaringsdeskundige />} />
+              <Route path="/bedrijven" element={<Bedrijven />} />
+              <Route path="/onderzoek" element={<Onderzoek />} />
+            </>
+          }
+        />
         <Route path="/chat" element={<Chat />} />
       </Routes>
     </>
