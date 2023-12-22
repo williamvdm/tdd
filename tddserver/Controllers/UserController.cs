@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using tdd.Server.Context;
 using tdd.Server.Models;
+using tdd.Server.Extensions;
 using Microsoft.AspNetCore.Identity;
 
 namespace tdd.Server.Controllers
@@ -20,12 +21,15 @@ namespace tdd.Server.Controllers
 
         // Route: /api/User/GetUserList
         [HttpGet]
-        [Route("GetUserList"), Authorize]
-        public async Task<IActionResult> GetAsync()
+        [Route("GetUserList")]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> GetUserListAsync()
         {
             // Error handling wanneer een user geen toegang heeft tot deze functie
 
             var users = await _context.Users.ToListAsync();
+
+
             return Ok(users);
         }
 
@@ -62,6 +66,21 @@ namespace tdd.Server.Controllers
             UserModel postUser = new UserModel();
             postUser.Achternaam = obj.Achternaam;
             postUser.Voornaam = obj.Voornaam;
+
+            if(await _context.Users.AnyAsync(user => user.Email == obj.Email))
+            {
+                return BadRequest("Email bestaat al");
+            }
+
+            postUser.Email = obj.Email;
+
+            if(obj.GeboorteDatum.CalculateAge() < 18)
+            {
+                postUser.GeboorteDatum = obj.GeboorteDatum;
+                postUser.Verzorger = obj.Verzorger;
+            }
+
+            postUser.VoorkeurBenadering = obj.VoorkeurBenadering;
 
             _context.Users.Add(postUser);
             await _context.SaveChangesAsync();
@@ -107,6 +126,21 @@ namespace tdd.Server.Controllers
             _context.Remove(user);
 
             await _context.SaveChangesAsync(); 
+
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("SetUserRole/{id}")]
+        public async Task<IActionResult> SetUserRoleByIdAsync([FromRoute] string id, string role)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(user => user.Id.ToString() == id);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            user.Role = role;
 
             return Ok();
         }

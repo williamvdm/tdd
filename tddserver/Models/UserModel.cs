@@ -19,7 +19,6 @@ namespace tdd.Server.Models
         [MaxLength(10)]
         public char Telefoon { get; set; }
 
-        [Required]
         public bool ToestemmingBenadering { get; set; }
 
         public string VoorkeurBenadering { get; set; }
@@ -27,11 +26,19 @@ namespace tdd.Server.Models
         [Required]
         public string Provider {  get; set; }
 
-        [Required]
         public DateTime GeboorteDatum { get; set; }
 
         [Required]
         public string IdentityHash { get; set; }
-        
+
+        [Required]
+        public string Role { get; set; }
+
+        public VerzorgerModel Verzorger { get; set; }
+
+        public List<AandoeningModel> Aandoening { get; set; }
+
+        public List<BeperkingModel> Beperking { get; set; }
+
     }
 }
