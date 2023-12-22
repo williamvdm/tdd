@@ -10,9 +10,9 @@ export default function Nav() {
                     <li className="group">
                         <span className="text-black cursor-pointer group-hover:underline">Portaal</span>
                         <ul className="hidden group-hover:block absolute z-10">
-                            <li><Link to="/ervaringsdeskundigeportaal" className="text-black hover:underline">Ervaringsdeskundigeportaal</Link></li>
-                            <li><Link to="/bedrijven" className="text-black hover:underline">Bedrijven</Link></li>
-                            <li><Link to="/onderzoek" className="text-black hover:underline">Onderzoek</Link></li>
+                            <li><Link to="/portaal/ervaringsdeskundige" className="text-black hover:underline">Ervaringsdeskundige</Link></li>
+                            <li><Link to="/portaal/bedrijven" className="text-black hover:underline">Bedrijven</Link></li>
+                            <li><Link to="/portaal/onderzoek" className="text-black hover:underline">Onderzoek</Link></li>
                         </ul>
                     </li>
                     <li><Link to="/chat" className="text-black hover:underline-offset-8 hover:underline">Chat</Link></li>
