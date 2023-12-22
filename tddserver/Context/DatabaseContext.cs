@@ -14,11 +14,6 @@ namespace tdd.Server.Context
             optionsBuilder.UseInMemoryDatabase(databaseName: "tdd_db");
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-        }
-
         public DbSet<UserModel> Users { get; set; }
     }
 }
