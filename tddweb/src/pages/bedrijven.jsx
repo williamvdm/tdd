@@ -1,6 +1,8 @@
 function bedrijven () {
     return (
-        <h1>Bedrijven</h1>
+        <>
+            <h1>Bedrijven</h1>
+        </>
     )
 }
 
