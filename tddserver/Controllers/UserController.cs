@@ -140,19 +140,25 @@ namespace tdd.Server.Controllers
         [Route("DeleteUser/{id}"), Authorize]
         public async Task<IActionResult> DeleteUserByIdAsync([FromRoute] string id)
         {
-            // TODO: Error handling
+            try {
+                var user = await _context.Users.FirstOrDefaultAsync(user => user.Id.ToString() == id);
 
-            var user = await _context.Users.FirstOrDefaultAsync(user => user.Id.ToString() == id);
-            if (user == null)
-            {
-                return NotFound("User not found");
+                if (user == null)
+                {
+                    return NotFound("User not found");
+                }
+
+                _context.Remove(user);
+
+                await _context.SaveChangesAsync(); 
+
+                return Ok();
             }
-
-            _context.Remove(user);
-
-            await _context.SaveChangesAsync(); 
-
-            return Ok();
+            catch (Exception)
+            {
+                // Error handling
+                return StatusCode(500);
+            }
         }
 
         [HttpPut]
