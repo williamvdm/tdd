@@ -21,5 +21,7 @@ namespace tdd.Server.Models
         [Required]
         public string Provider { get; set; }
 
+        [Required]
+        public List<ContactPersoonModel> contactpersonen { get; set; }
     }
 }
