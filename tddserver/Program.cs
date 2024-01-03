@@ -12,13 +12,12 @@ namespace tdd_stichtingaccessibility.Server
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            // TOOD: Authentictie juist implementeren
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
@@ -54,6 +53,7 @@ namespace tdd_stichtingaccessibility.Server
                 app.UseSwaggerUI();
             }
 
+            // Heeft te maken met authentication
             app.UseAuthentication();
             app.UseAuthorization();
 

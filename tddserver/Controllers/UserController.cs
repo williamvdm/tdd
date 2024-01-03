@@ -60,8 +60,8 @@ namespace tdd.Server.Controllers
                 return BadRequest(ModelState);
             }
 
-            // use jwt token authentication here
-            // Error handling wanneer een user bestaat toevoegen
+            // TODO: use jwt token authentication here
+            // TODO: Error handling wanneer een user bestaat toevoegen
 
             UserModel postUser = new UserModel();
             postUser.Achternaam = obj.Achternaam;
@@ -74,7 +74,7 @@ namespace tdd.Server.Controllers
 
             postUser.Email = obj.Email;
 
-            if(obj.GeboorteDatum.CalculateAge() < 18)
+            if(obj.GeboorteDatum.CalculateAge() < 18) // TODO: Check voor verstandelijke beperking toevoegen
             {
                 postUser.GeboorteDatum = obj.GeboorteDatum;
                 postUser.Verzorger = obj.Verzorger;
@@ -93,7 +93,7 @@ namespace tdd.Server.Controllers
         [Route("EditUser/{id}"), Authorize]
         public async Task<IActionResult> EditUserByIdAsync([FromRoute] string id, UserModel obj)
         {
-            // Functionaliteit om een User aan te passen met error handling
+            // TODO: Functionaliteit om een User aan te passen met error handling
 
             UserModel? user = await _context.Users.FirstOrDefaultAsync((user) => user.Id.ToString() == id);
 
@@ -115,7 +115,7 @@ namespace tdd.Server.Controllers
         [Route("DeleteUser/{id}"), Authorize]
         public async Task<IActionResult> DeleteUserByIdAsync([FromRoute] string id)
         {
-            // Error handling
+            // TODO: Error handling
 
             var user = await _context.Users.FirstOrDefaultAsync(user => user.Id.ToString() == id);
             if (user == null)

@@ -15,5 +15,6 @@ namespace tdd.Server.Context
         }
 
         public DbSet<UserModel> Users { get; set; }
+        // Voeg hieronder ALTIJD de databasemodellen toe (die je aanmaakt in het mapje Models), anders werkt het programma niet. 
     }
 }
