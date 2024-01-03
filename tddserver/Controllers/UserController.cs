@@ -63,8 +63,6 @@ namespace tdd.Server.Controllers
                 return BadRequest(ModelState);
             }
 
-            // TODO: use jwt token authentication here
-
             UserModel postUser = new UserModel();
             postUser.Achternaam = obj.Achternaam;
             postUser.Voornaam = obj.Voornaam;
