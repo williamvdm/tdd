@@ -9,9 +9,10 @@ namespace tdd.Server.Context
         {
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            optionsBuilder.UseInMemoryDatabase(databaseName: "tdd_db");
+            // It would be a good idea to move the connection string to user secrets
+            options.UseNpgsql("Host=localhost;Database=tdddb;Username=postgres;Password=passlauwillannak");
         }
 
         public DbSet<UserModel> Users { get; set; }
