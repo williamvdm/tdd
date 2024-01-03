@@ -5,6 +5,9 @@ using tdd.Server.Context;
 using tdd.Server.Models;
 using tdd.Server.Extensions;
 using Microsoft.AspNetCore.Identity;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
 
 namespace tdd.Server.Controllers
 {
@@ -75,6 +78,24 @@ namespace tdd.Server.Controllers
             {
                 return BadRequest("Voornaam-achternaam combinatie bestaat al, dus als je niet Jan Jansen heet, hoepel dan maar op");
             }
+
+            // Generate JWT token
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = System.Text.Encoding.ASCII.GetBytes("YourSecretKey"); // TODO: Replace with your actual secret key
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, postUser.Id.ToString()),
+                    new Claim(ClaimTypes.Email, postUser.Email)
+                    // TODO: Add more claims as needed
+                }),
+                Expires = DateTime.UtcNow.AddHours(1), // Token expiration time
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = tokenHandler.WriteToken(token);
 
             postUser.Email = obj.Email;
 
