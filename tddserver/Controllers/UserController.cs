@@ -61,7 +61,6 @@ namespace tdd.Server.Controllers
             }
 
             // TODO: use jwt token authentication here
-            // TODO: Error handling wanneer een user bestaat toevoegen
 
             UserModel postUser = new UserModel();
             postUser.Achternaam = obj.Achternaam;
@@ -72,9 +71,16 @@ namespace tdd.Server.Controllers
                 return BadRequest("Email bestaat al");
             }
 
+            if (await _context.Users.AnyAsync(user => user.Voornaam == postUser.Voornaam && obj.Achternaam == obj.Achternaam))
+            {
+                return BadRequest("Voornaam-achternaam combinatie bestaat al, dus als je niet Jan Jansen heet, hoepel dan maar op");
+            }
+
             postUser.Email = obj.Email;
 
-            if(obj.GeboorteDatum.CalculateAge() < 18) // TODO: Check voor verstandelijke beperking toevoegen
+            int[] verstandelijkeBeperkingen = [];   // TODO: list all verstandelijke disabilities
+
+            if(obj.GeboorteDatum.CalculateAge() < 18 || obj.Beperking.Any((b) => verstandelijkeBeperkingen.Contains(b.BeperkingId)))
             {
                 postUser.GeboorteDatum = obj.GeboorteDatum;
                 postUser.Verzorger = obj.Verzorger;
