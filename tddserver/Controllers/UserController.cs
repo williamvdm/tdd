@@ -97,7 +97,7 @@ namespace tdd.Server.Controllers
 
             postUser.Email = obj.Email;
 
-            int[] verstandelijkeBeperkingen = [];   // TODO: list all verstandelijke disabilities
+            int[] verstandelijkeBeperkingen = [];   // TODO: list all mental disabilities
 
             if(obj.GeboorteDatum.CalculateAge() < 18 || obj.Beperking.Any((b) => verstandelijkeBeperkingen.Contains(b.BeperkingId)))
             {
