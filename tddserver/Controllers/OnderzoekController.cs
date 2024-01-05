@@ -11,9 +11,9 @@ namespace tdd.Server.Controllers
     [ApiController]
     public class OnderzoekController : ControllerBase
     {
-        private readonly DatabaseContext _context;
+        private readonly OnderzoekContext _context;
 
-        public OnderzoekController(DatabaseContext context)
+        public OnderzoekController(OnderzoekContext context)
         {
             _context = context;
         }

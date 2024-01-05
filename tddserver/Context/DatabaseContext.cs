@@ -11,11 +11,11 @@ namespace tdd.Server.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            // It would be a good idea to move the connection string to user secrets
+            // TODO: Connection string naar secret
             options.UseNpgsql("Host=localhost;Database=tdddb;Username=postgres;Password=passlauwillannak");
         }
 
-        public DbSet<UserModel> Users { get; set; }
-        // Voeg hieronder ALTIJD de databasemodellen toe (die je aanmaakt in het mapje Models), anders werkt het programma niet. 
+        // Voeg hieronder ALTIJD de databasemodellen toe voor deze context, dus tabellen die te maken hebben met Onderzoek bij OnderzoekContext. Algemene tabellen mogen in DatabaseContext.
+        // Dus alle models die je aanmaakt in het mapje Models, anders werkt het programma niet. 
     }
 }

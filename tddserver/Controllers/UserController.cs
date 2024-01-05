@@ -15,9 +15,9 @@ namespace tdd.Server.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly DatabaseContext _context;
+        private readonly UserContext _context;
 
-        public UserController(DatabaseContext context)
+        public UserController(UserContext context)
         {
             _context = context;
         }

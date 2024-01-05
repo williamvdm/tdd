@@ -13,7 +13,7 @@ namespace tdd.Server.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            // Connection string naar secret
+            // TODO: Connection string naar secret
             options.UseNpgsql("Host=localhost;Database=tdddb;Username=postgres;Password=passlauwillannak");
         }
         
