@@ -5,7 +5,7 @@ namespace tdd.Server.Models
     public class BedrijfModel
     {
         [Key]
-        public Guid Bedrijfsmail { get; set;}
+        public string Bedrijfsmail { get; set;}
         
         [Required]
         public string Informatie { get; set; }

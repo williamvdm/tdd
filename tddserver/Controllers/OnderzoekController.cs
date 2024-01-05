@@ -104,5 +104,35 @@ namespace tdd.Server.Controllers
 
             return Created();
         }
+
+        // Route: api/onderzoek/bedrijf/{bedrijfsmail}
+        [HttpGet]
+        [Route("bedrijf/{bedrijfsmail}")]
+        public async Task<IActionResult> GetOnderzoekenVanBedrijf([FromRoute] string bedrijfsmail)
+        {
+            var onderzoeken = _context.Onderzoeken.Where(onderzoek => onderzoek.Bedrijf.Bedrijfsmail == bedrijfsmail).ToList();
+
+            return Ok(onderzoeken);
+        }
+
+        // Route: api/onderzoek/{onderzoekid}/contactpersoon
+        [HttpGet]
+        [Route("{id}/contactpersoon")]
+        public async Task<IActionResult> GetContactpersoon([FromRoute] string id)
+        {
+            var contactpersonen = _context.Onderzoeken.Where(onderzoek => onderzoek.Id.ToString() == id).ToList();
+
+            return Ok(contactpersonen);
+        }
+
+        // Route: api/onderzoek/{onderzoekid}/trackinggegevens
+        [HttpGet]
+        [Route("{id}/trackinggegegvens")]
+        public async Task<IActionResult> GetTrackingGegevens([FromRoute] string id)
+        {
+            var onderzoek = _context.Onderzoeken.Where(onderzoek => onderzoek.Id.ToString() == id).First();
+
+            return Ok(onderzoek.TrackingGegevens?.Data);
+        }
     }
 }

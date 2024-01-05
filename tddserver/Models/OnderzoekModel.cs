@@ -33,5 +33,7 @@ namespace tdd.Server.Models
 
         [Required]
         public List<VraagModel>? Vragen { get; set; }
+
+        public TrackingGegevensModel? TrackingGegevens { get; set; }
     }
 }
