@@ -63,5 +63,50 @@ namespace tdd.Server.Controllers
 
             return Created();
         }
+
+        // Route: /api/Bedrijf/{bedrijfsmail}/delete
+        [HttpDelete]
+        [Route("{bedrijfsmail}/delete")]
+        public async Task<IActionResult> DeleteBedrijf([FromRoute] string bedrijfsmail)
+        {
+            var bedrijf = await _context.Bedrijven.FirstOrDefaultAsync(bedrijf => bedrijf.Bedrijfsmail == bedrijfsmail);
+
+            if (bedrijf == null)
+            {
+                return NotFound("Bedrijf niet gevonden.");
+            }
+
+            _context.Bedrijven.Remove(bedrijf);
+
+            return Ok();
+        }
+
+        // Route: /api/Bedrijf/{bedrijfsmail}/update
+        [HttpPut]
+        [Route("{bedrijfsmail}/update")]
+        public async Task<IActionResult> UpdateBedrijf([FromRoute] string bedrijfsmail, BedrijfModel bedrijf)
+        {
+            var gevondenBedrijf = await _context.Bedrijven.FirstOrDefaultAsync(bedrijf => bedrijf.Bedrijfsmail == bedrijfsmail);
+
+            if (gevondenBedrijf == null)
+            {
+                return NotFound("Bedrijf is niet gevonden. Aanmaken kunt u met een andere route doen, lees de docs.");
+            }
+
+            _context.Remove(gevondenBedrijf);
+
+            gevondenBedrijf.Provider = bedrijf.Provider;
+            gevondenBedrijf.Bedrijfsmail = bedrijf.Bedrijfsmail;
+            gevondenBedrijf.Informatie = bedrijf.Informatie;
+            gevondenBedrijf.Locatie = bedrijf.Locatie;
+            gevondenBedrijf.Link = bedrijf.Link;
+            gevondenBedrijf.Verified = bedrijf.Verified;
+            gevondenBedrijf.contactpersonen = bedrijf.contactpersonen;
+            gevondenBedrijf.onderzoeken = bedrijf.onderzoeken;
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
     }
 }

@@ -43,6 +43,23 @@ namespace tdd.Server.Controllers
             return Ok(onderzoek);
         }
 
+        // Route: /api/onderzoek/{onderzoekid}/vraag/add
+        [HttpPost]
+        [Route("{id}/vraag/add")]
+        public async Task<IActionResult> AddQuestionToOnderzoek([FromRoute] string id, VraagModel vraag)
+        {
+            var onderzoek = await _context.Onderzoeken.FirstOrDefaultAsync((onderzoek) => onderzoek.Id.ToString() == id);
+
+            if (onderzoek == null)
+            {
+                return NotFound("Onderzoek niet gevonden.");
+            }
+
+            onderzoek.Vragen?.Add(vraag);
+
+            return Created();
+        }
+
         // Route: /api/onderzoek/{onderzoekid}/vraag/{vraagid}/antwoord/{antwoordid}
         [HttpGet]
         [Route("{id}/vraag/{vraagid}/antwoord/{antwoordid}")]

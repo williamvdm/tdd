@@ -15,16 +15,16 @@ namespace tdd.Server.Controllers
     
     [Route("api/[controller]")]
     [ApiController]
-    public class ChatberichtController : ControllerBase
+    public class ChatController : ControllerBase
     {
         private readonly ChatContext _context;
 
-        public ChatberichtController(ChatContext context)
+        public ChatController(ChatContext context)
         {
             _context = context;
         }
 
-        // Route: /api/chatbericht
+        // Route: /api/chat
         [HttpGet]
         [Route("")]
         public async Task<IActionResult> GetChatberichten()

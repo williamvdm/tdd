@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace tdd.Server.Models
 {
-    public class ChatberichtModel
+    public class ChatModel
     {
         [Key]
         public int ChatBerichtID { get; set; }
