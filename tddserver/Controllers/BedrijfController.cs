@@ -17,5 +17,51 @@ namespace tdd.Server.Controllers
         {
             _context = context;
         }
+
+        // Route: /api/Bedrijf/{bedrijfsmail}
+        [HttpGet]
+        [Route("{bedrijfsmail}")]
+        public async Task<IActionResult> GetBedrijfByMail([FromRoute] string bedrijfsmail)
+        {
+            var bedrijf = await _context.Bedrijven.FirstOrDefaultAsync((bedrijf) => bedrijf.Bedrijfsmail.Equals(bedrijfsmail));
+
+            if (bedrijf == null)
+            {
+                return NotFound("Bedrijf bestaat niet.");
+            }
+
+            return Ok(bedrijf);
+        }
+
+        // Route: /api/Bedrijf/registreer
+        [HttpPost]
+        [Route("registreer")]
+        public async Task<IActionResult> RegistreerBedrijf(BedrijfModel obj)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            BedrijfModel postBedrijf = new BedrijfModel();
+            postBedrijf.Provider = obj.Provider;
+            postBedrijf.Bedrijfsmail = obj.Bedrijfsmail;
+            postBedrijf.Verified = obj.Verified;
+            postBedrijf.Locatie = obj.Locatie;
+            postBedrijf.Informatie = obj.Informatie;
+            postBedrijf.contactpersonen = obj.contactpersonen;
+            postBedrijf.Link = obj.Link;
+            postBedrijf.onderzoeken = obj.onderzoeken;
+
+            if (await _context.Bedrijven.AnyAsync(bedrijf => bedrijf.Bedrijfsmail == obj.Bedrijfsmail))
+            {
+                return BadRequest("Email bestaat al");
+            }
+
+            _context.Bedrijven.Add(postBedrijf);
+            await _context.SaveChangesAsync();
+
+            return Created();
+        }
     }
 }
