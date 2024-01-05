@@ -39,6 +39,8 @@ namespace tdd_stichtingaccessibility.Server
             // Database contexts
             builder.Services.AddDbContext<DatabaseContext>(); // <-- general database context
             builder.Services.AddDbContext<UserContext>(); // <-- context specifiek voor Users en authenticatie
+            builder.Services.AddDbContext<BedrijfContext>();
+            builder.Services.AddDbContext<OnderzoekContext>();
 
             var app = builder.Build();
 
