@@ -20,7 +20,7 @@ namespace tdd.Server.Controllers
 
         // Route: /api/onderzoek
         [HttpGet]
-        [Route("/")]
+        [Route("")]
         public async Task<IActionResult> GetOnderzoeken()
         {
             var onderzoeken = await _context.Onderzoeken.AllAsync((onderzoek) => true);
@@ -30,7 +30,7 @@ namespace tdd.Server.Controllers
 
         // Route: /api/onderzoek/{onderzoekid}
         [HttpGet]
-        [Route("/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> GetOnderzoekByIdAsync([FromRoute] string id)
         {
             var onderzoek = await _context.Onderzoeken.FirstOrDefaultAsync((onderzoek) => onderzoek.Id.ToString() == id);
@@ -45,7 +45,7 @@ namespace tdd.Server.Controllers
 
         // Route: /api/onderzoek/{onderzoekid}/vraag/{vraagid}/antwoord/{antwoordid}
         [HttpGet]
-        [Route("/{id}/vraag/{vraagid}/antwoord/{antwoordid}")]
+        [Route("{id}/vraag/{vraagid}/antwoord/{antwoordid}")]
         public async Task<IActionResult> GetAntwoordByIdAsync([FromRoute] string id, [FromRoute] string vraagid, [FromRoute] string antwoordid)
         {
             var onderzoek = await _context.Onderzoeken.FirstOrDefaultAsync((onderzoek) => onderzoek.Id.ToString() == id);
@@ -74,7 +74,7 @@ namespace tdd.Server.Controllers
 
         // Route /api/onderzoek/create
         [HttpPost]
-        [Route("/create")]
+        [Route("create")]
         public async Task<IActionResult> CreateOnderzoek(OnderzoekModel onderzoek)
         {
             if (!ModelState.IsValid)
