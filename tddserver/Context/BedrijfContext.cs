@@ -3,9 +3,9 @@ using tdd.Server.Models;
 
 namespace tdd.Server.Context
 {
-    public class DatabaseContext : DbContext
+    public class BedrijfContext : DbContext
     {
-        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
+        public BedrijfContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
         }
 

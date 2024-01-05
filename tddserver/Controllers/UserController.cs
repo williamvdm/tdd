@@ -5,6 +5,9 @@ using tdd.Server.Context;
 using tdd.Server.Models;
 using tdd.Server.Extensions;
 using Microsoft.AspNetCore.Identity;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
 
 namespace tdd.Server.Controllers
 {
@@ -12,9 +15,9 @@ namespace tdd.Server.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly DatabaseContext _context;
+        private readonly UserContext _context;
 
-        public UserController(DatabaseContext context)
+        public UserController(UserContext context)
         {
             _context = context;
         }
@@ -60,9 +63,6 @@ namespace tdd.Server.Controllers
                 return BadRequest(ModelState);
             }
 
-            // TODO: use jwt token authentication here
-            // TODO: Error handling wanneer een user bestaat toevoegen
-
             UserModel postUser = new UserModel();
             postUser.Achternaam = obj.Achternaam;
             postUser.Voornaam = obj.Voornaam;
@@ -72,9 +72,32 @@ namespace tdd.Server.Controllers
                 return BadRequest("Email bestaat al");
             }
 
+            if (await _context.Users.AnyAsync(user => user.Voornaam == postUser.Voornaam && obj.Achternaam == obj.Achternaam))
+            {
+                return BadRequest("Voornaam-achternaam combinatie bestaat al, dus als je niet Jan Jansen heet, hoepel dan maar op");
+            }
+
+            // Generate JWT token
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = System.Text.Encoding.ASCII.GetBytes("Xëí²]Ã½ö3ð,åòiôñÐã:ßn¦ét¬ÆP)Æ6|4RÐ¤²ónóÿR[8ÔÃø¯®?1/¿sÜíÿmN`Å/e!Ïf§6à2úMÏÉÒì¡.tpÁH+XZ°úwk5Vóíìò¯±÷elBÖâ·mtTÁÎq(êï`¥Ñ-î¨èVOÙñÂX©8v");
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, postUser.Id.ToString()),
+                    new Claim(ClaimTypes.Email, postUser.Email)
+                    // TODO: Add more claims as needed
+                }),
+                Expires = DateTime.UtcNow.AddHours(1), // Token expiration time
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = tokenHandler.WriteToken(token);
+
             postUser.Email = obj.Email;
 
-            if(obj.GeboorteDatum.CalculateAge() < 18) // TODO: Check voor verstandelijke beperking toevoegen
+            if(obj.GeboorteDatum.CalculateAge() < 18 || obj.Beperking.Any((b) => b.BeprkingNaam.Contains("verstandelijke beperking")))
             {
                 postUser.GeboorteDatum = obj.GeboorteDatum;
                 postUser.Verzorger = obj.Verzorger;
@@ -115,19 +138,25 @@ namespace tdd.Server.Controllers
         [Route("DeleteUser/{id}"), Authorize]
         public async Task<IActionResult> DeleteUserByIdAsync([FromRoute] string id)
         {
-            // TODO: Error handling
+            try {
+                var user = await _context.Users.FirstOrDefaultAsync(user => user.Id.ToString() == id);
 
-            var user = await _context.Users.FirstOrDefaultAsync(user => user.Id.ToString() == id);
-            if (user == null)
-            {
-                return NotFound("User not found");
+                if (user == null)
+                {
+                    return NotFound("User not found");
+                }
+
+                _context.Remove(user);
+
+                await _context.SaveChangesAsync(); 
+
+                return Ok();
             }
-
-            _context.Remove(user);
-
-            await _context.SaveChangesAsync(); 
-
-            return Ok();
+            catch (Exception)
+            {
+                // Error handling
+                return StatusCode(500);
+            }
         }
 
         [HttpPut]

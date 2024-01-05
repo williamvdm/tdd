@@ -36,10 +36,9 @@ namespace tdd_stichtingaccessibility.Server
                 };
             });
 
-            builder.Services.AddDbContext<DatabaseContext>(options =>
-            {
-                options.UseInMemoryDatabase("testdb");
-            });
+            // Database contexts
+            builder.Services.AddDbContext<DatabaseContext>(); // <-- general database context
+            builder.Services.AddDbContext<UserContext>(); // <-- context specifiek voor Users en authenticatie
 
             var app = builder.Build();
 
