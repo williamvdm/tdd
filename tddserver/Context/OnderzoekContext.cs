@@ -16,6 +16,7 @@ namespace tdd.Server.Context
         }
 
         // Voeg hieronder ALTIJD de databasemodellen toe voor deze context, dus tabellen die te maken hebben met Onderzoek bij OnderzoekContext. Algemene tabellen mogen in DatabaseContext.
-        // Dus alle models die je aanmaakt in het mapje Models, anders werkt het programma niet. 
+        // Dus alle models die je aanmaakt in het mapje Models, anders werkt het programma niet.
+        public DbSet<OnderzoekModel> Onderzoeken { get; set; }
     }
 }
