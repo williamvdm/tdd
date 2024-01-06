@@ -1,15 +1,19 @@
 # Uitvoeren van de applicatie
-1. Open de map TDD in Visual Studio Code.
-2. Kies bovenaan voor `Terminal`.
-3. Kies voor `New Terminal`.
-4. Typ de volgende instructies uit:
+1. Open 2 terminals.
+2. Ga in terminal A naar `TDD/tdd/` en voer de volgende commands uit:
 
 ```bash
 docker build -t tddserver .
-docker run -p 80:8080 tddserver
+docker run -p 80:8080 tddserver --environment development
 ```
 
-Ga hierna naar: [WeatherForecast](http://localhost/WeatherForecast)
+3. Ga in terminal B naar `TDD/tdd/tddweb` en voer de volgende command uit:
+
+```bash
+npm run dev
+```
+
+Ga hierna naar de [loginpagina](http://localhost:5173/login)
 
 ## Potentiele fouten
 ### Error
@@ -86,6 +90,16 @@ npm run build
 
 # On een pagina te beveiligen tegen oningelogde gebruikers
 Check of de gebruiker is ingelogd, zo niet, redirect naar de login pagina.
+
+# Mogelijke oplossing om onderzoeken op te halen en te weergeven (niet volledig)
+```js
+{onderzoeksData.map((onderzoek) => (
+  <div key={onderzoek.id}>
+    <h1>{onderzoek.title}</h1>
+    <p>{onderzoek.beschrijving}</p>
+  </div>
+))}
+```
 
 # Q & A
 ## Wat is het verschil tussen een component en een pagina?
