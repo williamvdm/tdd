@@ -3,8 +3,17 @@
 2. Kies bovenaan voor `Terminal`.
 3. Kies voor `New Terminal`.
 4. Typ de volgende instructies uit:
+5. Mocht je nog niet in tddweb zijn, type dan:
 
 ```bash
+cd tddweb
+```
+
+6. Type vervolgens:
+
+```bash
+npm i
+npm run dev
 docker build -t tddserver .
 docker run -p 80:8080 tddserver
 ```
