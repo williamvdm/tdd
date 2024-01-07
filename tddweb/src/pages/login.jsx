@@ -8,16 +8,16 @@ function Login() {
 
     return (
         <div className=''>
-            <div className='container mx-auto p-4 md:p-8 lg:p-12 xl:p-16TH rounded-lg bg-white shadow p-6 hover:shadow-lg transition ease-in-out border-t-4 border-accessorange w-1/5'>
-                <h1 className=' text-center text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-4'>Login</h1>
-                <form onSubmit={handleLogin} className=' text-center mb-5'>
-                    <div className='mb-6'>
-                    <div class="w-72">
+            <div className='container flex flex-col mx-auto p-4  sm:w-1/2 avg:w-1/4 rounded-lg bg-white shadow p-6 hover:shadow-lg transition ease-in-out border-t-4 border-accessorange '>
+                <h1 className=' text-center text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-6'>Login</h1>
+                <form onSubmit={handleLogin} className=' text-center mb-5 mx-auto'>
+                    <div className='mb-6 flex justify-center flex-col'>
+                    <div class="w-72 mb-5">
                         <div class="relative w-full min-w-[200px] h-10">
                             <input
                             required
                             type='text'
-                            class='peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900'
+                            class='peer  w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900'
                             placeholder=''/>
                             <label
                             htmlFor='gebruikersnaam'
@@ -28,9 +28,8 @@ function Login() {
                         </div>
                     </div>  
 
-                    </div>
 
-                    <div class="w-72">
+                    <div class="w-72 flex justify-center">
                     <div class="relative h-10 w-full min-w-[200px]">
                         <input type="password"
                         class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
@@ -40,27 +39,21 @@ function Login() {
                         Wachtwoord (verplicht)
                         </label>
                     </div>
-                    <p class="flex items-center gap-1 mt-2 font-sans text-sm antialiased font-normal leading-normal text-gray-700">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 -mt-px">
-                        <path fill-rule="evenodd"
-                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z"
-                            clip-rule="evenodd"></path>
-                        </svg>
-                        h
-                    </p>
+                    </div>
+
                     </div>
 
                     <div>
                         <button
                             type='submit'
-                            className='w-full bg-accessorange text-white py-2 px-4 rounded outline-none hover:outline-solid hover:outline-2 hover:outline-accessorange'
+                            className='w-full bg-accessorange text-white py-2 px-4 rounded outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue'
                         >Inloggen</button>
                     </div>
                 </form>
-                <div className='scheiding mb-4 md:mb-6 lg:mb-8 xl:mb-10 border-b-2 border-black' role='seperator' aria-label='Scheidingstekst'>
+                <div className='scheiding mb-4 md:mb-6 lg:mb-8 xl:mb-8 border-b-2 border-black text-center' role='seperator' aria-label='Scheidingstekst'>
                     <span className='scheiding-tekst bg-white px-10 text-1.5rem'>of gebruik Google Login:</span>
                 </div>
-                <div  className=' '>
+                <div  className='mb-4 md:mb-6 lg:mb-8 xl:mb-10 w-800 mx-auto'>
                     <GoogleLogin
                         
                         theme="filled_blue"
