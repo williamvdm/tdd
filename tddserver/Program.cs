@@ -41,7 +41,6 @@ namespace tdd_stichtingaccessibility.Server
             builder.Services.AddDbContext<UserContext>(); // <-- context specifiek voor Users en authenticatie
             builder.Services.AddDbContext<BedrijfContext>();
             builder.Services.AddDbContext<OnderzoekContext>();
-            builder.Services.AddDbContext<RolContext>();
             builder.Services.AddDbContext<LocatieContext>();
             builder.Services.AddDbContext<ChatContext>();
 
