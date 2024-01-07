@@ -18,7 +18,7 @@ function App() {
   return (
     <>
       <Nav />
-      <div className="container py-8 justify-center mx-auto bg-accessbluebg">
+      <div className="container py-8 justify-center mx-auto">
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/login" element={<Login />} />
