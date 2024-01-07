@@ -16,9 +16,9 @@ namespace tdd.Server.Controllers
     [ApiController]
     public class RoleController : ControllerBase
     {
-        private readonly RolContext _context;
+        private readonly UserContext _context;
 
-        public RoleController(RolContext context)
+        public RoleController(UserContext context)
         {
             _context = context;
         }
@@ -28,7 +28,7 @@ namespace tdd.Server.Controllers
         [Route("rollen")]
         public async Task<IActionResult> GetRollen()
         {
-            var rollen = _context.Rollen.ToList();
+            var rollen = _context.UserRoleMachtiging.ToList();
 
             return Ok(rollen);
         }
@@ -38,7 +38,7 @@ namespace tdd.Server.Controllers
         [Route("{rolnaam}/machtigingen")]
         public async Task<IActionResult> GetRolMachtigingenAsync([FromRoute] string rolnaam)
         {
-            var rol = _context.Rollen.Where((rol) => rol.Naam == rolnaam).ToList();
+            var rol = _context.UserRoleMachtiging.Where((rol) => rol.Role == rolnaam).ToList();
 
             if (rol.Count() == 0)
             {
