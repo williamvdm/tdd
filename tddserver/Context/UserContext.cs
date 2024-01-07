@@ -18,6 +18,7 @@ namespace tdd.Server.Context
         }
         
         public DbSet<UserModel> Users { get; set; }
+        public DbSet<UserRoleModel> Rollen { get; set; }
         // Voeg hieronder ALTIJD de databasemodellen toe voor deze context, dus tabellen die te maken hebben met Onderzoek bij OnderzoekContext. Algemene tabellen mogen in DatabaseContext.
         // Dus alle models die je aanmaakt in het mapje Models, anders werkt het programma niet. 
     }
