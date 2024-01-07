@@ -120,16 +120,16 @@ const Onderzoek = () => {
     return (
         <div className="container">
             <h1 className="text-3xl py-10 font-bold">Lopende onderzoeken</h1>
-            <div className="flex flex-row justify-end">
+            <div className="flex flex-row justify-end ms:flex-col">
                 <form className="flex flex-row p-4 mb-4 rounded-lg bg-white p-6 border border-accessgray w-1/3 mr-4 relative">
                     <input id="search_input" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} className="transition ease-in-out w-full focus:outline-none" placeholder="Klik hier om te zoeken" />
-                    <button type="submit" className="border-l border-accessgray p-2 px-4 rounded-r-lg absolute right-0 top-0 bottom-0 h-full w-24 transition ease-in-out">Zoek</button>
                 </form>
                 <button className="p-4 mb-4 rounded-lg bg-white p-6 border border-accessgray ml-1">Filter</button>
             </div>
 
             {onderzoeken &&
                 <div className="flex justify-around flex-col items-center">
+                    {searchedOnderzoeken.length == 0 && <div>Geen zoekresultaten...</div>}
                     {searchedOnderzoeken.map(onderzoek => (
                         <div className="card p-4 mb-4 rounded-lg bg-white p-6 border border-accessgray transition ease-in-out min-w-full" key={onderzoek.id}>
                             <div className="flex flex-col">
