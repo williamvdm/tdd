@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace tdd.Server.Models
 {
-    public class RoleModel
+    public class UserRoleModel
     {
         [Key]
         public string? Naam {get; set;}

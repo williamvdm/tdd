@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace tdd.Server.Models
 {
-    public class MachtigingModel
+    public class UserRoleMachtigingModel
     {
         
     }
