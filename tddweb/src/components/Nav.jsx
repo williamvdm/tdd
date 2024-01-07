@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export default function Nav() {
     return (
-        <nav class="shadow p-4">
+        <nav class="sticky top-0 z-10 bg-white shadow p-4">
             <div class="container mx-auto flex justify-between items-center">
                 <a href="/" class="text-black text-lg font-bold text-2xl"><img src="\src\assets\Logo Icon\icon_accessibility.png" width="64px" height="64px"></img></a>
                 <ul class="flex space-x-4">
