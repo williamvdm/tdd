@@ -29,7 +29,7 @@ namespace tdd.Server.Controllers
         [Route("")]
         public async Task<IActionResult> GetChatberichten()
         {
-            var berichten = _context.berichten.ToList();
+            var berichten = _context.Berichten.ToList();
 
             return Ok(berichten);
         }

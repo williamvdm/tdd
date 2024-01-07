@@ -6,11 +6,11 @@ namespace tdd.Server.Models
     {
         [Key]
         public Guid UserID { get; set; }
+    
         [Key]
         public Guid OnderzoekID { get; set; }
+        
         [Required]
-
-        [MaxLength(2147483647)]
-        public string Data { get; set; }
+        public string? Data { get; set; }
     }
 }

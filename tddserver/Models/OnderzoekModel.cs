@@ -28,12 +28,13 @@ namespace tdd.Server.Models
         public char Titel { get; set; }
 
         [Required]
-        [MaxLength(128)]
-        public char OnderzoekSoort { get; set; }
+        public OnderzoeksoortModel OnderzoekSoort { get; set; }
 
         [Required]
         public List<VraagModel>? Vragen { get; set; }
 
         public TrackingGegevensModel? TrackingGegevens { get; set; }
+        
+        public OpdrachtModel? Opdracht { get; set; }
     }
 }
