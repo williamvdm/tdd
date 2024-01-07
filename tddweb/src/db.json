@@ -1,0 +1,54 @@
+{
+    "onderzoek": [
+        {
+            "id": 1,
+            "title": "Exploring the Impact of Artificial Intelligence on Society",
+            "description": "This research aims to investigate the societal implications of widespread AI adoption and its effects on various aspects of daily life.",
+            "tags": [
+                "artificial intelligence",
+                "society",
+                "technology"
+            ]
+        },
+        {
+            "id": 2,
+            "title": "Climate Change Mitigation Strategies: A Comprehensive Review",
+            "description": "Analyzing and evaluating the effectiveness of different strategies for mitigating climate change, with a focus on sustainability and environmental impact.",
+            "tags": [
+                "climate change",
+                "environment",
+                "sustainability"
+            ]
+        },
+        {
+            "id": 3,
+            "title": "The Role of Blockchain in Secure Data Transactions",
+            "description": "Investigating how blockchain technology can enhance the security and transparency of data transactions in various industries, such as finance and healthcare.",
+            "tags": [
+                "blockchain",
+                "security",
+                "data transactions"
+            ]
+        },
+        {
+            "id": 4,
+            "title": "Psychological Effects of Virtual Reality Experiences",
+            "description": "Examining the psychological impact of immersive virtual reality experiences on individuals, including potential benefits and risks.",
+            "tags": [
+                "virtual reality",
+                "psychology",
+                "immersive experiences"
+            ]
+        },
+        {
+            "id": 5,
+            "title": "Advancements in Quantum Computing: A Comparative Analysis",
+            "description": "Comparing the latest advancements in quantum computing technologies, their potential applications, and implications for traditional computing paradigms.",
+            "tags": [
+                "quantum computing",
+                "technology",
+                "computing"
+            ]
+        }
+    ]
+}
