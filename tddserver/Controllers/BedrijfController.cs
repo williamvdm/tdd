@@ -77,6 +77,7 @@ namespace tdd.Server.Controllers
             }
 
             _context.Bedrijven.Remove(bedrijf);
+            await _context.SaveChangesAsync();
 
             return Ok();
         }
