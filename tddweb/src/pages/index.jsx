@@ -89,11 +89,11 @@ function Index() {
         ></div>
 
         {/* Onderzoeken */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-9">
+        <div className=" mx-auto relative z-9">
           <div className="flex flex-wrap -mx-4">
             <div className="w-full md:w-1/3 px-4 mb-8">
               <div className="h-full flex flex-col rounded-lg bg-white shadow p-6 hover:shadow-lg transition ease-in-out border-t-4 border-accessblue">
-                <img src="https://via.placeholder.com/150" alt="Image 1" className="w-full mb-2 rounded-lg" />
+                <img src="https://via.placeholder.com/100x50" alt="Image 1" className="w-full mb-2 rounded-lg" />
                 <div className="flex-1">
                   <div className="bg-white p-4 rounded-lg">
                     <h3 className="text-lg font-bold mb-2">Onderzoek 1</h3>
@@ -109,7 +109,7 @@ function Index() {
             </div>
             <div className="w-full md:w-1/3 px-4 mb-8">
               <div className="h-full flex flex-col rounded-lg bg-white shadow p-6 hover:shadow-lg transition ease-in-out border-t-4 border-accessorange">
-                <img src="https://via.placeholder.com/150" alt="Image 2" className="w-full mb-2 rounded-lg" />
+                <img src="https://via.placeholder.com/100x50" alt="Image 2" className="w-full mb-2 rounded-lg" />
                 <div className="flex-1">
                   <div className="bg-white p-4 rounded-lg">
                     <h3 className="text-lg font-bold mb-2">Onderzoek 2</h3>
@@ -125,7 +125,7 @@ function Index() {
             </div>
             <div className="w-full md:w-1/3 px-4 mb-8">
               <div className="h-full flex flex-col rounded-lg bg-white shadow p-6 hover:shadow-lg transition ease-in-out border-t-4 border-accessgreen">
-                <img src="https://via.placeholder.com/150" alt="Image 3" className="mb-2 rounded-lg" />
+                <img src="https://via.placeholder.com/100x50" alt="Image 3" className="mb-2 rounded-lg" />
                 <div className="flex-1">
                   <div className="bg-white p-4 rounded-lg">
                     <h3 className="text-lg font-bold mb-2">Onderzoek 3</h3>
@@ -164,7 +164,54 @@ function Index() {
         </div>
       </div>
 
-      
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12 bottom-0">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="flex flex-wrap justify-between">
+      {/* About Section */}
+      <div className="w-full md:w-1/4 mb-8">
+        <h2 className="text-xl font-bold mb-4">About Us</h2>
+        <p className="text-sm">Brief description about your organization.</p>
+      </div>
+
+      {/* Quick Links Section */}
+      <div className="w-full md:w-1/4 mb-8">
+        <h2 className="text-xl font-bold mb-4">Quick Links</h2>
+        <ul className="space-y-2">
+          <li><a href="#" className="text-sm hover:text-gray-400">Home</a></li>
+          <li><a href="#" className="text-sm hover:text-gray-400">Services</a></li>
+          <li><a href="#" className="text-sm hover:text-gray-400">Portfolio</a></li>
+          <li><a href="#" className="text-sm hover:text-gray-400">Contact</a></li>
+        </ul>
+      </div>
+
+      {/* Contact Section */}
+      <div className="w-full md:w-1/4 mb-8">
+        <h2 className="text-xl font-bold mb-4">Contact Us</h2>
+        <p className="text-sm">123 Street Name<br />City, Country<br />Email: example@example.com<br />Phone: +123456789</p>
+      </div>
+
+      {/* Social Media Section */}
+      <div className="w-full md:w-1/4 mb-8">
+        <h2 className="text-xl font-bold mb-4">Follow Us</h2>
+        <div className="flex space-x-4">
+          <a href="#" className="text-white hover:text-gray-400">
+            <i className="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" className="text-white hover:text-gray-400">
+            <i className="fab fa-twitter"></i>
+          </a>
+          <a href="#" className="text-white hover:text-gray-400">
+            <i className="fab fa-instagram"></i>
+          </a>
+          <a href="#" className="text-white hover:text-gray-400">
+            <i className="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
 
 
 
