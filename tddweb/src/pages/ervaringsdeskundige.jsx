@@ -1,6 +1,8 @@
-const Ervaringsdeskundige = () => {
+function Ervaringsdeskundige () {
     return (
-        <h1>Ervaringsdeskundige</h1>
+        <>
+            <h1>Ervaringsdeskundige</h1>
+        </>
     )
 }
 
