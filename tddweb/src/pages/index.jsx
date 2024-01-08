@@ -69,6 +69,7 @@ function Index() {
         </div>
       </div>
 
+
       {/* Missie */}
       <div class="mt-20 bg-gray-900 h-80 flex justify-center items-center z-10">
         <div class="p-8 rounded-lg text-white text-center">
@@ -90,8 +91,8 @@ function Index() {
 
         {/* Onderzoeken */}
         <div className=" mx-auto relative z-9">
-          <div className="flex flex-wrap -mx-4">
-            <div className="w-full md:w-1/3 px-4 mb-8">
+          <div className="flex flex-wrap">
+            <div className="w-full md:w-1/3 mb-8">
               <div className="h-full flex flex-col rounded-lg bg-white shadow p-6 hover:shadow-lg transition ease-in-out border-t-4 border-accessblue">
                 <img src="https://via.placeholder.com/100x50" alt="Image 1" className="w-full mb-2 rounded-lg" />
                 <div className="flex-1">
@@ -107,7 +108,7 @@ function Index() {
                 </div>
               </div>
             </div>
-            <div className="w-full md:w-1/3 px-4 mb-8">
+            <div className="w-full md:w-1/3 mb-8">
               <div className="h-full flex flex-col rounded-lg bg-white shadow p-6 hover:shadow-lg transition ease-in-out border-t-4 border-accessorange">
                 <img src="https://via.placeholder.com/100x50" alt="Image 2" className="w-full mb-2 rounded-lg" />
                 <div className="flex-1">
@@ -123,7 +124,7 @@ function Index() {
                 </div>
               </div>
             </div>
-            <div className="w-full md:w-1/3 px-4 mb-8">
+            <div className="w-full md:w-1/3 mx-0 mb-8">
               <div className="h-full flex flex-col rounded-lg bg-white shadow p-6 hover:shadow-lg transition ease-in-out border-t-4 border-accessgreen">
                 <img src="https://via.placeholder.com/100x50" alt="Image 3" className="mb-2 rounded-lg" />
                 <div className="flex-1">
@@ -163,57 +164,6 @@ function Index() {
               </a> </button></div>
         </div>
       </div>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 bottom-0">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="flex flex-wrap justify-between">
-      {/* About Section */}
-      <div className="w-full md:w-1/4 mb-8">
-        <h2 className="text-xl font-bold mb-4">About Us</h2>
-        <p className="text-sm">Brief description about your organization.</p>
-      </div>
-
-      {/* Quick Links Section */}
-      <div className="w-full md:w-1/4 mb-8">
-        <h2 className="text-xl font-bold mb-4">Quick Links</h2>
-        <ul className="space-y-2">
-          <li><a href="#" className="text-sm hover:text-gray-400">Home</a></li>
-          <li><a href="#" className="text-sm hover:text-gray-400">Services</a></li>
-          <li><a href="#" className="text-sm hover:text-gray-400">Portfolio</a></li>
-          <li><a href="#" className="text-sm hover:text-gray-400">Contact</a></li>
-        </ul>
-      </div>
-
-      {/* Contact Section */}
-      <div className="w-full md:w-1/4 mb-8">
-        <h2 className="text-xl font-bold mb-4">Contact Us</h2>
-        <p className="text-sm">123 Street Name<br />City, Country<br />Email: example@example.com<br />Phone: +123456789</p>
-      </div>
-
-      {/* Social Media Section */}
-      <div className="w-full md:w-1/4 mb-8">
-        <h2 className="text-xl font-bold mb-4">Follow Us</h2>
-        <div className="flex space-x-4">
-          <a href="#" className="text-white hover:text-gray-400">
-            <i className="fab fa-facebook-f"></i>
-          </a>
-          <a href="#" className="text-white hover:text-gray-400">
-            <i className="fab fa-twitter"></i>
-          </a>
-          <a href="#" className="text-white hover:text-gray-400">
-            <i className="fab fa-instagram"></i>
-          </a>
-          <a href="#" className="text-white hover:text-gray-400">
-            <i className="fab fa-linkedin-in"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
-
-
 
       <div className='mt-20 flex justify-center'>
         <div id="weatherapi" className="m-2 mb-8">

@@ -16,7 +16,7 @@ import Footer from './components/Footer.jsx';
 function App() {
   return (
     <>
-      <Nav />
+      <Nav/>
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/login" element={<Login />} />
@@ -24,7 +24,7 @@ function App() {
         <Route path="/bedrijven" element={<Bedrijven />} />
 
       </Routes>
-      <Footer />
+      <Footer/>
     </>
   )
 }
