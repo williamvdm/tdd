@@ -11,6 +11,7 @@ import Index from './pages/index.jsx';
 import Login from './pages/login.jsx';
 import Ervaringsdeskundige from './pages/ervaringsdeskundige.jsx';
 import Bedrijven from './pages/bedrijven.jsx'
+import Footer from './components/Footer.jsx';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/bedrijven" element={<Bedrijven />} />
 
       </Routes>
+      <Footer />
     </>
   )
 }
