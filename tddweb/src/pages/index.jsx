@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Red } from 'react-router-dom';
 
 function Index() {
   const [weatherData, setWeatherData] = useState([]);
