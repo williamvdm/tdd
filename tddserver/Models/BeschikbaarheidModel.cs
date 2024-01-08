@@ -1,13 +1,15 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace tdd.Server.Models
 {
+    [PrimaryKey(nameof(User), nameof(Begintijd))]
     public class BeschikbaarheidModel
     {
-        [Key]
+        
         public UserModel? User { get; set;}
 
-        [Key]
         public DateTime Begintijd {get; set;}
 
         public DateTime Eindtijd { get; set;}
