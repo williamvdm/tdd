@@ -97,7 +97,7 @@ namespace tdd.Server.Controllers
 
             postUser.Email = obj.Email;
 
-            if(obj.GeboorteDatum.CalculateAge() < 18 || obj.Beperking.Any((b) => b.BeprkingNaam.Contains("verstandelijke beperking")))
+            if(obj.GeboorteDatum.CalculateAge() < 18 || obj.Beperking.Any((b) => b.BeperkingNaam.Contains("verstandelijke beperking")))
             {
                 postUser.GeboorteDatum = obj.GeboorteDatum;
                 postUser.Verzorger = obj.Verzorger;

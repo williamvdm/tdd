@@ -1,11 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using tdd.Server.Models;
 
 namespace tdd.Server.Context
 {
-    public class BedrijfContext : DbContext
+    public class ChatContext : DbContext
     {
-        public BedrijfContext(DbContextOptions<DatabaseContext> options) : base(options)
+        public ChatContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
         }
 
@@ -17,7 +17,6 @@ namespace tdd.Server.Context
 
         // Voeg hieronder ALTIJD de databasemodellen toe voor deze context, dus tabellen die te maken hebben met Onderzoek bij OnderzoekContext. Algemene tabellen mogen in DatabaseContext.
         // Dus alle models die je aanmaakt in het mapje Models, anders werkt het programma niet. 
-        public DbSet<BedrijfModel> Bedrijven { get; set; }
-        public DbSet<ContactPersoonModel> Contactpersonen {get; set;}
+        public DbSet<ChatModel> Berichten { get; set; }
     }
 }

@@ -8,6 +8,6 @@ namespace tdd.Server.Models
         public int BeperkingId { get; set;}
         
         [Required]
-        public string BeprkingNaam { get; set; }
+        public string BeperkingNaam { get; set; }
     }
 }
