@@ -16,6 +16,9 @@ module.exports = {
       },
       fontFamily: {
         muli: ['Muli']
+      },
+      screens: {
+        'avg': '1425px',
       }
     },
   },
