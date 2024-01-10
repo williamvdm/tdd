@@ -8,7 +8,7 @@ namespace tdd.Server.Models
         public Guid Id { get; set; }
 
         [MaxLength(128)]
-        public char Beschrijving { get; set; }
+        public string? Beschrijving { get; set; }
 
         public BedrijfModel? Bedrijf { get; set; }
 

@@ -25,7 +25,7 @@ namespace tdd.Server.Controllers
         // Route: /api/User/GetUserList
         [HttpGet]
         [Route("GetUserList")]
-        [Authorize(Roles = "admin")]
+        // [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetUserListAsync()
         {
             // Error handling wanneer een user geen toegang heeft tot deze functie
@@ -113,7 +113,7 @@ namespace tdd.Server.Controllers
 
         // Route: /api/User/EditUser/{id}
         [HttpPut]
-        [Route("EditUser/{id}"), Authorize]
+        [Route("EditUser/{id}")]//, Authorize]
         public async Task<IActionResult> EditUserByIdAsync([FromRoute] string id, UserModel obj)
         {
             // TODO: Functionaliteit om een User aan te passen met error handling
