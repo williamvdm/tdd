@@ -86,7 +86,7 @@ namespace tdd.Server.Controllers
                 {
                     new Claim(ClaimTypes.Name, postUser.Id.ToString()),
                     new Claim(ClaimTypes.Email, postUser.Email)
-                    // TODO: Add more claims as needed
+                    // TODO: more claims toevoegen
                 }),
                 Expires = DateTime.UtcNow.AddHours(1), // Token expiration time
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
