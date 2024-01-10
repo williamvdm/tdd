@@ -16,17 +16,16 @@ namespace tdd.Server.Models
         [Required]
         public string Email { get; set; }
 
-        [MaxLength(10)]
-        public char Telefoon { get; set; }
+        public string? Telefoon { get; set; }
 
-        public bool ToestemmingBenadering { get; set; }
+        public bool? ToestemmingBenadering { get; set; }
 
-        public string VoorkeurBenadering { get; set; }
+        public string? VoorkeurBenadering { get; set; }
 
         [Required]
         public string Provider {  get; set; }
 
-        public DateTime GeboorteDatum { get; set; }
+        public bool IsAdult { get; set; }
 
         [Required]
         public string IdentityHash { get; set; }
@@ -34,15 +33,15 @@ namespace tdd.Server.Models
         [Required]
         public string Role { get; set; }
 
-        public VerzorgerModel Verzorger { get; set; }
+        public VerzorgerModel? Verzorger { get; set; }
 
-        public List<AandoeningModel> Aandoening { get; set; }
+        public List<AandoeningModel>? Aandoening { get; set; }
 
-        public List<BeperkingModel> Beperking { get; set; }
+        public List<BeperkingModel>? Beperking { get; set; }
 
-        public List<BeschikbaarheidModel> Beschikbaarheid { get; set; }
+        public List<BeschikbaarheidModel>? Beschikbaarheid { get; set; }
 
-        public List<OnderzoeksoortModel> Onderzoeksoorten { get; set;}
+        public List<OnderzoeksoortModel>? Onderzoeksoorten { get; set;}
 
         public LocatieModel Adres { get; set; }
 

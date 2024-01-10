@@ -1,13 +1,13 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace tdd.Server.Models
 {
+    [PrimaryKey(nameof(UserID), nameof(OnderzoekID))]
     public class TrackingGegevensModel
-    {
-        [Key]
+    {  
         public Guid UserID { get; set; }
-    
-        [Key]
         public Guid OnderzoekID { get; set; }
         
         [Required]

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import testdata from './testdata.json';
-import { BsCaretRightFill } from "react-icons/bs";
+import ProfileEditModal from '../../components/ProfileEditModal'
 
 const Onderzoek = () => {
     const [onderzoeken, setOnderzoeken] = useState(testdata);
@@ -57,11 +57,14 @@ const Onderzoek = () => {
                         />
                         <h3 className="mb-10">Pipo de Klaas</h3>
                         <button
+                            data-modal-target="profile-edit-modal" 
+                            data-modal-toggle="profile-edit-modal"
                             className="outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue rounded-lg text-sm focus:outline-accessblue"
                             aria-label="Bewerk profielgegevens"
                         >
                             Bewerk profielgegevens
                         </button>
+                        <ProfileEditModal />
                     </div>
                 </div>
                 {/* Lopende onderzoeken container */}
