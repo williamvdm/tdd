@@ -7,7 +7,10 @@ const Onderzoek = () => {
     const [searchedOnderzoeken, setSearchedOnderzoeken] = useState(onderzoeken);
     const [filteredTags, setFilteredTags] = useState([]);
     const [menuOpen, setMenuOpen] = useState(true);
+
+    // User state variables
     const [user, setUser] = useState(null);
+    const [isUserLoading, setIsUserLoading] = useState(true);
 
     // Search input filteren
     useEffect(() => {
@@ -23,7 +26,7 @@ const Onderzoek = () => {
         }
     }, [searchInput, onderzoeken]);
 
-    // TODO: Fetch ingelogde gebruikers data
+    // TODO: Fetch ingelogde gebruikers data, niet alle gebruikers
     useEffect(() => {
         try {
             fetch("https://ablox.azurewebsites.net/api/User/GetUserList")
@@ -31,13 +34,20 @@ const Onderzoek = () => {
                 .then(users => {
                     if (users.length > 0) {
                         const firstUser = users[0];
-                        setUser(firstUser);
+                        setTimeout(() => {
+                            setUser(firstUser);
+                            setIsUserLoading(false);
+                        }, 1000);
+                    } else {
+                        setIsUserLoading(false);
                     }
                 });
         } catch (error) {
             console.error(error);
         }
     }, []);
+
+    // TODO Fetch onderzoeken
 
     return (
         <>
@@ -47,20 +57,25 @@ const Onderzoek = () => {
                 <div className="m-2 flex-grow">
                     <div className="flex flex-col items-center p-4 mb-4 rounded-lg bg-white p-6 border border-gray min-w-[300px] w-full">
                         <h2 className="mb-4 text-center">Mijn profiel</h2>
-                        <img
-                            src="https://pbs.twimg.com/profile_images/918270974029697024/lNFaPqEz_400x400.jpg"
-                            className="rounded-full border border-gray w-40"
-                            alt="Profile"
-                        />
-                        { user && <h3 className="mb-10">{user.voornaam} {user.achternaam}</h3> }
-                        <button
-                            data-modal-target="profile-edit-modal" 
-                            data-modal-toggle="profile-edit-modal"
-                            className="outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue rounded-lg text-sm focus:outline-accessblue"
-                            aria-label="Bewerk profielgegevens"
-                        >
-                            Bewerk profielgegevens
-                        </button>
+                        {isUserLoading && <img className="w-24" src="https://www.icegif.com/wp-content/uploads/2023/07/icegif-1263.gif"></img>}
+                        {user && (
+                            <>
+                                <img
+                                    src="https://pbs.twimg.com/profile_images/918270974029697024/lNFaPqEz_400x400.jpg"
+                                    className="rounded-full border border-gray w-40"
+                                    alt="Profile"
+                                />
+                                <h3 className="mb-10">{user.voornaam} {user.achternaam}</h3>
+                                <button
+                                    data-modal-target="profile-edit-modal"
+                                    data-modal-toggle="profile-edit-modal"
+                                    className="outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue rounded-lg text-sm focus:outline-accessblue"
+                                    aria-label="Bewerk profielgegevens"
+                                >
+                                    Bewerk profielgegevens
+                                </button>
+                            </>
+                        )}
                     </div>
                 </div>
                 {/* Lopende onderzoeken container */}

@@ -108,9 +108,9 @@ namespace tdd.Server.Controllers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-            new Claim(ClaimTypes.Name, postUser.Id.ToString()),
-            new Claim(ClaimTypes.Email, postUser.Email),
-            new Claim(ClaimTypes.MobilePhone, postUser.Telefoon),
+                    new Claim(ClaimTypes.Name, postUser.Id.ToString()),
+                    new Claim(ClaimTypes.Email, postUser.Email),
+                    new Claim(ClaimTypes.MobilePhone, postUser.Telefoon),
                     // Add more claims as needed
                 }),
                 Expires = DateTime.UtcNow.AddHours(1), // Token expiration time
