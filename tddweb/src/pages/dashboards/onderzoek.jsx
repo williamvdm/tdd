@@ -8,21 +8,9 @@ const Onderzoek = () => {
     const [searchedOnderzoeken, setSearchedOnderzoeken] = useState(onderzoeken);
     const [filteredTags, setFilteredTags] = useState([]);
     const [menuOpen, setMenuOpen] = useState(true);
+    const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        const uniqueTags = new Set();
-
-        onderzoeken.forEach((onderzoek) => {
-            onderzoek.tags.forEach((tag) => {
-                uniqueTags.add(tag);
-            });
-        });
-
-        const uniqueTagsArray = Array.from(uniqueTags);
-
-        setFilteredTags(uniqueTagsArray);
-    }, [onderzoeken]);
-
+    // Search input filteren
     useEffect(() => {
         if (searchInput) {
             const filteredOnderzoeken = onderzoeken.filter((onderzoek) =>
@@ -36,11 +24,20 @@ const Onderzoek = () => {
         }
     }, [searchInput, onderzoeken]);
 
-    function filterDropdown() {
-        let menu = document.getElementById("filter_menu");
-        setMenuOpen(!menuOpen);
-        menu.style.visibility = menuOpen ? "visible" : "hidden";
-    }
+    useEffect(() => {
+        try {
+            fetch("https://ablox.azurewebsites.net/api/User/GetUserList")
+                .then(res => res.json())
+                .then(users => {
+                    if (users.length > 0) {
+                        const firstUser = users[0];
+                        setUser(firstUser);
+                    }
+                });
+        } catch (error) {
+            console.error(error);
+        }
+    }, []);
 
     return (
         <>
@@ -55,7 +52,7 @@ const Onderzoek = () => {
                             className="rounded-full border border-gray w-40"
                             alt="Profile"
                         />
-                        <h3 className="mb-10">Pipo de Klaas</h3>
+                        { user && <h3 className="mb-10">{user.voornaam} {user.achternaam}</h3> }
                         <button
                             data-modal-target="profile-edit-modal" 
                             data-modal-toggle="profile-edit-modal"
