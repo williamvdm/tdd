@@ -8,7 +8,7 @@ namespace tdd.Server.Models
     public class BeschikbaarheidModel
     {
         
-        public UserModel? User { get; set;}
+        public Guid? User { get; set;}
 
         public DateTime Begintijd {get; set;}
 
