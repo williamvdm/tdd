@@ -12,7 +12,8 @@ namespace tdd.Server.Context
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             // TODO: Connection string naar secret
-            options.UseNpgsql("Host=localhost;Database=tdddb;Username=postgres;Password=passlauwillannak");
+            options.UseNpgsql("Host=abloxdatabase.postgres.database.azure.com;Database=postgres;Username=abloxroot;Password=passlauwillannak123!;Port=5432;SSL Mode=Require;Trust Server Certificate=true");
+
         }
 
         // Voeg hieronder ALTIJD de databasemodellen toe voor deze context, dus tabellen die te maken hebben met Onderzoek bij OnderzoekContext. Algemene tabellen mogen in DatabaseContext.

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using tdd.Server.Context;
@@ -11,9 +12,11 @@ using tdd.Server.Context;
 namespace tdd.Server.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240110165243_testMigration")]
+    partial class testMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -383,12 +386,12 @@ namespace tdd.Server.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("GeboorteDatum")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("IdentityHash")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<bool>("IsAdult")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("Provider")
                         .IsRequired()
@@ -398,16 +401,18 @@ namespace tdd.Server.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Telefoon")
-                        .HasColumnType("text");
+                    b.Property<char>("Telefoon")
+                        .HasMaxLength(10)
+                        .HasColumnType("character(10)");
 
-                    b.Property<bool?>("ToestemmingBenadering")
+                    b.Property<bool>("ToestemmingBenadering")
                         .HasColumnType("boolean");
 
-                    b.Property<int?>("VerzorgerId")
+                    b.Property<int>("VerzorgerId")
                         .HasColumnType("integer");
 
                     b.Property<string>("VoorkeurBenadering")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Voornaam")
@@ -611,7 +616,9 @@ namespace tdd.Server.Migrations
 
                     b.HasOne("tdd.Server.Models.VerzorgerModel", "Verzorger")
                         .WithMany()
-                        .HasForeignKey("VerzorgerId");
+                        .HasForeignKey("VerzorgerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Adres");
 
