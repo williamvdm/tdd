@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import testdata from './testdata.json';
-import ProfileEditModal from '../../components/ProfileEditModal'
 
 const Onderzoek = () => {
     const [onderzoeken, setOnderzoeken] = useState(testdata);
@@ -24,6 +23,7 @@ const Onderzoek = () => {
         }
     }, [searchInput, onderzoeken]);
 
+    // TODO: Fetch ingelogde gebruikers data
     useEffect(() => {
         try {
             fetch("https://ablox.azurewebsites.net/api/User/GetUserList")
@@ -61,7 +61,6 @@ const Onderzoek = () => {
                         >
                             Bewerk profielgegevens
                         </button>
-                        <ProfileEditModal />
                     </div>
                 </div>
                 {/* Lopende onderzoeken container */}
