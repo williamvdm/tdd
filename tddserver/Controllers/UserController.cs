@@ -15,9 +15,9 @@ namespace tdd.Server.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly UserContext _context;
+        private readonly DatabaseContext _context;
 
-        public UserController(UserContext context)
+        public UserController(DatabaseContext context)
         {
             _context = context;
         }
@@ -25,7 +25,7 @@ namespace tdd.Server.Controllers
         // Route: /api/User/GetUserList
         [HttpGet]
         [Route("GetUserList")]
-        [Authorize(Roles = "admin")]
+        // [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetUserListAsync()
         {
             // Error handling wanneer een user geen toegang heeft tot deze functie
@@ -58,24 +58,48 @@ namespace tdd.Server.Controllers
         [Route("RegisterUser")]
         public async Task<IActionResult> RegisterUserAsync(UserModel obj)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
             UserModel postUser = new UserModel();
+            postUser.Id = Guid.NewGuid();
             postUser.Achternaam = obj.Achternaam;
             postUser.Voornaam = obj.Voornaam;
+            postUser.Telefoon = obj.Telefoon ?? "";
 
-            if(await _context.Users.AnyAsync(user => user.Email == obj.Email))
+            if (await _context.Users.AnyAsync(user => user.Email == obj.Email))
             {
                 return BadRequest("Email bestaat al");
             }
 
-            if (await _context.Users.AnyAsync(user => user.Voornaam == postUser.Voornaam && obj.Achternaam == obj.Achternaam))
+            if (await _context.Users.AnyAsync(user => user.Voornaam == postUser.Voornaam && user.Achternaam == postUser.Achternaam))
             {
                 return BadRequest("Voornaam-achternaam combinatie bestaat al, dus als je niet Jan Jansen heet, hoepel dan maar op");
             }
+
+            postUser.Email = obj.Email;
+            postUser.ToestemmingBenadering = obj.ToestemmingBenadering;
+            postUser.Provider = obj.Provider;
+            postUser.IdentityHash = obj.IdentityHash;
+            postUser.Role = obj.Role;
+
+            if (obj.IsAdult || obj.Beperking.Any((b) => b.BeperkingNaam.Contains("verstandelijke beperking")))
+            {
+                postUser.IsAdult = obj.IsAdult;
+                postUser.Verzorger = obj.Verzorger;
+            }
+
+            postUser.VoorkeurBenadering = obj.VoorkeurBenadering;
+            postUser.Aandoening = obj.Aandoening;
+            postUser.Beperking = obj.Beperking;
+            postUser.Beschikbaarheid = obj.Beschikbaarheid;
+            postUser.Onderzoeksoorten = obj.Onderzoeksoorten;
+            postUser.Adres = obj.Adres;
+
+            _context.Users.Add(postUser);
+            await _context.SaveChangesAsync();
 
             // Generate JWT token
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -84,9 +108,10 @@ namespace tdd.Server.Controllers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, postUser.Id.ToString()),
-                    new Claim(ClaimTypes.Email, postUser.Email)
-                    // TODO: more claims toevoegen
+            new Claim(ClaimTypes.Name, postUser.Id.ToString()),
+            new Claim(ClaimTypes.Email, postUser.Email),
+            new Claim(ClaimTypes.MobilePhone, postUser.Telefoon),
+                    // Add more claims as needed
                 }),
                 Expires = DateTime.UtcNow.AddHours(1), // Token expiration time
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -95,25 +120,12 @@ namespace tdd.Server.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-            postUser.Email = obj.Email;
-
-            if(obj.GeboorteDatum.CalculateAge() < 18 || obj.Beperking.Any((b) => b.BeperkingNaam.Contains("verstandelijke beperking")))
-            {
-                postUser.GeboorteDatum = obj.GeboorteDatum;
-                postUser.Verzorger = obj.Verzorger;
-            }
-
-            postUser.VoorkeurBenadering = obj.VoorkeurBenadering;
-
-            _context.Users.Add(postUser);
-            await _context.SaveChangesAsync();
-
-            return Ok();
+            return Ok(new { Token = tokenString });
         }
 
         // Route: /api/User/EditUser/{id}
         [HttpPut]
-        [Route("EditUser/{id}"), Authorize]
+        [Route("EditUser/{id}")]//, Authorize]
         public async Task<IActionResult> EditUserByIdAsync([FromRoute] string id, UserModel obj)
         {
             // TODO: Functionaliteit om een User aan te passen met error handling
@@ -138,7 +150,8 @@ namespace tdd.Server.Controllers
         [Route("DeleteUser/{id}"), Authorize]
         public async Task<IActionResult> DeleteUserByIdAsync([FromRoute] string id)
         {
-            try {
+            try
+            {
                 var user = await _context.Users.FirstOrDefaultAsync(user => user.Id.ToString() == id);
 
                 if (user == null)
@@ -148,7 +161,7 @@ namespace tdd.Server.Controllers
 
                 _context.Remove(user);
 
-                await _context.SaveChangesAsync(); 
+                await _context.SaveChangesAsync();
 
                 return Ok();
             }

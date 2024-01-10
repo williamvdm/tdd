@@ -11,9 +11,9 @@ namespace tdd.Server.Controllers
     [ApiController]
     public class BedrijfController : ControllerBase
     {
-        private readonly BedrijfContext _context;
+        private readonly DatabaseContext _context;
 
-        public BedrijfController(BedrijfContext context)
+        public BedrijfController(DatabaseContext context)
         {
             _context = context;
         }

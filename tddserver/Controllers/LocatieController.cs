@@ -17,9 +17,9 @@ namespace tdd.Server.Controllers
     [ApiController]
     public class LocatieController : ControllerBase
     {
-        private readonly LocatieContext _context;
+        private readonly DatabaseContext _context;
 
-        public LocatieController(LocatieContext context)
+        public LocatieController(DatabaseContext context)
         {
             _context = context;
         }

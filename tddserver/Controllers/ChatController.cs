@@ -17,9 +17,9 @@ namespace tdd.Server.Controllers
     [ApiController]
     public class ChatController : ControllerBase
     {
-        private readonly ChatContext _context;
+        private readonly DatabaseContext _context;
 
-        public ChatController(ChatContext context)
+        public ChatController(DatabaseContext context)
         {
             _context = context;
         }

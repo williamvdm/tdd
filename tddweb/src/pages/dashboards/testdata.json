@@ -33,7 +33,6 @@
     "tags": [
         "toegankelijkheid",
         "adhd",
-        "gebruikerservaring",
         "vragenlijst"
     ]
 },
@@ -45,53 +44,5 @@
         "toegankelijkheid",
         "autisme",
         "gebruikersinterfaces"
-    ]
-},
-{
-    "id": 6,
-    "title": "Interviews als Hulpmiddel bij Website-Toegankelijkheidsevaluaties",
-    "description": "Onderzoek naar het gebruik van interviews als effectief middel bij het evalueren van de toegankelijkheid van websites, met een focus op gebruikerservaring en feedbackverzameling.",
-    "tags": [
-        "interview",
-        "online",
-        "autisme"
-    ]
-},
-{
-    "id": 7,
-    "title": "Effectiviteit van Online Trainingen voor Toegankelijkheidsbewustzijn",
-    "description": "Een evaluatie van de effectiviteit van online trainingen voor het vergroten van het bewustzijn over toegankelijkheid van websites, met het oog op betere ontwerppraktijken.",
-    "tags": [
-        "doof",
-        "stom",
-        "vragenlijst"
-    ]
-},
-{
-    "id": 8,
-    "title": "Inclusief Ontwerp: Het Belang van Diversiteit in Website-Interfaces",
-    "description": "Onderzoek naar inclusieve ontwerppraktijken en het belang van diversiteit in website-interfaces voor het creëren van een betere digitale ervaring voor alle gebruikers.",
-    "tags": [
-        "autisme",
-        "verstandelijk beperkt",
-        "adhd"
-    ]
-},
-{
-    "id": 9,
-    "title": "Toegankelijkheidstools voor Webontwikkelaars: Een Vergelijkende Analyse",
-    "description": "Een vergelijkende analyse van verschillende tools die webontwikkelaars kunnen gebruiken om de toegankelijkheid van hun websites te verbeteren, met aandacht voor functionaliteit en gebruiksvriendelijkheid.",
-    "tags": [
-        "slechtziend",
-        "blind"
-    ]
-},
-{
-    "id": 10,
-    "title": "Digitale Toegankelijkheid in de Publieke Sector: Een Casestudy",
-    "description": "Een casestudy die de status van digitale toegankelijkheid in de publieke sector onderzoekt, met aanbevelingen voor verbetering en implementatie van best practices.",
-    "tags": [
-        "adhd",
-        "autisme"
     ]
 }]
