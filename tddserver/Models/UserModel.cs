@@ -8,6 +8,9 @@ namespace tdd.Server.Models
         public Guid Id { get; set; }
 
         [Required]
+        public string Password { get; set; }    
+
+        [Required]
         public string Voornaam { get; set; }
 
         [Required]

@@ -67,6 +67,7 @@ namespace tdd.Server.Controllers
             postUser.Id = Guid.NewGuid();
             postUser.Achternaam = obj.Achternaam;
             postUser.Voornaam = obj.Voornaam;
+            postUser.Password = obj.Password;
             postUser.Telefoon = obj.Telefoon ?? "";
 
             if (await _context.Users.AnyAsync(user => user.Email == obj.Email))
@@ -108,9 +109,9 @@ namespace tdd.Server.Controllers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-            new Claim(ClaimTypes.Name, postUser.Id.ToString()),
-            new Claim(ClaimTypes.Email, postUser.Email),
-            new Claim(ClaimTypes.MobilePhone, postUser.Telefoon),
+                    new Claim(ClaimTypes.Name, postUser.Id.ToString()),
+                    new Claim(ClaimTypes.Email, postUser.Email),
+                    new Claim(ClaimTypes.MobilePhone, postUser.Telefoon),
                     // Add more claims as needed
                 }),
                 Expires = DateTime.UtcNow.AddHours(1), // Token expiration time
