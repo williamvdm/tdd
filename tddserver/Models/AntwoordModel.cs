@@ -8,7 +8,7 @@ namespace tdd.Server.Models
         public int AntwoordID { get; set; }
 
         [Required]
-        public OnderzoekModel Onderzoek { get; set; }
+        public string Onderzoek { get; set; }
 
         [Required]
         public VraagModel Vraag { get; set; }
