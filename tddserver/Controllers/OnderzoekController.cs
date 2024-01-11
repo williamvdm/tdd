@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using tdd.Server.Context;
@@ -23,7 +23,7 @@ namespace tdd.Server.Controllers
         [Route("")]
         public async Task<IActionResult> GetOnderzoeken()
         {
-            var onderzoeken = await _context.Onderzoeken.AllAsync((onderzoek) => true);
+            var onderzoeken = await _context.Onderzoeken.ToListAsync();
 
             return Ok(onderzoeken);
         }
@@ -102,7 +102,7 @@ namespace tdd.Server.Controllers
             OnderzoekModel postOnderzoek = new OnderzoekModel();
             postOnderzoek.Id = onderzoek.Id;
             postOnderzoek.Beschrijving = onderzoek.Beschrijving;
-            postOnderzoek.Bedrijf = onderzoek.Bedrijf;
+            postOnderzoek.BedrijfMail = onderzoek.BedrijfMail;
             postOnderzoek.Begindatum = onderzoek.Begindatum;
             postOnderzoek.Einddatum = onderzoek.Einddatum;
             postOnderzoek.Locatie = onderzoek.Locatie;
@@ -127,7 +127,7 @@ namespace tdd.Server.Controllers
         [Route("bedrijf/{bedrijfsmail}")]
         public async Task<IActionResult> GetOnderzoekenVanBedrijf([FromRoute] string bedrijfsmail)
         {
-            var onderzoeken = _context.Onderzoeken.Where(onderzoek => onderzoek.Bedrijf.Bedrijfsmail == bedrijfsmail).ToList();
+            var onderzoeken = _context.Onderzoeken.Where(onderzoek => onderzoek.BedrijfMail == bedrijfsmail).ToList();
 
             return Ok(onderzoeken);
         }

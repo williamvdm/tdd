@@ -19,7 +19,7 @@ namespace tdd.Server.Models
         public string Link { get; set; }
 
         [Required]
-        public bool Verified { get; set; }
+        public bool Verified { get; set; } = false;
 
         [Required]
         public string Provider { get; set; }

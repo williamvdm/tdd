@@ -33,7 +33,7 @@ const Onderzoek = () => {
                 .then(res => res.json())
                 .then(users => {
                     if (users.length > 0) {
-                        const firstUser = users[0];
+                        const firstUser = users[1];
                         setTimeout(() => {
                             setUser(firstUser);
                             setIsUserLoading(false);

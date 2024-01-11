@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using tdd.Server.Context;
@@ -11,9 +12,11 @@ using tdd.Server.Context;
 namespace tdd.Server.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240111110502_dbServerMigration3")]
+    partial class dbServerMigration3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -275,18 +278,15 @@ namespace tdd.Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("BedrijfMail")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("BedrijfModelBedrijfsmail")
+                    b.Property<string>("Bedrijfsmail")
                         .HasColumnType("text");
 
                     b.Property<DateOnly>("Begindatum")
                         .HasColumnType("date");
 
-                    b.Property<string>("BeloningBeschrijving")
-                        .HasColumnType("text");
+                    b.Property<char?>("BeloningBeschrijving")
+                        .HasMaxLength(128)
+                        .HasColumnType("character(128)");
 
                     b.Property<string>("Beschrijving")
                         .HasMaxLength(128)
@@ -305,9 +305,9 @@ namespace tdd.Server.Migrations
                     b.Property<string>("OpdrachtData")
                         .HasColumnType("text");
 
-                    b.Property<string>("Titel")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<char>("Titel")
+                        .HasMaxLength(128)
+                        .HasColumnType("character(128)");
 
                     b.Property<Guid?>("TrackingGegevensOnderzoekID")
                         .HasColumnType("uuid");
@@ -317,7 +317,7 @@ namespace tdd.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BedrijfModelBedrijfsmail");
+                    b.HasIndex("Bedrijfsmail");
 
                     b.HasIndex("LocatieID");
 
@@ -572,9 +572,9 @@ namespace tdd.Server.Migrations
 
             modelBuilder.Entity("tdd.Server.Models.OnderzoekModel", b =>
                 {
-                    b.HasOne("tdd.Server.Models.BedrijfModel", null)
+                    b.HasOne("tdd.Server.Models.BedrijfModel", "Bedrijf")
                         .WithMany("onderzoeken")
-                        .HasForeignKey("BedrijfModelBedrijfsmail");
+                        .HasForeignKey("Bedrijfsmail");
 
                     b.HasOne("tdd.Server.Models.LocatieModel", "Locatie")
                         .WithMany()
@@ -593,6 +593,8 @@ namespace tdd.Server.Migrations
                     b.HasOne("tdd.Server.Models.TrackingGegevensModel", "TrackingGegevens")
                         .WithMany()
                         .HasForeignKey("TrackingGegevensUserID", "TrackingGegevensOnderzoekID");
+
+                    b.Navigation("Bedrijf");
 
                     b.Navigation("Locatie");
 

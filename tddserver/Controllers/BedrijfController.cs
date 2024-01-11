@@ -45,13 +45,13 @@ namespace tdd.Server.Controllers
 
             BedrijfModel postBedrijf = new BedrijfModel();
             postBedrijf.Provider = obj.Provider;
+            postBedrijf.Password = obj.Password;
             postBedrijf.Bedrijfsmail = obj.Bedrijfsmail;
             postBedrijf.Verified = obj.Verified;
             postBedrijf.Locatie = obj.Locatie;
             postBedrijf.Informatie = obj.Informatie;
             postBedrijf.contactpersonen = obj.contactpersonen;
             postBedrijf.Link = obj.Link;
-            postBedrijf.onderzoeken = obj.onderzoeken;
 
             if (await _context.Bedrijven.AnyAsync(bedrijf => bedrijf.Bedrijfsmail == obj.Bedrijfsmail))
             {
