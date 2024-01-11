@@ -53,6 +53,40 @@ namespace tdd.Server.Controllers
             return Ok(user);
         }
 
+        // Route: /api/User/LoginUser
+        [HttpPost]
+        [Route("LoginUser")]
+        public async Task<IActionResult> LoginUserAsync(UserLoginModelDto obj)
+        {
+            if (await _context.Users.AnyAsync(user => (user.Email == obj.Email) && (user.Password == obj.Password)))
+            {
+                // User bestaat
+                // Generate JWT token
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = System.Text.Encoding.ASCII.GetBytes("Xëí²]Ã½ö3ð,åòiôñÐã:ßn¦ét¬ÆP)Æ6|4RÐ¤²ónóÿR[8ÔÃø¯®?1/¿sÜíÿmN`Å/e!Ïf§6à2úMÏÉÒì¡.tpÁH+XZ°úwk5Vóíìò¯±÷elBÖâ·mtTÁÎq(êï`¥Ñ-î¨èVOÙñÂX©8v");
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
+                        new Claim(ClaimTypes.Email, obj.Email.ToString())
+                        // Add more claims as needed
+                    }),
+                    Expires = DateTime.UtcNow.AddHours(1), // Token expiration time
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
+
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                var tokenString = tokenHandler.WriteToken(token);
+
+                return Ok(new {token=tokenString});
+            }
+            else
+            {
+                // User niet bestaat
+                return BadRequest("Gebruikersnaam of wachtwoord is ongeldig.");
+            }
+        }
+
         // Route: /api/User/RegisterUser
         [HttpPost]
         [Route("RegisterUser")]
@@ -67,6 +101,7 @@ namespace tdd.Server.Controllers
             postUser.Id = Guid.NewGuid();
             postUser.Achternaam = obj.Achternaam;
             postUser.Voornaam = obj.Voornaam;
+            postUser.Password = obj.Password;
             postUser.Telefoon = obj.Telefoon ?? "";
 
             if (await _context.Users.AnyAsync(user => user.Email == obj.Email))
@@ -108,9 +143,9 @@ namespace tdd.Server.Controllers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-            new Claim(ClaimTypes.Name, postUser.Id.ToString()),
-            new Claim(ClaimTypes.Email, postUser.Email),
-            new Claim(ClaimTypes.MobilePhone, postUser.Telefoon),
+                    new Claim(ClaimTypes.Name, postUser.Id.ToString()),
+                    new Claim(ClaimTypes.Email, postUser.Email),
+                    new Claim(ClaimTypes.MobilePhone, postUser.Telefoon),
                     // Add more claims as needed
                 }),
                 Expires = DateTime.UtcNow.AddHours(1), // Token expiration time
