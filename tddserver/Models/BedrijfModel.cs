@@ -27,7 +27,6 @@ namespace tdd.Server.Models
         [Required]
         public List<ContactPersoonModel> contactpersonen { get; set; }
 
-        [Required]
-        public List<OnderzoekModel> onderzoeken { get; set; }
+        public List<OnderzoekModel>? onderzoeken { get; set; }
     }
 }
