@@ -1,9 +1,13 @@
 import { GoogleLogin } from '@react-oauth/google';
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+    let navigate = useNavigate(); 
+
     const handleLogin = (event) => {
         event.preventDefault();
         console.log('Formulier verzonden');
+        navigate("/dashboard/onderzoek");
     };
 
     return (
