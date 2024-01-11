@@ -6,6 +6,9 @@ namespace tdd.Server.Models
     {
         [Key]
         public string Bedrijfsmail { get; set;}
+
+        [Required]
+        public string Password { get; set; }
         
         [Required]
         public string Informatie { get; set; }
