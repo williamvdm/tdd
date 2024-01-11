@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import testdata from './testdata.json';
+import { AiFillPlusCircle } from "react-icons/ai";
 
 const Onderzoek = () => {
     const [onderzoeken, setOnderzoeken] = useState(testdata);
@@ -31,7 +32,7 @@ const Onderzoek = () => {
             fetch("https://ablox.azurewebsites.net/api/Bedrijf/albert@heijn.nl")
                 .then(res => res.json())
                 .then(data => setBedrijf(data));
-                setIsBedrijfLoading(false);
+            setIsBedrijfLoading(false);
         } catch (error) {
             console.error(error);
         }
@@ -69,10 +70,17 @@ const Onderzoek = () => {
                             )}
                         </div>
                     </div>
+
+
+
                     {/* Lopende onderzoeken container */}
                     <div className="m-2 flex-grow">
                         <div className="p-4 mb-4 rounded-lg bg-white p-6 border border-gray min-w-full w-full">
-                            <h2 className="mb-4 text-center">Lopende onderzoeken</h2>
+                            <h2 className="mb-2 text-center">Lopende onderzoeken</h2>
+                            <div className="flex flex-row">
+                                <button className="ml-auto p-4 flex self-end rounded-xl text-white bg-accessgreen mb-2"><AiFillPlusCircle />
+                                </button>
+                            </div>
                             <div className="flex flex-row">
                                 <form className="flex flex-row p-4 mb-4 rounded-lg bg-white p-6 border border-gray w-full">
                                     <input
@@ -114,12 +122,12 @@ const Onderzoek = () => {
                         </div>
                     </div>
                 </div>
-                </div>
-            </>
-            );
+            </div>
+        </>
+    );
 
 
 };
 
-            export default Onderzoek;
+export default Onderzoek;
 
