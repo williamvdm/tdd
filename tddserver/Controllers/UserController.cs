@@ -53,6 +53,23 @@ namespace tdd.Server.Controllers
             return Ok(user);
         }
 
+        // Route: /api/User/LoginUser
+        [HttpPost]
+        [Route("LoginUser")]
+        public async Task<IActionResult> LoginUserAsync(UserModelDto obj)
+        {
+            if (await _context.Users.AnyAsync(user => (user.Email == obj.Email) && (user.Password == obj.Password)))
+            {
+                // User bestaat
+                return Ok("Goedzo.");
+            }
+            else
+            {
+                // User niet bestaat
+                return BadRequest("Gebruikersnaam of wachtwoord is ongeldig.");
+            }
+        }
+
         // Route: /api/User/RegisterUser
         [HttpPost]
         [Route("RegisterUser")]

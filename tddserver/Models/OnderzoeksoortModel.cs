@@ -6,6 +6,6 @@ namespace tdd.Server.Models
     {
         [Key]
         [MaxLength(128)]
-        public string? Tag { get; set;}
+        public string Tag { get; set;}
     }
 }
