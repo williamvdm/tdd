@@ -7,102 +7,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace tdd.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class testMigration : Migration
+    public partial class dbServerMigration11 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_AandoeningModel_Users_UserModelId",
-                table: "AandoeningModel");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_BeperkingModel_Users_UserModelId",
-                table: "BeperkingModel");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Users_VerzorgerModel_VerzorgerId",
-                table: "Users");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_VerzorgerModel",
-                table: "VerzorgerModel");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Users",
-                table: "Users");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_BeperkingModel",
-                table: "BeperkingModel");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_AandoeningModel",
-                table: "AandoeningModel");
-
-            migrationBuilder.RenameTable(
-                name: "VerzorgerModel",
-                newName: "Verzorgers");
-
-            migrationBuilder.RenameTable(
-                name: "Users",
-                newName: "UserModel");
-
-            migrationBuilder.RenameTable(
-                name: "BeperkingModel",
-                newName: "Beperkingen");
-
-            migrationBuilder.RenameTable(
-                name: "AandoeningModel",
-                newName: "Aandoeningen");
-
-            migrationBuilder.RenameIndex(
-                name: "IX_Users_VerzorgerId",
-                table: "UserModel",
-                newName: "IX_UserModel_VerzorgerId");
-
-            migrationBuilder.RenameColumn(
-                name: "BeprkingNaam",
-                table: "Beperkingen",
-                newName: "BeperkingNaam");
-
-            migrationBuilder.RenameIndex(
-                name: "IX_BeperkingModel_UserModelId",
-                table: "Beperkingen",
-                newName: "IX_Beperkingen_UserModelId");
-
-            migrationBuilder.RenameIndex(
-                name: "IX_AandoeningModel_UserModelId",
-                table: "Aandoeningen",
-                newName: "IX_Aandoeningen_UserModelId");
-
-            migrationBuilder.AddColumn<int>(
-                name: "AdresLocatieID",
-                table: "UserModel",
-                type: "integer",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_Verzorgers",
-                table: "Verzorgers",
-                column: "VerzorgerId");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_UserModel",
-                table: "UserModel",
-                column: "Id");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_Beperkingen",
-                table: "Beperkingen",
-                column: "BeperkingId");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_Aandoeningen",
-                table: "Aandoeningen",
-                column: "AandoeningId");
-
             migrationBuilder.CreateTable(
                 name: "Berichten",
                 columns: table => new
@@ -116,25 +25,6 @@ namespace tdd.Server.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Berichten", x => x.ChatBerichtID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Beschikbaarheid",
-                columns: table => new
-                {
-                    User = table.Column<Guid>(type: "uuid", nullable: false),
-                    Begintijd = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Eindtijd = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UserModelId = table.Column<Guid>(type: "uuid", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Beschikbaarheid", x => new { x.User, x.Begintijd });
-                    table.ForeignKey(
-                        name: "FK_Beschikbaarheid_UserModel_UserModelId",
-                        column: x => x.UserModelId,
-                        principalTable: "UserModel",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -162,23 +52,6 @@ namespace tdd.Server.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Locaties", x => x.LocatieID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Onderzoeksoorten",
-                columns: table => new
-                {
-                    Tag = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
-                    UserModelId = table.Column<Guid>(type: "uuid", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Onderzoeksoorten", x => x.Tag);
-                    table.ForeignKey(
-                        name: "FK_Onderzoeksoorten_UserModel_UserModelId",
-                        column: x => x.UserModelId,
-                        principalTable: "UserModel",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -218,10 +91,25 @@ namespace tdd.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Verzorgers",
+                columns: table => new
+                {
+                    VerzorgerId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    VerzorgerEmail = table.Column<string>(type: "text", nullable: false),
+                    VerzorgerTelefoon = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Verzorgers", x => x.VerzorgerId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Bedrijven",
                 columns: table => new
                 {
                     Bedrijfsmail = table.Column<string>(type: "text", nullable: false),
+                    Password = table.Column<string>(type: "text", nullable: false),
                     Informatie = table.Column<string>(type: "text", nullable: false),
                     LocatieID = table.Column<int>(type: "integer", nullable: false),
                     Link = table.Column<string>(type: "text", nullable: false),
@@ -237,6 +125,41 @@ namespace tdd.Server.Migrations
                         principalTable: "Locaties",
                         principalColumn: "LocatieID",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserModel",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Password = table.Column<string>(type: "text", nullable: false),
+                    Voornaam = table.Column<string>(type: "text", nullable: false),
+                    Achternaam = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Telefoon = table.Column<string>(type: "text", nullable: true),
+                    ToestemmingBenadering = table.Column<bool>(type: "boolean", nullable: true),
+                    VoorkeurBenadering = table.Column<string>(type: "text", nullable: true),
+                    Provider = table.Column<string>(type: "text", nullable: false),
+                    IsAdult = table.Column<bool>(type: "boolean", nullable: false),
+                    IdentityHash = table.Column<string>(type: "text", nullable: false),
+                    Role = table.Column<string>(type: "text", nullable: false),
+                    VerzorgerId = table.Column<int>(type: "integer", nullable: true),
+                    AdresLocatieID = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserModel", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserModel_Locaties_AdresLocatieID",
+                        column: x => x.AdresLocatieID,
+                        principalTable: "Locaties",
+                        principalColumn: "LocatieID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserModel_Verzorgers_VerzorgerId",
+                        column: x => x.VerzorgerId,
+                        principalTable: "Verzorgers",
+                        principalColumn: "VerzorgerId");
                 });
 
             migrationBuilder.CreateTable(
@@ -260,28 +183,103 @@ namespace tdd.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Aandoeningen",
+                columns: table => new
+                {
+                    AandoeningId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    AandoeningNaam = table.Column<string>(type: "text", nullable: false),
+                    UserModelId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Aandoeningen", x => x.AandoeningId);
+                    table.ForeignKey(
+                        name: "FK_Aandoeningen_UserModel_UserModelId",
+                        column: x => x.UserModelId,
+                        principalTable: "UserModel",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Beperkingen",
+                columns: table => new
+                {
+                    BeperkingId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    BeperkingNaam = table.Column<string>(type: "text", nullable: false),
+                    UserModelId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Beperkingen", x => x.BeperkingId);
+                    table.ForeignKey(
+                        name: "FK_Beperkingen_UserModel_UserModelId",
+                        column: x => x.UserModelId,
+                        principalTable: "UserModel",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Beschikbaarheid",
+                columns: table => new
+                {
+                    User = table.Column<Guid>(type: "uuid", nullable: false),
+                    Begintijd = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Eindtijd = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UserModelId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Beschikbaarheid", x => new { x.User, x.Begintijd });
+                    table.ForeignKey(
+                        name: "FK_Beschikbaarheid_UserModel_UserModelId",
+                        column: x => x.UserModelId,
+                        principalTable: "UserModel",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Onderzoeksoorten",
+                columns: table => new
+                {
+                    Tag = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    UserModelId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Onderzoeksoorten", x => x.Tag);
+                    table.ForeignKey(
+                        name: "FK_Onderzoeksoorten_UserModel_UserModelId",
+                        column: x => x.UserModelId,
+                        principalTable: "UserModel",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Onderzoeken",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Beschrijving = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: true),
-                    Bedrijfsmail = table.Column<string>(type: "text", nullable: true),
+                    BedrijfMail = table.Column<string>(type: "text", nullable: false),
                     Begindatum = table.Column<DateOnly>(type: "date", nullable: false),
                     Einddatum = table.Column<DateOnly>(type: "date", nullable: false),
                     LocatieID = table.Column<int>(type: "integer", nullable: true),
-                    BeloningBeschrijving = table.Column<char>(type: "character(128)", maxLength: 128, nullable: true),
-                    Titel = table.Column<char>(type: "character(128)", maxLength: 128, nullable: false),
+                    BeloningBeschrijving = table.Column<string>(type: "text", nullable: true),
+                    Titel = table.Column<string>(type: "text", nullable: false),
                     OnderzoekSoortTag = table.Column<string>(type: "character varying(128)", nullable: false),
                     TrackingGegevensUserID = table.Column<Guid>(type: "uuid", nullable: true),
                     TrackingGegevensOnderzoekID = table.Column<Guid>(type: "uuid", nullable: true),
-                    OpdrachtData = table.Column<string>(type: "text", nullable: true)
+                    OpdrachtData = table.Column<string>(type: "text", nullable: true),
+                    BedrijfModelBedrijfsmail = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Onderzoeken", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Onderzoeken_Bedrijven_Bedrijfsmail",
-                        column: x => x.Bedrijfsmail,
+                        name: "FK_Onderzoeken_Bedrijven_BedrijfModelBedrijfsmail",
+                        column: x => x.BedrijfModelBedrijfsmail,
                         principalTable: "Bedrijven",
                         principalColumn: "Bedrijfsmail");
                     table.ForeignKey(
@@ -311,8 +309,8 @@ namespace tdd.Server.Migrations
                 name: "Vragen",
                 columns: table => new
                 {
-                    OnderzoekID = table.Column<int>(type: "integer", nullable: false),
-                    VraagID = table.Column<int>(type: "integer", nullable: false),
+                    OnderzoekID = table.Column<Guid>(type: "uuid", nullable: false),
+                    VraagID = table.Column<Guid>(type: "uuid", nullable: false),
                     Vraag = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: true),
                     OnderzoekModelId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
@@ -332,26 +330,20 @@ namespace tdd.Server.Migrations
                 {
                     AntwoordID = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    OnderzoekId = table.Column<Guid>(type: "uuid", nullable: false),
-                    VraagOnderzoekID = table.Column<int>(type: "integer", nullable: false),
-                    VraagID = table.Column<int>(type: "integer", nullable: false),
-                    Antwoord = table.Column<string>(type: "text", nullable: false)
+                    Onderzoek = table.Column<string>(type: "text", nullable: false),
+                    Vraag = table.Column<string>(type: "text", nullable: false),
+                    Antwoord = table.Column<string>(type: "text", nullable: false),
+                    VraagModelOnderzoekID = table.Column<Guid>(type: "uuid", nullable: true),
+                    VraagModelVraagID = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Antwoorden", x => x.AntwoordID);
                     table.ForeignKey(
-                        name: "FK_Antwoorden_Onderzoeken_OnderzoekId",
-                        column: x => x.OnderzoekId,
-                        principalTable: "Onderzoeken",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Antwoorden_Vragen_VraagOnderzoekID_VraagID",
-                        columns: x => new { x.VraagOnderzoekID, x.VraagID },
+                        name: "FK_Antwoorden_Vragen_VraagModelOnderzoekID_VraagModelVraagID",
+                        columns: x => new { x.VraagModelOnderzoekID, x.VraagModelVraagID },
                         principalTable: "Vragen",
-                        principalColumns: new[] { "OnderzoekID", "VraagID" },
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumns: new[] { "OnderzoekID", "VraagID" });
                 });
 
             migrationBuilder.CreateTable(
@@ -360,8 +352,8 @@ namespace tdd.Server.Migrations
                 {
                     User = table.Column<Guid>(type: "uuid", nullable: false),
                     OnderzoekId = table.Column<Guid>(type: "uuid", nullable: false),
-                    VraagOnderzoekID = table.Column<int>(type: "integer", nullable: false),
-                    VraagID = table.Column<int>(type: "integer", nullable: false),
+                    VraagOnderzoekID = table.Column<Guid>(type: "uuid", nullable: false),
+                    VraagID = table.Column<Guid>(type: "uuid", nullable: false),
                     Antwoord = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -382,19 +374,14 @@ namespace tdd.Server.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserModel_AdresLocatieID",
-                table: "UserModel",
-                column: "AdresLocatieID");
+                name: "IX_Aandoeningen_UserModelId",
+                table: "Aandoeningen",
+                column: "UserModelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Antwoorden_OnderzoekId",
+                name: "IX_Antwoorden_VraagModelOnderzoekID_VraagModelVraagID",
                 table: "Antwoorden",
-                column: "OnderzoekId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Antwoorden_VraagOnderzoekID_VraagID",
-                table: "Antwoorden",
-                columns: new[] { "VraagOnderzoekID", "VraagID" });
+                columns: new[] { "VraagModelOnderzoekID", "VraagModelVraagID" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Beantwoord_OnderzoekId",
@@ -412,6 +399,11 @@ namespace tdd.Server.Migrations
                 column: "LocatieID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Beperkingen_UserModelId",
+                table: "Beperkingen",
+                column: "UserModelId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Beschikbaarheid_UserModelId",
                 table: "Beschikbaarheid",
                 column: "UserModelId");
@@ -422,9 +414,9 @@ namespace tdd.Server.Migrations
                 column: "BedrijfModelBedrijfsmail");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Onderzoeken_Bedrijfsmail",
+                name: "IX_Onderzoeken_BedrijfModelBedrijfsmail",
                 table: "Onderzoeken",
-                column: "Bedrijfsmail");
+                column: "BedrijfModelBedrijfsmail");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Onderzoeken_LocatieID",
@@ -452,65 +444,35 @@ namespace tdd.Server.Migrations
                 column: "UserModelId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_UserModel_AdresLocatieID",
+                table: "UserModel",
+                column: "AdresLocatieID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserModel_VerzorgerId",
+                table: "UserModel",
+                column: "VerzorgerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Vragen_OnderzoekModelId",
                 table: "Vragen",
                 column: "OnderzoekModelId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Aandoeningen_UserModel_UserModelId",
-                table: "Aandoeningen",
-                column: "UserModelId",
-                principalTable: "UserModel",
-                principalColumn: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Beperkingen_UserModel_UserModelId",
-                table: "Beperkingen",
-                column: "UserModelId",
-                principalTable: "UserModel",
-                principalColumn: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_UserModel_Locaties_AdresLocatieID",
-                table: "UserModel",
-                column: "AdresLocatieID",
-                principalTable: "Locaties",
-                principalColumn: "LocatieID",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_UserModel_Verzorgers_VerzorgerId",
-                table: "UserModel",
-                column: "VerzorgerId",
-                principalTable: "Verzorgers",
-                principalColumn: "VerzorgerId",
-                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Aandoeningen_UserModel_UserModelId",
-                table: "Aandoeningen");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Beperkingen_UserModel_UserModelId",
-                table: "Beperkingen");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_UserModel_Locaties_AdresLocatieID",
-                table: "UserModel");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_UserModel_Verzorgers_VerzorgerId",
-                table: "UserModel");
+            migrationBuilder.DropTable(
+                name: "Aandoeningen");
 
             migrationBuilder.DropTable(
                 name: "Antwoorden");
 
             migrationBuilder.DropTable(
                 name: "Beantwoord");
+
+            migrationBuilder.DropTable(
+                name: "Beperkingen");
 
             migrationBuilder.DropTable(
                 name: "Berichten");
@@ -546,109 +508,13 @@ namespace tdd.Server.Migrations
                 name: "TrackingGegevens");
 
             migrationBuilder.DropTable(
+                name: "UserModel");
+
+            migrationBuilder.DropTable(
                 name: "Locaties");
 
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Verzorgers",
-                table: "Verzorgers");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_UserModel",
-                table: "UserModel");
-
-            migrationBuilder.DropIndex(
-                name: "IX_UserModel_AdresLocatieID",
-                table: "UserModel");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Beperkingen",
-                table: "Beperkingen");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Aandoeningen",
-                table: "Aandoeningen");
-
-            migrationBuilder.DropColumn(
-                name: "AdresLocatieID",
-                table: "UserModel");
-
-            migrationBuilder.RenameTable(
-                name: "Verzorgers",
-                newName: "VerzorgerModel");
-
-            migrationBuilder.RenameTable(
-                name: "UserModel",
-                newName: "Users");
-
-            migrationBuilder.RenameTable(
-                name: "Beperkingen",
-                newName: "BeperkingModel");
-
-            migrationBuilder.RenameTable(
-                name: "Aandoeningen",
-                newName: "AandoeningModel");
-
-            migrationBuilder.RenameIndex(
-                name: "IX_UserModel_VerzorgerId",
-                table: "Users",
-                newName: "IX_Users_VerzorgerId");
-
-            migrationBuilder.RenameColumn(
-                name: "BeperkingNaam",
-                table: "BeperkingModel",
-                newName: "BeprkingNaam");
-
-            migrationBuilder.RenameIndex(
-                name: "IX_Beperkingen_UserModelId",
-                table: "BeperkingModel",
-                newName: "IX_BeperkingModel_UserModelId");
-
-            migrationBuilder.RenameIndex(
-                name: "IX_Aandoeningen_UserModelId",
-                table: "AandoeningModel",
-                newName: "IX_AandoeningModel_UserModelId");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_VerzorgerModel",
-                table: "VerzorgerModel",
-                column: "VerzorgerId");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_Users",
-                table: "Users",
-                column: "Id");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_BeperkingModel",
-                table: "BeperkingModel",
-                column: "BeperkingId");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_AandoeningModel",
-                table: "AandoeningModel",
-                column: "AandoeningId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_AandoeningModel_Users_UserModelId",
-                table: "AandoeningModel",
-                column: "UserModelId",
-                principalTable: "Users",
-                principalColumn: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_BeperkingModel_Users_UserModelId",
-                table: "BeperkingModel",
-                column: "UserModelId",
-                principalTable: "Users",
-                principalColumn: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Users_VerzorgerModel_VerzorgerId",
-                table: "Users",
-                column: "VerzorgerId",
-                principalTable: "VerzorgerModel",
-                principalColumn: "VerzorgerId",
-                onDelete: ReferentialAction.Cascade);
+            migrationBuilder.DropTable(
+                name: "Verzorgers");
         }
     }
 }

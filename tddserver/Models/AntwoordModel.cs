@@ -11,7 +11,7 @@ namespace tdd.Server.Models
         public string Onderzoek { get; set; }
 
         [Required]
-        public VraagModel Vraag { get; set; }
+        public string Vraag { get; set; }
 
         [Required]
         public string Antwoord { get; set; }

@@ -100,7 +100,13 @@ namespace tdd.Server.Controllers
             }
 
             OnderzoekModel postOnderzoek = new OnderzoekModel();
-            postOnderzoek.Id = onderzoek.Id;
+            
+            postOnderzoek.Id = Guid.NewGuid();
+            foreach (VraagModel vraag in onderzoek.Vragen)
+            {
+                vraag.OnderzoekID = postOnderzoek.Id;
+                //vraag.VraagID = Guid.NewGuid();
+            }
             postOnderzoek.Beschrijving = onderzoek.Beschrijving;
             postOnderzoek.BedrijfMail = onderzoek.BedrijfMail;
             postOnderzoek.Begindatum = onderzoek.Begindatum;

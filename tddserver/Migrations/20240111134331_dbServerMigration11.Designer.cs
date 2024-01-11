@@ -12,8 +12,8 @@ using tdd.Server.Context;
 namespace tdd.Server.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240111115202_dbServerMigration5")]
-    partial class dbServerMigration5
+    [Migration("20240111134331_dbServerMigration11")]
+    partial class dbServerMigration11
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,20 +59,23 @@ namespace tdd.Server.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("OnderzoekId")
+                    b.Property<string>("Onderzoek")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Vraag")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("VraagModelOnderzoekID")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("VraagID")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("VraagOnderzoekID")
-                        .HasColumnType("integer");
+                    b.Property<Guid?>("VraagModelVraagID")
+                        .HasColumnType("uuid");
 
                     b.HasKey("AntwoordID");
 
-                    b.HasIndex("OnderzoekId");
-
-                    b.HasIndex("VraagOnderzoekID", "VraagID");
+                    b.HasIndex("VraagModelOnderzoekID", "VraagModelVraagID");
 
                     b.ToTable("Antwoorden");
                 });
@@ -90,11 +93,11 @@ namespace tdd.Server.Migrations
                     b.Property<Guid>("OnderzoekId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("VraagID")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("VraagID")
+                        .HasColumnType("uuid");
 
-                    b.Property<int>("VraagOnderzoekID")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("VraagOnderzoekID")
+                        .HasColumnType("uuid");
 
                     b.HasKey("User");
 
@@ -474,12 +477,12 @@ namespace tdd.Server.Migrations
 
             modelBuilder.Entity("tdd.Server.Models.VraagModel", b =>
                 {
-                    b.Property<int>("OnderzoekID")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("OnderzoekID")
+                        .HasColumnType("uuid")
                         .HasColumnOrder(0);
 
-                    b.Property<int>("VraagID")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("VraagID")
+                        .HasColumnType("uuid")
                         .HasColumnOrder(1);
 
                     b.Property<Guid?>("OnderzoekModelId")
@@ -505,21 +508,9 @@ namespace tdd.Server.Migrations
 
             modelBuilder.Entity("tdd.Server.Models.AntwoordModel", b =>
                 {
-                    b.HasOne("tdd.Server.Models.OnderzoekModel", "Onderzoek")
-                        .WithMany()
-                        .HasForeignKey("OnderzoekId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("tdd.Server.Models.VraagModel", "Vraag")
+                    b.HasOne("tdd.Server.Models.VraagModel", null)
                         .WithMany("Antwoorden")
-                        .HasForeignKey("VraagOnderzoekID", "VraagID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Onderzoek");
-
-                    b.Navigation("Vraag");
+                        .HasForeignKey("VraagModelOnderzoekID", "VraagModelVraagID");
                 });
 
             modelBuilder.Entity("tdd.Server.Models.BeantwoordModel", b =>

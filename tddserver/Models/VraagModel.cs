@@ -9,15 +9,15 @@ namespace tdd.Server.Models
     {
         [Key]
         [Column(Order = 0)]
-        public int OnderzoekID;
+        public Guid OnderzoekID;
 
         [Key]
         [Column(Order = 1)]
-        public int VraagID;
+        public Guid VraagID;
 
         [MaxLength(128)]
         public string? Vraag {get; set; }
 
-        public List<AntwoordModel>? Antwoorden {get; set;}
+        public List<AntwoordModel>? Antwoorden { get; set; }
     }
 }
