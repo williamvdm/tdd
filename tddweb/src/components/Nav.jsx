@@ -2,16 +2,14 @@ import { Link } from 'react-router-dom';
 
 export default function Nav() {
     return (
-        <nav class="shadow mb-6 p-4">
-            <div class="container mx-auto flex justify-between items-center">
-                <a href="/" class="text-black text-lg font-bold text-2xl">Ablox</a>
-                <ul class="flex space-x-4">
-                    <li><a href="/login" class="text-black hover:underline-offset-8 hover:underline">Inloggen</a></li>
-                    <li><a href="/ervaringsdeskundigeportaal" class="text-black hover:underline-offset-8 hover:underline">Ervaringsdeskundigeportaal</a></li>
-
+        <nav className="shadow-md mb-6 p-4 bg-accessblue">
+            <div className="container mx-auto flex justify-between items-center">
+                <Link to="/" className="text-white text-lg font-bold text-2xl" aria-label="Logo van Ablox">Ablox</Link>
+                <ul className="flex space-x-4">
+                    <li><Link to="/login" className="text-white hover:underline-offset-8 hover:underline">Inloggen</Link></li>
+                    <li><Link to="/chat" className="text-white hover:underline-offset-8 hover:underline">Chat</Link></li>
                 </ul>
             </div>
         </nav>
-    )
-};
-
+    );
+}

@@ -15,10 +15,16 @@ cd tddweb
 npm i
 npm run dev
 docker build -t tddserver .
-docker run -p 80:8080 tddserver
+docker run -p 80:8080 tddserver --environment development
 ```
 
-Ga hierna naar: [WeatherForecast](http://localhost/WeatherForecast)
+7. Ga in terminal B naar `TDD/tdd/tddweb` en voer de volgende command uit:
+
+```bash
+npm run dev
+```
+
+Ga hierna naar de [loginpagina](http://localhost:5173/login)
 
 ## Potentiele fouten
 ### Error

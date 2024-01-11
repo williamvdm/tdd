@@ -9,11 +9,13 @@ module.exports = {
         'accessbluebg': '#D9EBF7',
         'accessorange': '#FF7D00',
         'accessdarkblue': '#131B56',
-        'akram': '#000000',
   
       },
       fontFamily: {
         muli: ['Muli']
+      },
+      screens: {
+        'avg': '1425px',
       }
     },
   },
