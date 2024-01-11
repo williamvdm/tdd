@@ -5,8 +5,6 @@ const Onderzoek = () => {
     const [onderzoeken, setOnderzoeken] = useState(testdata);
     const [searchInput, setSearchInput] = useState('');
     const [searchedOnderzoeken, setSearchedOnderzoeken] = useState(onderzoeken);
-    const [filteredTags, setFilteredTags] = useState([]);
-    const [menuOpen, setMenuOpen] = useState(true);
 
     // User state variables
     const [user, setUser] = useState(null);
@@ -51,6 +49,7 @@ const Onderzoek = () => {
 
     return (
         <>
+              <div className="container justify-center mx-auto">
             <h1 className="text-4xl py-10">Dashboard</h1>
             <div className="container flex flex-col md:flex-col sm:flex-col lg:flex-row">
                 {/* Profiel container */}
@@ -122,6 +121,7 @@ const Onderzoek = () => {
                         ))}
                     </div>
                 </div>
+            </div>
             </div>
         </>
     );
