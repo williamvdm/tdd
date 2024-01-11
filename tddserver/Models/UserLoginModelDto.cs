@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace tdd.Server.Models
 {
-    public class UserModelDto
+    public class UserLoginModelDto
     {
         [Key]
         [Required]

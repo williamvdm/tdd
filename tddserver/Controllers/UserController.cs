@@ -56,7 +56,7 @@ namespace tdd.Server.Controllers
         // Route: /api/User/LoginUser
         [HttpPost]
         [Route("LoginUser")]
-        public async Task<IActionResult> LoginUserAsync(UserModelDto obj)
+        public async Task<IActionResult> LoginUserAsync(UserLoginModelDto obj)
         {
             if (await _context.Users.AnyAsync(user => (user.Email == obj.Email) && (user.Password == obj.Password)))
             {
