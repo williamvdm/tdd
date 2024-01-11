@@ -1,5 +1,3 @@
-import { useState } from 'react'
-import { GoogleLogin } from '@react-oauth/google';
 import './index.pcss' // Moet blijven staan
 import { Routes, Route } from 'react-router-dom';
 
@@ -12,19 +10,26 @@ import Login from './pages/login.jsx';
 import Ervaringsdeskundige from './pages/ervaringsdeskundige.jsx';
 import Bedrijven from './pages/bedrijven.jsx'
 import Footer from './components/Footer.jsx';
+import Onderzoek from './pages/dashboards/onderzoek.jsx';
 
 function App() {
   return (
     <>
-      <Nav/>
+
+      <Nav />
+      <div className="container py-8 justify-center mx-auto">
+
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/ervaringsdeskundigeportaal" element={<Ervaringsdeskundige />} />
-        <Route path="/bedrijven" element={<Bedrijven />} />
-
+        <Route path="/portaal/ervaringsdeskundige" element={<Ervaringsdeskundige />} />
+        <Route path="/portaal/bedrijven" element={<Bedrijven />} />
+        <Route path="/dashboard/onderzoek" element={<Onderzoek />} />
+        <Route path="/chat" element={<Chat />} />
       </Routes>
+      </div>
       <Footer/>
+
     </>
   )
 }

@@ -1,0 +1,48 @@
+[{
+    "id": 1,
+    "title": "De Impact van Kunstmatige Intelligentie op de Samenleving",
+    "description": "Dit onderzoek heeft tot doel de maatschappelijke gevolgen van grootschalige adoptie van kunstmatige intelligentie te onderzoeken en de effecten ervan op verschillende aspecten van het dagelijks leven.",
+    "tags": [
+        "vragenlijst",
+        "adhd",
+        "stom"
+    ]
+},
+{
+    "id": 2,
+    "title": "Strategieën voor Klimaatverandering Mitigatie: Een Uitgebreid Overzicht",
+    "description": "Analyse en evaluatie van de effectiviteit van verschillende strategieën voor het verminderen van klimaatverandering, met nadruk op duurzaamheid en milieueffecten.",
+    "tags": [
+        "doof",
+        "vragenlijst"
+    ]
+},
+{
+    "id": 3,
+    "title": "De Rol van Blockchain in Veilige Gegevenstransacties",
+    "description": "Onderzoek naar hoe blockchaintechnologie de beveiliging en transparantie van gegevenstransacties in diverse sectoren, zoals financiën en gezondheidszorg, kan verbeteren.",
+    "tags": [
+        "beveiliging",
+        "blind"
+    ]
+},
+{
+    "id": 4,
+    "title": "Toegankelijkheid van Websites voor Mensen met ADHD",
+    "description": "Een diepgaande analyse van de toegankelijkheid van websites voor mensen met ADHD, met een focus op het verbeteren van de gebruikerservaring en het verminderen van cognitieve belasting.",
+    "tags": [
+        "toegankelijkheid",
+        "adhd",
+        "vragenlijst"
+    ]
+},
+{
+    "id": 5,
+    "title": "Online Toegankelijkheid voor Mensen met Autisme",
+    "description": "Onderzoek naar manieren om online platforms toegankelijker te maken voor mensen met autisme, met aandacht voor gebruikersinterfaces en informatieverwerking.",
+    "tags": [
+        "toegankelijkheid",
+        "autisme",
+        "gebruikersinterfaces"
+    ]
+}]
