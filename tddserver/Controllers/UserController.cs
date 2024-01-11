@@ -67,6 +67,7 @@ namespace tdd.Server.Controllers
             postUser.Id = Guid.NewGuid();
             postUser.Achternaam = obj.Achternaam;
             postUser.Voornaam = obj.Voornaam;
+            postUser.Password = obj.Password;
             postUser.Telefoon = obj.Telefoon ?? "";
 
             if (await _context.Users.AnyAsync(user => user.Email == obj.Email))

@@ -2,22 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function Index() {
-  const [weatherData, setWeatherData] = useState([]);
-
-  async function fetchWeatherData() {
-    try {
-      const response = await fetch('http://ablox.azurewebsites.net/WeatherForecast')
-      const data = await response.json();
-      setWeatherData(data);
-    } catch (error) {
-      console.error('Kutzooi:', error);
-    }
-  };
-
-  function Redirector(url) {
-    
-  }
-
   return (
     <>
       <div className='flex justify-center'>
@@ -52,15 +36,6 @@ function Index() {
               Naar beheerdersportaal
             </a>
           </div>
-        </div>
-      </div>
-      <div className='flex justify-center'>
-        <div id="weatherapi" className="m-2 mb-8">
-          {weatherData.map((item, index) => (
-            <div key={index}>
-              <span>{item.date}</span>: {item.summary}
-            </div>
-          ))}
         </div>
       </div>
     </>
