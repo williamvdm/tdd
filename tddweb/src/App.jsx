@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 
 // Components
 import Nav from './components/Nav.jsx'
+import Footer from './components/Footer.jsx'
 
 // Pages
 import Index from './pages/index.jsx';
@@ -16,7 +17,7 @@ function App() {
   return (
     <>
       <Nav />
-      <div className="container py-8 justify-center mx-auto">
+      <div className="justify-center">
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/login" element={<Login />} />
@@ -24,8 +25,9 @@ function App() {
         <Route path="/portaal/bedrijven" element={<Bedrijven />} />
         <Route path="/dashboard/onderzoek" element={<Onderzoek />} />
         <Route path="/chat" element={<Chat />} />
-      </Routes>
-      </div>
+      </Routes> 
+      <Footer />
+        </div>
     </>
   )
 }
