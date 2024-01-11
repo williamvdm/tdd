@@ -9,14 +9,16 @@ import Index from './pages/index.jsx';
 import Login from './pages/login.jsx';
 import Ervaringsdeskundige from './pages/ervaringsdeskundige.jsx';
 import Bedrijven from './pages/bedrijven.jsx'
+import Footer from './components/Footer.jsx';
 import Onderzoek from './pages/dashboards/onderzoek.jsx';
-import Chat from './pages/chat.jsx';
 
 function App() {
   return (
     <>
+
       <Nav />
       <div className="container py-8 justify-center mx-auto">
+
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/login" element={<Login />} />
@@ -26,6 +28,8 @@ function App() {
         <Route path="/chat" element={<Chat />} />
       </Routes>
       </div>
+      <Footer/>
+
     </>
   )
 }

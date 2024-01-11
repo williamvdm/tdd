@@ -11,7 +11,8 @@ function Login() {
     };
 
     return (
-        <div className=''>
+    <>
+           <div className=''>
             <div className='container flex flex-col mx-auto p-4  sm:w-1/2 avg:w-1/4 rounded-lg bg-white shadow p-6 hover:shadow-lg transition ease-in-out border-t-4 border-accessorange '>
                 <h1 className=' text-center text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-6'>Login</h1>
                 <form onSubmit={handleLogin} className=' text-center mb-5 mx-auto'>
@@ -71,7 +72,7 @@ function Login() {
                 </div>
             </div>
         </div>
-    );
+   </> );
 }
 
 export default Login;
