@@ -26,7 +26,7 @@ const Onderzoek = () => {
         }
     }, [searchInput, onderzoeken]);
 
-    // TODO: Fetch ingelogde gebruikers data, niet alle gebruikers
+    // TODO: Fetch naar custom hook
     useEffect(() => {
         try {
             fetch("https://ablox.azurewebsites.net/api/User/GetUserList")
