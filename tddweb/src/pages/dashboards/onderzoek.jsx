@@ -16,7 +16,8 @@ const Onderzoek = () => {
             const filteredOnderzoeken = onderzoeken.filter((onderzoek) =>
                 onderzoek.tags.some((tag) =>
                     tag.toLowerCase().includes(searchInput.toLowerCase())
-                )
+                ) ||
+                onderzoek.title.toLowerCase().includes(searchInput.toLowerCase())
             );
             setSearchedOnderzoeken(filteredOnderzoeken);
         } else {
