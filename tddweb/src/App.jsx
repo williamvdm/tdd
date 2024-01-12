@@ -13,6 +13,7 @@ import Ervaringsdeskundige from './pages/ervaringsdeskundige.jsx';
 import Bedrijven from './pages/bedrijven.jsx'
 import Onderzoek from './pages/onderzoek.jsx';
 import Chat from './pages/chat.jsx';
+import Registreer from './pages/registreer.jsx';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/registreer" element={<Registreer />} />
         <Route path="/portaal/ervaringsdeskundige" element={<Ervaringsdeskundige />} />
         <Route path="/portaal/bedrijven" element={<Bedrijven />} />
         <Route path="/portaal/onderzoek" element={<Onderzoek />} />

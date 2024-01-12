@@ -15,8 +15,15 @@ module.exports = {
       fontFamily: {
         muli: ['Muli']
       },
+      width: {
+        '7/10': '70%',
+        '6/10': '60%',
+        '12/25': '48%',
+      },
       screens: {
         'avg': '1425px',
+        'reg': '850px',
+        'mini': '490px',
       }
     },
   },
