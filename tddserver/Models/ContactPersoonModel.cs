@@ -14,7 +14,5 @@ namespace tdd.Server.Models
         [Required]
         public string Achternaam { get; set; }
 
-        // [Required]
-        // public BedrijfModel bedrijf { get; set; }
     }
 }

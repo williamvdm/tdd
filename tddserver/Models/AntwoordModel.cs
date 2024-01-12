@@ -8,12 +8,6 @@ namespace tdd.Server.Models
         public int AntwoordID { get; set; }
 
         [Required]
-        public string Onderzoek { get; set; }
-
-        [Required]
-        public VraagModel Vraag { get; set; }
-
-        [Required]
         public string Antwoord { get; set; }
     }
 }

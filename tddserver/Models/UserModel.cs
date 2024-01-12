@@ -44,8 +44,6 @@ namespace tdd.Server.Models
 
         public List<BeschikbaarheidModel>? Beschikbaarheid { get; set; }
 
-        public List<OnderzoeksoortModel>? Onderzoeksoorten { get; set;}
-
         public LocatieModel Adres { get; set; }
 
     }

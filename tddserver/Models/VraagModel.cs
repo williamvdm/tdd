@@ -4,20 +4,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace tdd.Server.Models
 {
-    [PrimaryKey(nameof(OnderzoekID), nameof(VraagID))]
     public class VraagModel
     {
         [Key]
-        [Column(Order = 0)]
-        public int OnderzoekID;
+        public int VraagID { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
-        public int VraagID;
+        public Guid OnderzoekID { get; set; } // Foreign key
 
         [MaxLength(128)]
         public string? Vraag {get; set; }
 
-        public List<AntwoordModel>? Antwoorden {get; set;}
+        public List<AntwoordModel>? Antwoorden { get; set; }
     }
 }

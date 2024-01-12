@@ -1,9 +1,12 @@
-﻿ using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using tdd.Server.Context;
 using tdd.Server.Models;
 using tdd.Server.Extensions;
+using tdd.Server.Models.DTO;
+using System.ComponentModel;
+using System;
 
 namespace tdd.Server.Controllers
 {
@@ -48,22 +51,50 @@ namespace tdd.Server.Controllers
         [Route("{id}/vraag/add")]
         public async Task<IActionResult> AddQuestionToOnderzoek([FromRoute] string id, VraagModel vraag)
         {
-            var onderzoek = await _context.Onderzoeken.FirstOrDefaultAsync((onderzoek) => onderzoek.Id.ToString() == id);
+            var onderzoek = await _context.Onderzoeken
+                .Include(o => o.Vragen)  // Include Vragen for eager loading
+                .FirstOrDefaultAsync(onderzoek => onderzoek.Id.ToString() == id);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
             if (onderzoek == null)
             {
                 return NotFound("Onderzoek niet gevonden.");
             }
 
-            onderzoek.Vragen?.Add(vraag);
+            VraagModel postVraag = new VraagModel
+            {
+                OnderzoekID = Guid.Parse(id),
+                Vraag = vraag.Vraag
+            };
 
-            return Created();
+            if (onderzoek.Vragen == null)
+            {
+                onderzoek.Vragen = new List<VraagModel>();
+            }
+
+            onderzoek.Vragen.Add(postVraag);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                return Ok(postVraag);
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                // Handle concurrency conflict, for example, return a conflict response.
+                // You can log the exception details for further investigation.
+                return Conflict("Concurrency conflict. The entity has been modified by another user.");
+            }
         }
 
         // Route: /api/onderzoek/{onderzoekid}/vraag/{vraagid}/antwoord/{antwoordid}
         [HttpGet]
         [Route("{id}/vraag/{vraagid}/antwoord/{antwoordid}")]
-        public async Task<IActionResult> GetAntwoordByIdAsync([FromRoute] string id, [FromRoute] string vraagid, [FromRoute] string antwoordid)
+        public async Task<IActionResult> GetAntwoordByIdAsync([FromRoute] string id, [FromRoute] int vraagid, [FromRoute] int antwoordid)
         {
             var onderzoek = await _context.Onderzoeken.FirstOrDefaultAsync((onderzoek) => onderzoek.Id.ToString() == id);
 
@@ -72,14 +103,14 @@ namespace tdd.Server.Controllers
                 return NotFound("Onderzoek niet gevonden.");
             }
 
-            var vraag = onderzoek.Vragen?.Find((vraag) => vraag.VraagID.ToString() == vraagid);
+            var vraag = onderzoek.Vragen?.Find((vraag) => vraag.VraagID == vraagid);
 
             if (vraag == null)
             {
                 return NotFound("Vraag niet gevonden.");
             }
 
-            var antwoord = vraag.Antwoorden?.Find((antwoord) => antwoord.AntwoordID.ToString() == antwoordid);
+            var antwoord = vraag.Antwoorden?.Find((antwoord) => antwoord.AntwoordID == antwoordid);
 
             if (antwoord == null)
             {
@@ -92,7 +123,7 @@ namespace tdd.Server.Controllers
         // Route /api/onderzoek/create
         [HttpPost]
         [Route("create")]
-        public async Task<IActionResult> CreateOnderzoek(OnderzoekModel onderzoek)
+        public async Task<IActionResult> CreateOnderzoek(OnderzoekModelDTO onderzoek)
         {
             if (!ModelState.IsValid)
             {
@@ -100,16 +131,14 @@ namespace tdd.Server.Controllers
             }
 
             OnderzoekModel postOnderzoek = new OnderzoekModel();
-            postOnderzoek.Id = onderzoek.Id;
+
+            postOnderzoek.Id = Guid.NewGuid();
             postOnderzoek.Beschrijving = onderzoek.Beschrijving;
-            postOnderzoek.BedrijfMail = onderzoek.BedrijfMail;
             postOnderzoek.Begindatum = onderzoek.Begindatum;
             postOnderzoek.Einddatum = onderzoek.Einddatum;
             postOnderzoek.Locatie = onderzoek.Locatie;
             postOnderzoek.BeloningBeschrijving = onderzoek.BeloningBeschrijving;
             postOnderzoek.Titel = onderzoek.Titel;
-            postOnderzoek.OnderzoekSoort = onderzoek.OnderzoekSoort;
-            postOnderzoek.Vragen = onderzoek.Vragen;
 
             if (await _context.Onderzoeken.AnyAsync(onderzoek => onderzoek.Id == postOnderzoek.Id))
             {
@@ -119,7 +148,7 @@ namespace tdd.Server.Controllers
             _context.Add(postOnderzoek);
             await _context.SaveChangesAsync();
 
-            return Created();
+            return Ok(onderzoek);
         }
 
         // Route: api/onderzoek/bedrijf/{bedrijfsmail}
@@ -127,7 +156,7 @@ namespace tdd.Server.Controllers
         [Route("bedrijf/{bedrijfsmail}")]
         public async Task<IActionResult> GetOnderzoekenVanBedrijf([FromRoute] string bedrijfsmail)
         {
-            var onderzoeken = _context.Onderzoeken.Where(onderzoek => onderzoek.BedrijfMail == bedrijfsmail).ToList();
+            var onderzoeken = _context.Onderzoeken.Where(onderzoek => onderzoek.BedrijfMail == bedrijfsmail).ToListAsync();
 
             return Ok(onderzoeken);
         }
