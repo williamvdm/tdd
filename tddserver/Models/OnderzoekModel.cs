@@ -10,8 +10,7 @@ namespace tdd.Server.Models
         [MaxLength(128)]
         public string? Beschrijving { get; set; }
 
-        [Required]
-        public string BedrijfMail { get; set; }
+        public string? BedrijfMail { get; set; }
 
         [Required]
         public DateOnly Begindatum { get; set; }
@@ -26,10 +25,6 @@ namespace tdd.Server.Models
         [Required]
         public string Titel { get; set; }
 
-        [Required]
-        public OnderzoeksoortModel OnderzoekSoort { get; set; }
-
-        [Required]
         public List<VraagModel>? Vragen { get; set; }
 
         public TrackingGegevensModel? TrackingGegevens { get; set; }

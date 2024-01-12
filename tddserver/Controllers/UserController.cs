@@ -96,7 +96,6 @@ namespace tdd.Server.Controllers
             postUser.Aandoening = obj.Aandoening;
             postUser.Beperking = obj.Beperking;
             postUser.Beschikbaarheid = obj.Beschikbaarheid;
-            postUser.Onderzoeksoorten = obj.Onderzoeksoorten;
             postUser.Adres = obj.Adres;
 
             _context.Users.Add(postUser);

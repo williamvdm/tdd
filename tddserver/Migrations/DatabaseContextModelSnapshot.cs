@@ -56,30 +56,19 @@ namespace tdd.Server.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Onderzoek")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Vraag")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid?>("VraagModelOnderzoekID")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("VraagModelVraagID")
-                        .HasColumnType("uuid");
+                    b.Property<int?>("VraagModelVraagID")
+                        .HasColumnType("integer");
 
                     b.HasKey("AntwoordID");
 
-                    b.HasIndex("VraagModelOnderzoekID", "VraagModelVraagID");
+                    b.HasIndex("VraagModelVraagID");
 
                     b.ToTable("Antwoorden");
                 });
 
             modelBuilder.Entity("tdd.Server.Models.BeantwoordModel", b =>
                 {
-                    b.Property<Guid?>("User")
+                    b.Property<Guid>("User")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
@@ -90,17 +79,14 @@ namespace tdd.Server.Migrations
                     b.Property<Guid>("OnderzoekId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("VraagID")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("VraagOnderzoekID")
-                        .HasColumnType("uuid");
+                    b.Property<int>("VraagID")
+                        .HasColumnType("integer");
 
                     b.HasKey("User");
 
                     b.HasIndex("OnderzoekId");
 
-                    b.HasIndex("VraagOnderzoekID", "VraagID");
+                    b.HasIndex("VraagID");
 
                     b.ToTable("Beantwoord");
                 });
@@ -163,8 +149,11 @@ namespace tdd.Server.Migrations
 
             modelBuilder.Entity("tdd.Server.Models.BeschikbaarheidModel", b =>
                 {
-                    b.Property<Guid?>("User")
-                        .HasColumnType("uuid");
+                    b.Property<int>("BeschikbaarheidId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("BeschikbaarheidId"));
 
                     b.Property<DateTime>("Begintijd")
                         .HasColumnType("timestamp with time zone");
@@ -175,36 +164,11 @@ namespace tdd.Server.Migrations
                     b.Property<Guid?>("UserModelId")
                         .HasColumnType("uuid");
 
-                    b.HasKey("User", "Begintijd");
+                    b.HasKey("BeschikbaarheidId");
 
                     b.HasIndex("UserModelId");
 
                     b.ToTable("Beschikbaarheid");
-                });
-
-            modelBuilder.Entity("tdd.Server.Models.ChatModel", b =>
-                {
-                    b.Property<int>("ChatBerichtID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ChatBerichtID"));
-
-                    b.Property<string>("Bericht")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("OntvangerMail")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("ZenderMail")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("ChatBerichtID");
-
-                    b.ToTable("Berichten");
                 });
 
             modelBuilder.Entity("tdd.Server.Models.ContactPersoonModel", b =>
@@ -279,7 +243,6 @@ namespace tdd.Server.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("BedrijfMail")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("BedrijfModelBedrijfsmail")
@@ -301,10 +264,6 @@ namespace tdd.Server.Migrations
                     b.Property<int?>("LocatieID")
                         .HasColumnType("integer");
 
-                    b.Property<string>("OnderzoekSoortTag")
-                        .IsRequired()
-                        .HasColumnType("character varying(128)");
-
                     b.Property<string>("OpdrachtData")
                         .HasColumnType("text");
 
@@ -312,11 +271,8 @@ namespace tdd.Server.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("TrackingGegevensOnderzoekID")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("TrackingGegevensUserID")
-                        .HasColumnType("uuid");
+                    b.Property<int?>("TrackingGegevensTrackingDataId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -324,29 +280,11 @@ namespace tdd.Server.Migrations
 
                     b.HasIndex("LocatieID");
 
-                    b.HasIndex("OnderzoekSoortTag");
-
                     b.HasIndex("OpdrachtData");
 
-                    b.HasIndex("TrackingGegevensUserID", "TrackingGegevensOnderzoekID");
+                    b.HasIndex("TrackingGegevensTrackingDataId");
 
                     b.ToTable("Onderzoeken");
-                });
-
-            modelBuilder.Entity("tdd.Server.Models.OnderzoeksoortModel", b =>
-                {
-                    b.Property<string>("Tag")
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
-
-                    b.Property<Guid?>("UserModelId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Tag");
-
-                    b.HasIndex("UserModelId");
-
-                    b.ToTable("Onderzoeksoorten");
                 });
 
             modelBuilder.Entity("tdd.Server.Models.OpdrachtModel", b =>
@@ -361,17 +299,17 @@ namespace tdd.Server.Migrations
 
             modelBuilder.Entity("tdd.Server.Models.TrackingGegevensModel", b =>
                 {
-                    b.Property<Guid>("UserID")
-                        .HasColumnType("uuid");
+                    b.Property<int>("TrackingDataId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
 
-                    b.Property<Guid>("OnderzoekID")
-                        .HasColumnType("uuid");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TrackingDataId"));
 
                     b.Property<string>("Data")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("UserID", "OnderzoekID");
+                    b.HasKey("TrackingDataId");
 
                     b.ToTable("TrackingGegevens");
                 });
@@ -437,20 +375,6 @@ namespace tdd.Server.Migrations
                     b.ToTable("UserModel");
                 });
 
-            modelBuilder.Entity("tdd.Server.Models.UserRoleMachtigingModel", b =>
-                {
-                    b.Property<string>("Role")
-                        .HasMaxLength(32)
-                        .HasColumnType("character varying(32)");
-
-                    b.Property<int>("Machtigingingen")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Role");
-
-                    b.ToTable("UserRoleMachtiging");
-                });
-
             modelBuilder.Entity("tdd.Server.Models.VerzorgerModel", b =>
                 {
                     b.Property<int>("VerzorgerId")
@@ -474,13 +398,14 @@ namespace tdd.Server.Migrations
 
             modelBuilder.Entity("tdd.Server.Models.VraagModel", b =>
                 {
-                    b.Property<Guid>("OnderzoekID")
-                        .HasColumnType("uuid")
-                        .HasColumnOrder(0);
+                    b.Property<int>("VraagID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
 
-                    b.Property<Guid>("VraagID")
-                        .HasColumnType("uuid")
-                        .HasColumnOrder(1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("VraagID"));
+
+                    b.Property<Guid>("OnderzoekID")
+                        .HasColumnType("uuid");
 
                     b.Property<Guid?>("OnderzoekModelId")
                         .HasColumnType("uuid");
@@ -489,7 +414,7 @@ namespace tdd.Server.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)");
 
-                    b.HasKey("OnderzoekID", "VraagID");
+                    b.HasKey("VraagID");
 
                     b.HasIndex("OnderzoekModelId");
 
@@ -507,7 +432,7 @@ namespace tdd.Server.Migrations
                 {
                     b.HasOne("tdd.Server.Models.VraagModel", null)
                         .WithMany("Antwoorden")
-                        .HasForeignKey("VraagModelOnderzoekID", "VraagModelVraagID");
+                        .HasForeignKey("VraagModelVraagID");
                 });
 
             modelBuilder.Entity("tdd.Server.Models.BeantwoordModel", b =>
@@ -520,7 +445,7 @@ namespace tdd.Server.Migrations
 
                     b.HasOne("tdd.Server.Models.VraagModel", "Vraag")
                         .WithMany()
-                        .HasForeignKey("VraagOnderzoekID", "VraagID")
+                        .HasForeignKey("VraagID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -571,34 +496,19 @@ namespace tdd.Server.Migrations
                         .WithMany()
                         .HasForeignKey("LocatieID");
 
-                    b.HasOne("tdd.Server.Models.OnderzoeksoortModel", "OnderzoekSoort")
-                        .WithMany()
-                        .HasForeignKey("OnderzoekSoortTag")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("tdd.Server.Models.OpdrachtModel", "Opdracht")
                         .WithMany()
                         .HasForeignKey("OpdrachtData");
 
                     b.HasOne("tdd.Server.Models.TrackingGegevensModel", "TrackingGegevens")
                         .WithMany()
-                        .HasForeignKey("TrackingGegevensUserID", "TrackingGegevensOnderzoekID");
+                        .HasForeignKey("TrackingGegevensTrackingDataId");
 
                     b.Navigation("Locatie");
-
-                    b.Navigation("OnderzoekSoort");
 
                     b.Navigation("Opdracht");
 
                     b.Navigation("TrackingGegevens");
-                });
-
-            modelBuilder.Entity("tdd.Server.Models.OnderzoeksoortModel", b =>
-                {
-                    b.HasOne("tdd.Server.Models.UserModel", null)
-                        .WithMany("Onderzoeksoorten")
-                        .HasForeignKey("UserModelId");
                 });
 
             modelBuilder.Entity("tdd.Server.Models.UserModel", b =>
@@ -644,8 +554,6 @@ namespace tdd.Server.Migrations
                     b.Navigation("Beperking");
 
                     b.Navigation("Beschikbaarheid");
-
-                    b.Navigation("Onderzoeksoorten");
                 });
 
             modelBuilder.Entity("tdd.Server.Models.VraagModel", b =>
