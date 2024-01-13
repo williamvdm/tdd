@@ -1,5 +1,4 @@
 import React from 'react';
-import { FaTimes } from 'react-icons/fa';
 
 const OnderzoekInfoModal = ({ onderzoek, closeModal }) => {
     return (
@@ -14,7 +13,7 @@ const OnderzoekInfoModal = ({ onderzoek, closeModal }) => {
                     className="absolute top-2 right-2 text-gray-700 hover:outline-solid hover:outline-2 hover:outline-accessblue rounded-lg transition ease-in-out flex items-center focus:outline-accessblue"
                     onClick={closeModal}
                 >
-                    <FaTimes size={20} />
+                    X
                 </button>
                 <h2 className="text-2xl font-bold mb-4">{onderzoek.titel}</h2>
                 <p className="text-gray-800 mb-4">{onderzoek.beschrijving}</p>
