@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaTimes } from 'react-icons/fa'; // Import the X icon from a library like react-icons
+import { FaTimes } from 'react-icons/fa';
 
 const OnderzoekInfoModal = ({ onderzoek, closeModal }) => {
     return (
