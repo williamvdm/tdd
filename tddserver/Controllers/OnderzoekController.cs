@@ -134,6 +134,7 @@ namespace tdd.Server.Controllers
 
             postOnderzoek.Id = Guid.NewGuid();
             postOnderzoek.Beschrijving = onderzoek.Beschrijving;
+            postOnderzoek.BedrijfMail = onderzoek.BedrijfMail;
             postOnderzoek.Begindatum = onderzoek.Begindatum;
             postOnderzoek.Einddatum = onderzoek.Einddatum;
             postOnderzoek.Locatie = onderzoek.Locatie;

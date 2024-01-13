@@ -11,6 +11,7 @@ import Ervaringsdeskundige from './pages/ervaringsdeskundige.jsx';
 import Bedrijven from './pages/bedrijven.jsx'
 import Onderzoek from './pages/dashboards/onderzoek.jsx';
 import Chat from './pages/chat.jsx';
+import OnderzoekDetail from './components/OnderzoekDetail.jsx';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/portaal/ervaringsdeskundige" element={<Ervaringsdeskundige />} />
         <Route path="/portaal/bedrijven" element={<Bedrijven />} />
         <Route path="/dashboard/onderzoek" element={<Onderzoek />} />
+        <Route path="/onderzoek/:onderzoekid" element={<OnderzoekDetail />} />
         <Route path="/chat" element={<Chat />} />
       </Routes>
       </div>

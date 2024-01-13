@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const OnderzoekInfoModal = ({ onderzoek, closeModal }) => {
     const modalRef = useRef(null);
@@ -36,12 +37,13 @@ const OnderzoekInfoModal = ({ onderzoek, closeModal }) => {
                 <p className="text-gray-800">Begindatum: {onderzoek.begindatum}</p>
                 <p className="text-gray-800">Einddatum: {onderzoek.einddatum}</p>
 
-                <button
+                <Link
+                    to={`/onderzoek/${onderzoek.id}`}
                     className="absolute bottom-4 right-4 bg-accessblue outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue text-white p-2 px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessblue"
                     aria-label={`Deelnemen aan onderzoek ${onderzoek.titel}`}
                 >
                     Deelnemen
-                </button>
+                </Link>
             </div>
         </div>
     );
