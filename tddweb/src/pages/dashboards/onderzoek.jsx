@@ -1,12 +1,24 @@
 import { useEffect, useState } from "react";
 import testdata from './testdata.json';
+import OnderzoekInfoModal from "../../components/OnderzoekInfoModal";
 
 const Onderzoek = () => {
-    const [onderzoeken, setOnderzoeken] = useState(testdata);
+    const [onderzoeken, setOnderzoeken] = useState(null);
     const [searchInput, setSearchInput] = useState('');
-    const [searchedOnderzoeken, setSearchedOnderzoeken] = useState(onderzoeken);
-    const [filteredTags, setFilteredTags] = useState([]);
-    const [menuOpen, setMenuOpen] = useState(true);
+    const [searchedOnderzoeken, setSearchedOnderzoeken] = useState(null);
+    const [selectedOnderzoek, setSelectedOnderzoek] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = (onderzoek) => {
+        setSelectedOnderzoek(onderzoek);
+        console.log(selectedOnderzoek)
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setSelectedOnderzoek(null);
+        setIsModalOpen(false);
+    };
 
     // User state variables
     const [user, setUser] = useState(null);
@@ -14,17 +26,17 @@ const Onderzoek = () => {
 
     // Search input filteren
     useEffect(() => {
-        if (searchInput) {
+        if (searchInput && onderzoeken) {
             const filteredOnderzoeken = onderzoeken.filter((onderzoek) =>
-                onderzoek.tags.some((tag) =>
-                    tag.toLowerCase().includes(searchInput.toLowerCase())
-                )
+                (onderzoek.title && onderzoek.title.toLowerCase().includes(searchInput.toLowerCase())) ||
+                (onderzoek.beschrijving && onderzoek.beschrijving.toLowerCase().includes(searchInput.toLowerCase()))
             );
             setSearchedOnderzoeken(filteredOnderzoeken);
         } else {
             setSearchedOnderzoeken(onderzoeken);
         }
     }, [searchInput, onderzoeken]);
+
 
     // TODO: Fetch naar custom hook
     useEffect(() => {
@@ -33,26 +45,54 @@ const Onderzoek = () => {
                 .then(res => res.json())
                 .then(users => {
                     if (users.length > 0) {
-                        const firstUser = users[1];
+                        const firstUser = users[0];
                         setTimeout(() => {
+                            console.log(firstUser);
                             setUser(firstUser);
                             setIsUserLoading(false);
                         }, 1000);
                     } else {
                         setIsUserLoading(false);
                     }
+                })
+                .catch(error => {
+                    console.error("Couldn't fetch users");
+                    console.error(error);
                 });
         } catch (error) {
             console.error(error);
         }
     }, []);
 
-    // TODO Fetch onderzoeken
+    useEffect(() => {
+        try {
+            console.log("begin fetch");
+            fetch("https://ablox.azurewebsites.net/api/Onderzoek")
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    setOnderzoeken(data);
+                    setSearchedOnderzoeken(data);
+                })
+                .catch(error => {
+                    console.log("Couldn't fetch");
+                    console.error(error);
+                });
+        } catch (error) {
+            console.error(error);
+        }
+    }, []);
 
     return (
         <>
             <h1 className="text-4xl py-10">Dashboard</h1>
             <div className="container flex flex-col md:flex-col sm:flex-col lg:flex-row">
+                {isModalOpen && (
+                    <OnderzoekInfoModal
+                        onderzoek={selectedOnderzoek}
+                        closeModal={closeModal}
+                    />
+                )}
                 {/* Profiel container */}
                 <div className="m-2 flex-grow">
                     <div className="flex flex-col items-center p-4 mb-4 rounded-lg bg-white p-6 border border-gray min-w-[300px] w-full">
@@ -93,28 +133,21 @@ const Onderzoek = () => {
                                 />
                             </form>
                         </div>
-                        {searchedOnderzoeken.map((onderzoek) => (
+                        {onderzoeken && searchedOnderzoeken.map((onderzoek) => (
                             <div
                                 className="card shadow-md p-4 mb-4 rounded-lg bg-white p-6 border border-gray transition ease-in-out min-w-full"
                                 key={onderzoek.id}
                             >
                                 <div className="flex flex-col">
-                                    <h3 className="text-xl">{onderzoek.title}</h3>
-                                    <p className="my-5 text-m">{onderzoek.description}</p>
-                                    <ul className="flex wrap">
-                                        {onderzoek.tags.map((tag) => (
-                                            <li
-                                                key={tag}
-                                                className="mr-2 text-sm bg-accessdarkblue text-white p-2 rounded-xl">
-                                                {tag}
-                                            </li>
-                                        ))}
-                                    </ul>
+                                    <h3 className="text-xl">{onderzoek.titel}</h3>
+                                    <p className="my-5 text-m">{onderzoek.beschrijving}</p>
                                 </div>
                                 <div className="flex justify-end mt-4">
                                     <button
                                         className="bg-accessblue outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue text-white p-2 px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessblue"
-                                        aria-label={`Bekijk onderzoek ${onderzoek.title}`}>
+                                        aria-label={`Bekijk onderzoek ${onderzoek.title}`}
+                                        onClick={() => openModal(onderzoek)}
+                                    >
                                         Bekijk onderzoek
                                     </button>
                                 </div>

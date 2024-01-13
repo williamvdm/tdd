@@ -180,5 +180,17 @@ namespace tdd.Server.Controllers
 
             return Ok(onderzoek.TrackingGegevens?.Data);
         }
+
+        // Route: api/onderzoek/{onderzoekid}/vragen
+        [HttpGet]
+        [Route("{onderzoekid}/vragen")]
+        public async Task<IActionResult> GetVragenFromOnderzoek([FromRoute] string onderzoekid)
+        {
+            var vragen = _context.Vragen
+                .Where(vraag => vraag.OnderzoekID.Equals(Guid.Parse(onderzoekid)))
+                .ToList();
+
+            return Ok(vragen);
+        }
     }
 }
