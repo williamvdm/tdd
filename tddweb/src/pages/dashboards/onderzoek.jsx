@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import testdata from './testdata.json';
 import OnderzoekInfoModal from "../../components/OnderzoekInfoModal";
 
 const Onderzoek = () => {
@@ -7,11 +6,11 @@ const Onderzoek = () => {
     const [searchInput, setSearchInput] = useState('');
     const [searchedOnderzoeken, setSearchedOnderzoeken] = useState(null);
     const [selectedOnderzoek, setSelectedOnderzoek] = useState(null);
+    const [isOnderzoekenLoading, setIsOnderzoekenLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const openModal = (onderzoek) => {
         setSelectedOnderzoek(onderzoek);
-        console.log(selectedOnderzoek)
         setIsModalOpen(true);
     };
 
@@ -64,6 +63,7 @@ const Onderzoek = () => {
         }
     }, []);
 
+    // Fetch lijst met onderzoeken
     useEffect(() => {
         try {
             console.log("begin fetch");
@@ -73,6 +73,7 @@ const Onderzoek = () => {
                     console.log(data);
                     setOnderzoeken(data);
                     setSearchedOnderzoeken(data);
+                    setIsOnderzoekenLoading(false);
                 })
                 .catch(error => {
                     console.log("Couldn't fetch");
@@ -133,7 +134,9 @@ const Onderzoek = () => {
                                 />
                             </form>
                         </div>
-                        {onderzoeken && searchedOnderzoeken.map((onderzoek) => (
+                        {isOnderzoekenLoading && <img className="w-24 mx-auto" src="https://www.icegif.com/wp-content/uploads/2023/07/icegif-1263.gif"></img>}
+                        {isOnderzoekenLoading == false && searchedOnderzoeken.length == 0 && <h3>Geen zoekresultaten...</h3>}
+                        {searchedOnderzoeken && searchedOnderzoeken.map((onderzoek) => (
                             <div
                                 className="card shadow-md p-4 mb-4 rounded-lg bg-white p-6 border border-gray transition ease-in-out min-w-full"
                                 key={onderzoek.id}
@@ -145,7 +148,7 @@ const Onderzoek = () => {
                                 <div className="flex justify-end mt-4">
                                     <button
                                         className="bg-accessblue outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue text-white p-2 px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessblue"
-                                        aria-label={`Bekijk onderzoek ${onderzoek.title}`}
+                                        aria-label={`Bekijk onderzoek ${onderzoek.titel}`}
                                         onClick={() => openModal(onderzoek)}
                                     >
                                         Bekijk onderzoek
