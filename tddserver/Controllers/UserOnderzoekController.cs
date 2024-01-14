@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
+using System.Text.Json;
 
 namespace tdd.Server.Controllers
 {
@@ -24,7 +25,7 @@ namespace tdd.Server.Controllers
 
         // Route: /api/UserOnderzoek/register/user/{userid}/onderzoek/{onderzoekid}
         [HttpGet]
-        [Route("register/user/{userid}/onderzoek/{onderzoekid}")]
+        [Route("register/UserOnderzoek/{userid}/onderzoek/{onderzoekid}")]
         public async Task<IActionResult> LinkUserToOnderzoek([FromRoute] string userid, [FromRoute] string onderzoekid)
         {
             var onderzoek = await _context.Onderzoeken.FirstOrDefaultAsync((onderzoek) => onderzoek.Id.ToString() == onderzoekid);
@@ -74,7 +75,7 @@ namespace tdd.Server.Controllers
 
         // Route: /api/UserOnderzoek/unregister/user/{userid}/onderzoek/{onderzoekid}
         [HttpGet]
-        [Route("unregister/user/{userid}/onderzoek/{onderzoekid}")]
+        [Route("unregister/UserOnderzoek/{userid}/onderzoek/{onderzoekid}")]
         public async Task<IActionResult> UnLinkUserToOnderzoek([FromRoute] string userid, [FromRoute] string onderzoekid)
         {
             var onderzoek = await _context.Onderzoeken
@@ -106,6 +107,54 @@ namespace tdd.Server.Controllers
             await _context.SaveChangesAsync();
 
             return Ok();
+        }
+
+        // Route: /api/UserOnderzoek/GetUsers/{onderzoekid}
+        [HttpGet]
+        [Route("get/UserOnderzoek/GetUsers/{onderzoekid}")]
+        public async Task<IActionResult> GetUsersForOnderzoek([FromRoute] string onderzoekid)
+        {
+            var onderzoek = await _context.Onderzoeken.Include(o => o.Deelnemers).Where((onderzoek) => onderzoek.Id.ToString() == onderzoekid).SingleOrDefaultAsync();
+
+            if (onderzoek == null)
+            {
+                return NotFound("Onderzoek niet gevonden.");
+            }
+
+            return Ok(onderzoek.Deelnemers);
+        }
+
+        // Route: /api/UserOnderzoek/GetOnderzoeken/{userid}/{onlyactive}
+        [HttpGet]
+        [Route("get/UserOnderzoek/GetOnderzoeken/{userid}/{onlyactive}")]
+        public async Task<IActionResult> GetOnderzoekenForUser([FromRoute] string userid, [FromRoute] string onlyactive)
+        {
+            var user = await _context.Users.Include(o => o.Onderzoeken).Where((user) => user.Id.ToString() == userid).SingleOrDefaultAsync();
+            
+            if (user == null)
+            {
+                return NotFound("User niet gevonden.");
+            }
+
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve
+            };
+
+            if (onlyactive == "yes")
+            {
+                return Ok(user.Onderzoeken.Where(onderzoek => onderzoek.Begindatum < DateOnly.FromDateTime(DateTime.Now) && onderzoek.Einddatum > DateOnly.FromDateTime(DateTime.Now)));
+            }
+            else
+            {
+                var serializedUserOnderzoeken = JsonSerializer.Serialize(user.Onderzoeken, options);
+                return new ContentResult
+                {
+                    Content = serializedUserOnderzoeken,
+                    ContentType = "application/json",
+                    StatusCode = 200
+                };
+            }
         }
     }
 }
