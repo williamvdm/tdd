@@ -4,7 +4,6 @@ namespace tdd.Server.Models
 {
     public class UserLoginModelDto
     {
-        [Key]
         [Required]
         public string? Email { get; set; }
 

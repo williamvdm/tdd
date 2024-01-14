@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import OnderzoekInfoModal from "../../components/OnderzoekInfoModal";
+import { jwtDecode } from "jwt-decode";
 
 const Onderzoek = () => {
     const [onderzoeken, setOnderzoeken] = useState(null);
@@ -8,6 +9,13 @@ const Onderzoek = () => {
     const [selectedOnderzoek, setSelectedOnderzoek] = useState(null);
     const [isOnderzoekenLoading, setIsOnderzoekenLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const token = localStorage.getItem("token");
+    let decodedToken = null;
+
+    if(token) {
+        decodedToken = jwtDecode(token);
+        console.log(decodedToken);
+    }
 
     const openModal = (onderzoek) => {
         setSelectedOnderzoek(onderzoek);
@@ -35,33 +43,6 @@ const Onderzoek = () => {
             setSearchedOnderzoeken(onderzoeken);
         }
     }, [searchInput, onderzoeken]);
-
-
-    // TODO: Fetch naar custom hook
-    useEffect(() => {
-        try {
-            fetch("https://ablox.azurewebsites.net/api/User/GetUserList")
-                .then(res => res.json())
-                .then(users => {
-                    if (users.length > 0) {
-                        const firstUser = users[0];
-                        setTimeout(() => {
-                            console.log(firstUser);
-                            setUser(firstUser);
-                            setIsUserLoading(false);
-                        }, 1000);
-                    } else {
-                        setIsUserLoading(false);
-                    }
-                })
-                .catch(error => {
-                    console.error("Couldn't fetch users");
-                    console.error(error);
-                });
-        } catch (error) {
-            console.error(error);
-        }
-    }, []);
 
     // Fetch lijst met onderzoeken
     useEffect(() => {
@@ -98,7 +79,7 @@ const Onderzoek = () => {
                 <div className="m-2 flex-grow">
                     <div className="flex flex-col items-center p-4 mb-4 rounded-lg bg-white p-6 border border-gray min-w-[300px] w-full">
                         <h2 className="mb-4 text-center">Mijn profiel</h2>
-                        {isUserLoading && <img className="w-24" src="https://www.icegif.com/wp-content/uploads/2023/07/icegif-1263.gif"></img>}
+                        {decodedToken && <img className="w-24" src="https://www.icegif.com/wp-content/uploads/2023/07/icegif-1263.gif"></img>}
                         {user && (
                             <>
                                 <img
@@ -106,7 +87,7 @@ const Onderzoek = () => {
                                     className="rounded-full border border-gray w-40"
                                     alt="Profile"
                                 />
-                                <h3 className="mb-10">{user.voornaam} {user.achternaam}</h3>
+                                <h3 className="mb-10">{decodedToken.voornaam} {decodedToken.achternaam}</h3>
                                 <button
                                     data-modal-target="profile-edit-modal"
                                     data-modal-toggle="profile-edit-modal"

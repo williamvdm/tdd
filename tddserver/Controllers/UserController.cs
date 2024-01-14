@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
+using tdd.Server.Models.DTO;
+using System.Text;
 
 namespace tdd.Server.Controllers
 {
@@ -58,31 +60,41 @@ namespace tdd.Server.Controllers
         [Route("LoginUser")]
         public async Task<IActionResult> LoginUserAsync(UserLoginModelDto obj)
         {
-            if (await _context.Users.AnyAsync(user => (user.Email == obj.Email) && (user.Password == obj.Password)))
+            if (obj == null)
             {
-                // User bestaat
-                // Generate JWT token
+                return Unauthorized();
+            }
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == obj.Email && u.Password == obj.Password);
+
+            if (user != null)
+            {
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var key = System.Text.Encoding.ASCII.GetBytes("Xëí²]Ã½ö3ð,åòiôñÐã:ßn¦ét¬ÆP)Æ6|4RÐ¤²ónóÿR[8ÔÃø¯®?1/¿sÜíÿmN`Å/e!Ïf§6à2úMÏÉÒì¡.tpÁH+XZ°úwk5Vóíìò¯±÷elBÖâ·mtTÁÎq(êï`¥Ñ-î¨èVOÙñÂX©8v");
+                var key = Encoding.ASCII.GetBytes("Xëí²]Ã½ö3ð,åòiôñÐã:ßn¦ét¬ÆP)Æ6|4RÐ¤²ónóÿR[8ÔÃø¯®?1/¿sÜíÿmN`Å/e!Ïf§6à2úMÏÉÒì¡.tpÁH+XZ°úwk5Vóíìò¯±÷elBÖâ·mtTÁÎq(êï`¥Ñ-î¨èVOÙñÂX©8v");
+
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new Claim[]
                     {
-                        new Claim(ClaimTypes.Email, obj.Email.ToString())
-                        // Add more claims as needed
+                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                        new Claim(ClaimTypes.Email, user.Email),
+                        new Claim(ClaimTypes.GivenName, user.Voornaam),
+                        new Claim(ClaimTypes.Surname, user.Achternaam),
+                        new Claim(ClaimTypes.MobilePhone, user.Telefoon ?? ""),
+                        new Claim(ClaimTypes.DateOfBirth, user.IsAdult ? "Adult" : "NotAdult"),
+                        new Claim(ClaimTypes.Role, user.Role),
                     }),
-                    Expires = DateTime.UtcNow.AddHours(1), // Token expiration time
+                    Expires = DateTime.UtcNow.AddHours(1),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
                 };
 
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 var tokenString = tokenHandler.WriteToken(token);
 
-                return Ok(new {token=tokenString});
+                return Ok(new { token = tokenString });
             }
             else
             {
-                // User niet bestaat
                 return BadRequest("Gebruikersnaam of wachtwoord is ongeldig.");
             }
         }
