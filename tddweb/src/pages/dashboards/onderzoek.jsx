@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import OnderzoekInfoModal from "../../components/OnderzoekInfoModal";
-import jwt_decode from 'jwt-decode';
+import * as jwt_decode from 'jwt-decode';
 
 const Onderzoek = () => {
     const [onderzoeken, setOnderzoeken] = useState(null);
