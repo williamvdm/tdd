@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import OnderzoekInfoModal from "../../components/OnderzoekInfoModal";
-import { jwt_decode } from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 
 const Onderzoek = () => {
     const [onderzoeken, setOnderzoeken] = useState(null);
@@ -9,7 +9,7 @@ const Onderzoek = () => {
     const [selectedOnderzoek, setSelectedOnderzoek] = useState(null);
     const [isOnderzoekenLoading, setIsOnderzoekenLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const decodedToken = jwt_decode(localStorage.getItem("token"));
+    const decodedToken = jwtDecode(localStorage.getItem("token"));
 
     const openModal = (onderzoek) => {
         setSelectedOnderzoek(onderzoek);
