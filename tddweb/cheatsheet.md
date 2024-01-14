@@ -1,6 +1,6 @@
 # Uitvoeren van de applicatie
 1. Open 2 terminals.
-2. Ga in terminal A naar `TDD/tdd/` en voer de volgende commands uit:
+2. Ga in terminal A naar `TDD/tdd/tddserver` en voer de volgende commands uit:
 
 ```bash
 docker build -t tddserver .
@@ -22,6 +22,12 @@ docker: Error response from daemon: driver failed programming external connectiv
 ```
 ### Oplossing
 Je applicatie draait al, bezoek het. Je kan ook de containers uit je docker verwijderen om de fout te omzijlen.
+
+### Error
+Endpoint verschijnt niet in swagger.
+
+### Oplossing
+Build en run de applicatie vanuit tddserver, niet vanuit tdd.
 
 # Git commands
 ## Lokale main up to date maken met remote main
