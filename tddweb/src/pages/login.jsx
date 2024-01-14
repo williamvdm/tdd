@@ -8,25 +8,34 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleLogin = (event) => {
-        // TODO: UseState gebruiken voor logged in of een context.
+    const handleLogin = async (event) => {
         event.preventDefault();
         console.log('Formulier verzonden');
-        fetch("http://localhost:80/api/User/LoginUser", {
+      
+        try {
+          const response = await fetch("https://ablox.azurewebsites.net/api/User/LoginUser", {
             method: "POST",
             body: JSON.stringify({
-                email: email,
-                password: password
+              email: email,
+              password: password
             }),
             headers: {
-                "Content-type": "application/json; charset=UTF-8"
+              "Content-type": "application/json; charset=UTF-8"
             }
-        }).then(res => {
-            if (res.status == 200) {
-                navigate("/dashboard/onderzoek");
-            }
-        })
-    };
+          });
+      
+          if (response.status === 200) {
+            const { token } = await response.json();
+            window.localStorage.setItem("token", token);
+            navigate("/dashboard/onderzoek");
+          } else {
+            console.error("Login failed");
+          }
+        } catch (error) {
+          console.error("An error occurred during login process:", error);
+        }
+      };
+      
 
     return (
         <div className=''>

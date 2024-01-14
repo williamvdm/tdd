@@ -4,7 +4,7 @@ namespace tdd.Server.Models.DTO
 {
     public class BedrijfModelDTO
     {
-        [Key]
+        [Required]
         public string Bedrijfsmail { get; set; }
 
         [Required]
