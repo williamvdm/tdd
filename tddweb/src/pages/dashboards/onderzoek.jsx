@@ -15,8 +15,6 @@ const Onderzoek = () => {
         decodedToken = jwtDecode(token);
     }
 
-    console.log(decodedToken)
-
     const openModal = (onderzoek) => {
         setSelectedOnderzoek(onderzoek);
         setIsModalOpen(true);
