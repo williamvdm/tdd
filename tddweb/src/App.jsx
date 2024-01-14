@@ -14,6 +14,7 @@ import Chat from './pages/chat.jsx';
 import OnderzoekDetail from './components/OnderzoekDetail.jsx';
 import AuthRoute from './components/AuthRouting.jsx';
 import LogOut from './pages/logout';
+import Admin from './pages/dashboards/admin.jsx';
 
 function App() {
   return (
@@ -29,8 +30,12 @@ function App() {
             element={<AuthRoute element={<Ervaringsdeskundige />} />}
           />
           <Route
-            path="/dashboard/*"
+            path="/dashboard/onderzoek"
             element={<AuthRoute element={<Onderzoek />} />}
+          />
+          <Route
+            path="/dashboard/admin"
+            element={<AuthRoute element={<Admin />} />}
           />
           <Route
             path="/onderzoek/:onderzoekid"

@@ -19,6 +19,16 @@ namespace tdd.Server.Controllers
             _context = context;
         }
 
+        // Route: /api/Bedrijf
+        [HttpGet]
+        [Route("")]
+        public async Task<IActionResult> GetAllBedrijven()
+        {
+            var bedrijven = await _context.Bedrijven.ToListAsync();
+
+            return Ok(bedrijven);
+        }
+
         // Route: /api/Bedrijf/{bedrijfsmail}
         [HttpGet]
         [Route("{bedrijfsmail}")]
