@@ -16,6 +16,14 @@ namespace tdd_stichtingaccessibility.Server
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddCors(
+                options =>
+                {
+                    options.AddPolicy("AllowAll", builder => {
+                        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                    });
+                }
+            );
 
             // TOOD: Authentictie juist implementeren
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -40,6 +48,8 @@ namespace tdd_stichtingaccessibility.Server
             builder.Services.AddDbContext<DatabaseContext>(); // <-- general database context
 
             var app = builder.Build();
+
+            app.UseCors("AllowAll");
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
