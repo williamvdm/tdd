@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import OnderzoekInfoModal from "../../components/OnderzoekInfoModal";
 import { jwtDecode } from "jwt-decode";
+import { Link } from 'react-router-dom';
 
 const Onderzoek = () => {
     const [onderzoeken, setOnderzoeken] = useState(null);
@@ -11,7 +12,7 @@ const Onderzoek = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const token = localStorage.getItem("token")
     let decodedToken = null;
-    if(token) {
+    if (token) {
         decodedToken = jwtDecode(token);
     }
 
@@ -84,11 +85,14 @@ const Onderzoek = () => {
                                 <button
                                     data-modal-target="profile-edit-modal"
                                     data-modal-toggle="profile-edit-modal"
-                                    className="outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue rounded-lg text-sm focus:outline-accessblue"
+                                    className="text-gray-500 outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessblue w-1/7"
                                     aria-label="Bewerk profielgegevens"
                                 >
                                     Bewerk profielgegevens
                                 </button>
+                                <Link to="/logout" className="mt-2 text-gray-500 outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessblue w-1/7">
+                                    Uitloggen
+                                </Link>
                             </>
                         )}
                     </div>

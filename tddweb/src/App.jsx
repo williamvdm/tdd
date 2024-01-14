@@ -13,6 +13,7 @@ import Onderzoek from './pages/dashboards/onderzoek.jsx';
 import Chat from './pages/chat.jsx';
 import OnderzoekDetail from './components/OnderzoekDetail.jsx';
 import AuthRoute from './components/AuthRouting.jsx';
+import LogOut from './pages/logout';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<LogOut />} />
           <Route
             path="/portaal/*"
             element={<AuthRoute element={<Ervaringsdeskundige />} />}
