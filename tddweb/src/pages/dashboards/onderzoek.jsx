@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import OnderzoekInfoModal from "../../components/OnderzoekInfoModal";
-import { jwtDecode } from "jwt-decode";
+import jwt_decode from 'jwt-decode';
 
 const Onderzoek = () => {
     const [onderzoeken, setOnderzoeken] = useState(null);
@@ -9,13 +9,7 @@ const Onderzoek = () => {
     const [selectedOnderzoek, setSelectedOnderzoek] = useState(null);
     const [isOnderzoekenLoading, setIsOnderzoekenLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const token = localStorage.getItem("token");
-    let decodedToken = null;
-
-    if(token) {
-        decodedToken = jwtDecode(token);
-        console.log(decodedToken);
-    }
+    const decodedToken = jwt_decode(localStorage.getItem("token"));
 
     const openModal = (onderzoek) => {
         setSelectedOnderzoek(onderzoek);
@@ -26,10 +20,6 @@ const Onderzoek = () => {
         setSelectedOnderzoek(null);
         setIsModalOpen(false);
     };
-
-    // User state variables
-    const [user, setUser] = useState(null);
-    const [isUserLoading, setIsUserLoading] = useState(true);
 
     // Search input filteren
     useEffect(() => {
@@ -79,8 +69,7 @@ const Onderzoek = () => {
                 <div className="m-2 flex-grow">
                     <div className="flex flex-col items-center p-4 mb-4 rounded-lg bg-white p-6 border border-gray min-w-[300px] w-full">
                         <h2 className="mb-4 text-center">Mijn profiel</h2>
-                        {decodedToken && <img className="w-24" src="https://www.icegif.com/wp-content/uploads/2023/07/icegif-1263.gif"></img>}
-                        {user && (
+                        {decodedToken && (
                             <>
                                 <img
                                     src="https://pbs.twimg.com/profile_images/918270974029697024/lNFaPqEz_400x400.jpg"
