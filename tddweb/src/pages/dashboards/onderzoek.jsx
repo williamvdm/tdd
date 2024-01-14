@@ -9,7 +9,13 @@ const Onderzoek = () => {
     const [selectedOnderzoek, setSelectedOnderzoek] = useState(null);
     const [isOnderzoekenLoading, setIsOnderzoekenLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const decodedToken = jwtDecode(localStorage.getItem("token"));
+    const token = localStorage.getItem("token")
+    let decodedToken = null;
+    if(token) {
+        decodedToken = jwtDecode(token);
+    }
+
+    console.log(decodedToken)
 
     const openModal = (onderzoek) => {
         setSelectedOnderzoek(onderzoek);
@@ -76,7 +82,7 @@ const Onderzoek = () => {
                                     className="rounded-full border border-gray w-40"
                                     alt="Profile"
                                 />
-                                <h3 className="mb-10">{decodedToken.voornaam} {decodedToken.achternaam}</h3>
+                                <h3 className="mb-10">{decodedToken.given_name} {decodedToken.family_name}</h3>
                                 <button
                                     data-modal-target="profile-edit-modal"
                                     data-modal-toggle="profile-edit-modal"
