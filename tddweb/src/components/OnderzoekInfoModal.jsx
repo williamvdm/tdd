@@ -23,7 +23,7 @@ const OnderzoekInfoModal = ({ onderzoek, closeModal }) => {
             aria-labelledby="onderzoekTitel"
             tabIndex="-1"
         >
-            <div ref={modalRef} className="bg-white p-8 rounded-lg lg:w-1/4 lg:h-1/3 md:w-full sm:w-full focus:outline-none relative">
+            <div ref={modalRef} className="bg-white p-8 rounded-lg lg:w-1/4 lg:h-1/3 md:w-full sm:w-full min-h-[400px] min-w-[400px] focus:outline-none relative">
                 <button
                     className="absolute top-2 right-2 text-gray-700 hover:outline-solid hover:outline-2 hover:outline-accessblue rounded-lg transition ease-in-out flex items-center focus:outline-accessblue"
                     onClick={closeModal}

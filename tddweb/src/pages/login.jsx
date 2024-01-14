@@ -29,7 +29,7 @@ function Login() {
             window.localStorage.setItem("token", token);
             navigate("/dashboard/onderzoek");
           } else {
-            console.error("Login failed");
+            console.error("Gebruikersnaam en/of wachtwoord kloppen niet");
           }
         } catch (error) {
           console.error("An error occurred during login process:", error);
