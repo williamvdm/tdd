@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function OnderzoekDetail() {
     const { onderzoekid } = useParams();
@@ -26,22 +27,24 @@ function OnderzoekDetail() {
         }
     }, []);
 
-return (
-    <>
-        {onderzoekData && <h1 className="text-4xl py-10">{onderzoekData.titel}</h1> }
-        <div className="flex flex-col items-center p-4 mb-4 rounded-lg bg-white p-6 border border-gray min-w-[300px] w-full">
-        {isOnderzoekLoading && <img className="w-24" src="https://www.icegif.com/wp-content/uploads/2023/07/icegif-1263.gif"></img>}
-        {onderzoekData && <div className="container">
-            <h3>Beschrijving: {onderzoekData.beschrijving }</h3>
-            {onderzoekData.bedrijfMail && <p>Uitgevoerd door: {onderzoekData.bedrijfMail}</p>}
-            <p>Begindatum: {onderzoekData.begindatum}</p>
-            <p>Einddatum: {onderzoekData.einddatum}</p>
-            <p>Beloning: {onderzoekData.beloningBeschrijving}</p>
-            <button className="mt-10 bg-accessblue outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue text-white p-2 px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessblue">Begin vragenlijst</button>
-            </div>}
-        </div>
-    </>
-);
+    return (
+        <>
+            {onderzoekData && <h1 className="text-4xl py-10">{onderzoekData.titel}</h1>}
+            <div className="flex flex-col items-center p-4 mb-4 rounded-lg bg-white p-6 border border-gray min-w-[300px] w-full">
+                {isOnderzoekLoading && <img className="w-24" src="https://www.icegif.com/wp-content/uploads/2023/07/icegif-1263.gif"></img>}
+                {onderzoekData && <div className="container">
+                    <h3>Beschrijving: {onderzoekData.beschrijving}</h3>
+                    {onderzoekData.bedrijfMail && <p>Uitgevoerd door: {onderzoekData.bedrijfMail}</p>}
+                    <p>Begindatum: {onderzoekData.begindatum}</p>
+                    <p>Einddatum: {onderzoekData.einddatum}</p>
+                    <p>Beloning: {onderzoekData.beloningBeschrijving}</p>
+                    <Link to={`/onderzoek/${onderzoekid}/vragenlijst`} className="mt-10 bg-accessblue outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue text-white p-2 px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessblue">
+                        Begin vragenlijst
+                    </Link>
+                </div>}
+            </div>
+        </>
+    );
 };
 
 export default OnderzoekDetail;

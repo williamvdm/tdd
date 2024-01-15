@@ -12,6 +12,7 @@ import Bedrijven from './pages/bedrijven.jsx'
 import Onderzoek from './pages/dashboards/onderzoek.jsx';
 import Chat from './pages/chat.jsx';
 import OnderzoekDetail from './components/OnderzoekDetail.jsx';
+import OnderzoekVragenlijst from './components/OnderzoekVragenlijst.jsx';
 import AuthRoute from './components/AuthRouting.jsx';
 import LogOut from './pages/logout';
 
@@ -35,6 +36,10 @@ function App() {
           <Route
             path="/onderzoek/:onderzoekid"
             element={<AuthRoute element={<OnderzoekDetail />} />}
+          />
+          <Route
+            path="/onderzoek/:onderzoekid/vragenlijst"
+            element={<AuthRoute element={<OnderzoekVragenlijst />} />}
           />
           <Route
             path="/chat"
