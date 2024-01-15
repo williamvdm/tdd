@@ -10,7 +10,7 @@ namespace tdd.Server.Models
         [MaxLength(128)]
         public string? Beschrijving { get; set; }
 
-        public BedrijfModel? Bedrijf { get; set; }
+        public string? BedrijfMail { get; set; }
 
         [Required]
         public DateOnly Begindatum { get; set; }
@@ -20,17 +20,11 @@ namespace tdd.Server.Models
 
         public LocatieModel? Locatie { get; set; }
 
-        [MaxLength(128)]
-        public char? BeloningBeschrijving { get; set; }
+        public string? BeloningBeschrijving { get; set; }
 
         [Required]
-        [MaxLength(128)]
-        public char Titel { get; set; }
+        public string Titel { get; set; }
 
-        [Required]
-        public OnderzoeksoortModel OnderzoekSoort { get; set; }
-
-        [Required]
         public List<VraagModel>? Vragen { get; set; }
 
         public TrackingGegevensModel? TrackingGegevens { get; set; }

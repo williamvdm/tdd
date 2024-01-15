@@ -1,15 +1,15 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace tdd.Server.Models
+namespace tdd.Server.Models.DTO
 {
-    public class BedrijfModel
+    public class BedrijfModelDTO
     {
-        [Key]
-        public string Bedrijfsmail { get; set;}
+        [Required]
+        public string Bedrijfsmail { get; set; }
 
         [Required]
         public string Password { get; set; }
-        
+
         [Required]
         public string Informatie { get; set; }
 
@@ -23,9 +23,5 @@ namespace tdd.Server.Models
 
         [Required]
         public string Provider { get; set; }
-
-        public List<ContactPersoonModel>? contactpersonen { get; set; }
-
-        public List<OnderzoekModel>? onderzoeken { get; set; }
     }
 }

@@ -1,7 +1,8 @@
 import { useEffect, useRef } from "react";
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const ProfileEditModal = ({ user, closeModal }) => {
+const OnderzoekInfoModal = ({ onderzoek, closeModal }) => {
     const modalRef = useRef(null);
 
     useEffect(() => {
@@ -19,9 +20,10 @@ const ProfileEditModal = ({ user, closeModal }) => {
             className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50"
             role="dialog"
             aria-modal="true"
+            aria-labelledby="onderzoekTitel"
             tabIndex="-1"
         >
-            <div className="bg-white p-8 rounded-lg lg:w-1/4 lg:h-1/3 md:w-full sm:w-full focus:outline-none relative">
+            <div ref={modalRef} className="bg-white p-8 rounded-lg lg:w-1/4 lg:h-1/3 md:w-full sm:w-full min-h-[400px] min-w-[400px] focus:outline-none relative">
                 <button
                     className="absolute top-2 right-2 text-gray-700 hover:outline-solid hover:outline-2 hover:outline-accessblue rounded-lg transition ease-in-out flex items-center focus:outline-accessblue"
                     onClick={closeModal}
@@ -29,14 +31,19 @@ const ProfileEditModal = ({ user, closeModal }) => {
                 >
                     X
                 </button>
-                <h2 className="text-2xl font-bold mb-4">{user.voornaam}</h2>
+                <h2 id="onderzoekTitel" className="text-2xl font-bold mb-4">{onderzoek.titel}</h2>
+                <p id="beschrijving" className="text-gray-800 mb-4">{onderzoek.beschrijving}</p>
+                <p className="text-gray-800">Beloning: {onderzoek.beloningBeschrijving}</p>
+                <p className="text-gray-800">Begindatum: {onderzoek.begindatum}</p>
+                <p className="text-gray-800">Einddatum: {onderzoek.einddatum}</p>
 
-                <button
+                <Link
+                    to={`/onderzoek/${onderzoek.id}`}
                     className="absolute bottom-4 right-4 bg-accessblue outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue text-white p-2 px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessblue"
-                    aria-label={`Sla wijzigingen op`}
+                    aria-label={`Deelnemen aan onderzoek ${onderzoek.titel}`}
                 >
-                    Wijzigingen opslaan
-                </button>
+                    Deelnemen
+                </Link>
             </div>
         </div>
     );

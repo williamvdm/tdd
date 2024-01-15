@@ -11,23 +11,42 @@ import Login from './pages/login.jsx';
 import Bedrijven from './pages/dashboards/bedrijven.jsx';
 import Onderzoek from './pages/dashboards/onderzoek.jsx';
 import Chat from './pages/chat.jsx';
+import OnderzoekDetail from './components/OnderzoekDetail.jsx';
+import AuthRoute from './components/AuthRouting.jsx';
+import LogOut from './pages/logout';
 
 function App() {
   return (
     <>
-      <Nav />
-      <div className="justify-center">
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/dashboard/bedrijven" element={<Bedrijven />} />
-        <Route path="/dashboard/onderzoek" element={<Onderzoek />} />
-        <Route path="/chat" element={<Chat />} />
-      </Routes> 
-      <Footer />
-        </div>
+      <div className="container py-8 justify-center mx-auto">
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<LogOut />} />
+          <Route
+            path="/portaal/*"
+            element={<AuthRoute element={<Ervaringsdeskundige />} />}
+          />
+          <Route
+            path="/dashboard/*"
+            element={<AuthRoute element={<Onderzoek />} />}
+          />
+          <Route 
+            path="/dashboard/bedrijven" 
+            element={<AuthRoute element={<Bedrijven />} />}
+            />
+          <Route
+            path="/onderzoek/:onderzoekid"
+            element={<AuthRoute element={<OnderzoekDetail />} />}
+          />
+          <Route
+            path="/chat"
+            element={<AuthRoute element={<Chat />} />}
+          />
+        </Routes>
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

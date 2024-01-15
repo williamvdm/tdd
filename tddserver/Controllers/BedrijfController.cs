@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using tdd.Server.Context;
 using tdd.Server.Models;
 using tdd.Server.Extensions;
+using tdd.Server.Models.DTO;
 
 namespace tdd.Server.Controllers
 {
@@ -36,7 +37,7 @@ namespace tdd.Server.Controllers
         // Route: /api/Bedrijf/registreer
         [HttpPost]
         [Route("registreer")]
-        public async Task<IActionResult> RegistreerBedrijf(BedrijfModel obj)
+        public async Task<IActionResult> RegistreerBedrijf(BedrijfModelDTO obj)
         {
             if (!ModelState.IsValid)
             {
@@ -45,13 +46,12 @@ namespace tdd.Server.Controllers
 
             BedrijfModel postBedrijf = new BedrijfModel();
             postBedrijf.Provider = obj.Provider;
+            postBedrijf.Password = obj.Password;
             postBedrijf.Bedrijfsmail = obj.Bedrijfsmail;
             postBedrijf.Verified = obj.Verified;
             postBedrijf.Locatie = obj.Locatie;
             postBedrijf.Informatie = obj.Informatie;
-            postBedrijf.contactpersonen = obj.contactpersonen;
             postBedrijf.Link = obj.Link;
-            postBedrijf.onderzoeken = obj.onderzoeken;
 
             if (await _context.Bedrijven.AnyAsync(bedrijf => bedrijf.Bedrijfsmail == obj.Bedrijfsmail))
             {
