@@ -41,7 +41,7 @@ const Onderzoek = () => {
     // TODO Fetch onderzoeken
 
     return (
-        <>
+        <>         
             <div className="container justify-center mx-auto">
                 <h1 className="text-4xl py-10">Bedrijven</h1>
                 <div className="container flex flex-col md:flex-col sm:flex-col lg:flex-row">

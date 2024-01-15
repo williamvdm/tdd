@@ -18,15 +18,12 @@ import LogOut from './pages/logout';
 function App() {
   return (
     <>
+      <Nav/>
       <div className="container py-8 justify-center mx-auto">
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<LogOut />} />
-          <Route
-            path="/portaal/*"
-            element={<AuthRoute element={<Ervaringsdeskundige />} />}
-          />
           <Route
             path="/dashboard/*"
             element={<AuthRoute element={<Onderzoek />} />}

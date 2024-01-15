@@ -6,6 +6,15 @@ import { Link } from 'react-router-dom';
 const Onderzoek = () => {
     const [onderzoeken, setOnderzoeken] = useState(null);
     const [searchInput, setSearchInput] = useState('');
+    const [searchedOnderzoeken, setSearchedOnderzoeken] = useState(null);
+    const [selectedOnderzoek, setSelectedOnderzoek] = useState(null);
+    const [isOnderzoekenLoading, setIsOnderzoekenLoading] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const token = localStorage.getItem("token")
+    let decodedToken = null;
+    if (token) {
+        decodedToken = jwtDecode(token);
+    }
 
     const openModal = (onderzoek) => {
         setSelectedOnderzoek(onderzoek);
@@ -53,7 +62,6 @@ const Onderzoek = () => {
 
     return (
         <>
-              <div className="container justify-center mx-auto">
             <h1 className="text-4xl py-10">Dashboard</h1>
             <div className="container flex flex-col md:flex-col sm:flex-col lg:flex-row">
                 {isModalOpen && (
@@ -128,7 +136,6 @@ const Onderzoek = () => {
                         ))}
                     </div>
                 </div>
-            </div>
             </div>
         </>
     );

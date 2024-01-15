@@ -5,8 +5,8 @@ import banner from '../../assets/banner.jpg';
 function Index() {
   return (
     <>
-{/* Header */}
-<div className="relative">
+      {/* Header */}
+      <div className="relative">
         <img
           src={banner}
           alt="Banner"
@@ -17,9 +17,9 @@ function Index() {
           <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold">Stichting Accessibility</h1>
           <p className="text-lg md:text-xl lg:text-2xl mt-2">Lorem Impsum Ador Levit</p>
         </div>
-      </div>  
-    
-    {/* Portalen */}
+      </div>
+
+      {/* Portalen */}
       <div className='flex justify-center'>
         <div className='w-full mt-10 max-w-screen-lg flex space-x-8'>
           <div className='flex-1 rounded-lg bg-white shadow p-6 hover:shadow-lg transition ease-in-out border-t-4 border-accessblue'>
@@ -53,7 +53,7 @@ function Index() {
       </div>
 
 
-      
+
 
       {/* Missie */}
       <div class="mt-20 bg-gray-900 h-80 flex justify-center items-center z-10">
@@ -67,7 +67,7 @@ function Index() {
         </div>
       </div>
 
-      {/* Achtergrond onderzoeken */} 
+      {/* Achtergrond onderzoeken */}
       <div className="mt-20 py-12 relative z-0">
         <div className="absolute top-0 left-0 w-full h-full bg-blue-200 transform skew-y-1 z-0" style={{ transformOrigin: 'top left' }}></div>
 
@@ -128,7 +128,7 @@ function Index() {
         {/* Call to Action */}
         <div className="mt-20 relative">
           <img src={banner}
- alt="Banner" className="w-full object-cover" style={{ height: '60vh', filter: 'brightness(35%) blur(1px)' }} />
+            alt="Banner" className="w-full object-cover" style={{ height: '60vh', filter: 'brightness(35%) blur(1px)' }} />
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white p-4">
             <div className="flex flex-col items-center">
               <h1 className="text-3xl md:text-6xl font-bold text-center">Stichting Accessibility</h1>
