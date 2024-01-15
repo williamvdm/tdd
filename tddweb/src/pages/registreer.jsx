@@ -28,6 +28,7 @@ function Registreer() {
     const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
     const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
+
     const handleRegistreer = (event) => {
         event.preventDefault();
         console.log('Formulier verzonden met datum:', selectedDate);
@@ -277,7 +278,6 @@ function Registreer() {
                             )}
                         />
                     </div>
-                    
                     
                     <div>
                         <button
