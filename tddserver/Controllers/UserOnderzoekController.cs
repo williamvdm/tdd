@@ -9,6 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Text.Json;
+using System.Net.Http.Json;
 
 namespace tdd.Server.Controllers
 {
@@ -114,14 +115,36 @@ namespace tdd.Server.Controllers
         [Route("get/UserOnderzoek/GetUsers/{onderzoekid}")]
         public async Task<IActionResult> GetUsersForOnderzoek([FromRoute] string onderzoekid)
         {
-            var onderzoek = await _context.Onderzoeken.Include(o => o.Deelnemers).Where((onderzoek) => onderzoek.Id.ToString() == onderzoekid).SingleOrDefaultAsync();
+            var deelnemers = new List<UserModel>();
+            var users = await _context.Users.ToListAsync();
 
-            if (onderzoek == null)
+            JsonSerializerOptions options = new JsonSerializerOptions
             {
-                return NotFound("Onderzoek niet gevonden.");
+                ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve
+            };
+
+            foreach (var currentUser in users)
+            {
+                var user = await _context.Users.Include(o => o.Onderzoeken).Where((user) => user.Id.ToString() == currentUser.Id.ToString()).SingleOrDefaultAsync();
+                
+                if (user == null)
+                {
+                    continue;
+                }
+                if (user.Onderzoeken.Exists((onderzoek) => onderzoek.Id.ToString() == onderzoekid))
+                {
+                    deelnemers.Add(user);
+                }
             }
 
-            return Ok(onderzoek.Deelnemers);
+            var serializedOnderzoekenUsers = JsonSerializer.Serialize(deelnemers, options);
+            
+            return new ContentResult
+            {
+                Content = serializedOnderzoekenUsers,
+                ContentType = "application/json",
+                StatusCode = 200
+            };
         }
 
         // Route: /api/UserOnderzoek/GetOnderzoeken/{userid}/{onlyactive}
