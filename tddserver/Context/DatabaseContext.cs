@@ -27,7 +27,7 @@ namespace tdd.Server.Context
         public DbSet<UserModel> Deelnemers {get; set;}
         public DbSet<OpdrachtModel> Opdrachten { get; set; }
         public DbSet<VraagModel> Vragen {get;set; }
-        public DbSet<UserModel> Users { get; set; }
+        public virtual DbSet<UserModel> Users { get; set; }
         public DbSet<AandoeningModel> Aandoeningen { get; set; }
         public DbSet<BeperkingModel> Beperkingen {get; set;}
         public DbSet<BeschikbaarheidModel> Beschikbaarheid {get; set;}

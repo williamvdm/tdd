@@ -4,7 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using tdd.Server.Context;
 
-namespace tdd_stichtingaccessibility.Server
+namespace tdd.Server
 {
     public class Program
     {
@@ -19,7 +19,8 @@ namespace tdd_stichtingaccessibility.Server
             builder.Services.AddCors(
                 options =>
                 {
-                    options.AddPolicy("AllowAll", builder => {
+                    options.AddPolicy("AllowAll", builder =>
+                    {
                         builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
                     });
                 }
