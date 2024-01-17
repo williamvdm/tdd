@@ -1,13 +1,24 @@
 # Uitvoeren van de applicatie
-1. Open 2 terminals.
-2. Ga in terminal A naar `TDD/tdd/` en voer de volgende commands uit:
+1. Open de map TDD in Visual Studio Code.
+2. Kies bovenaan voor `Terminal`.
+3. Kies voor `New Terminal`.
+4. Typ de volgende instructies uit:
+5. Mocht je nog niet in tddweb zijn, type dan:
 
 ```bash
+cd tddweb
+```
+
+6. Type vervolgens:
+
+```bash
+npm i
+npm run dev
 docker build -t tddserver .
 docker run -p 80:8080 tddserver --environment development
 ```
 
-3. Ga in terminal B naar `TDD/tdd/tddweb` en voer de volgende command uit:
+7. Ga in terminal B naar `TDD/tdd/tddweb` en voer de volgende command uit:
 
 ```bash
 npm run dev
