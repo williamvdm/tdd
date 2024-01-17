@@ -12,7 +12,7 @@ namespace tdd.Server.Controllers
     [ApiController]
     public class BedrijfController : ControllerBase
     {
-        private readonly DatabaseContext _context;
+        private readonly DbContextInterface _context;
 
         public BedrijfController(DatabaseContext context)
         {

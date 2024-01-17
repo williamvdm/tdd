@@ -1,4 +1,4 @@
-namespace tdd_stichtingaccessibility.Server
+namespace tdd.Server
 {
     public class WeatherForecast
     {
