@@ -11,34 +11,21 @@ import Ervaringsdeskundige from './pages/ervaringsdeskundige.jsx';
 import Bedrijven from './pages/bedrijven.jsx'
 import Onderzoek from './pages/dashboards/onderzoek.jsx';
 import Chat from './pages/chat.jsx';
-<<<<<<< HEAD
 import Registreer from './pages/registreer.jsx';
-=======
 import OnderzoekDetail from './pages/dashboards/onderzoek/OnderzoekDetail.jsx';
 import OnderzoekVragenlijst from './pages/dashboards/onderzoek/OnderzoekVragenlijst.jsx';
 import AuthRoute from './components/AuthRouting.jsx';
 import LogOut from './pages/logout';
->>>>>>> develop
 
 function App() {
   return (
     <>
       <Nav />
-<<<<<<< HEAD
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/registreer" element={<Registreer />} />
-        <Route path="/portaal/ervaringsdeskundige" element={<Ervaringsdeskundige />} />
-        <Route path="/portaal/bedrijven" element={<Bedrijven />} />
-        <Route path="/portaal/onderzoek" element={<Onderzoek />} />
-        <Route path="/chat" element={<Chat />} />
-      </Routes>
-=======
       <div className="container py-8 justify-center mx-auto">
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/registreer" element={<Registreer />} />
           <Route path="/logout" element={<LogOut />} />
           <Route
             path="/portaal/*"
@@ -62,7 +49,6 @@ function App() {
           />
         </Routes>
       </div>
->>>>>>> develop
     </>
   );
 }

@@ -20,22 +20,69 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 function Registreer() {
-    const [gebruikersnaam, setGebruikersnaam] = useState('');
-    const [wachtwoord, setWachtwoord] = useState('');
     const [showPassword, setShowPassword] = useState(false);  
     const [selectedDate, handleDateChange] = useState(null);
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
     const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
     const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
+    const [achternaam, setAchternaam] = useState('');
+    const [voornaam, setVoornaamn] = useState('');
+    const [password, setPassword] = useState('');
+    const [telefoon, setTelefoon] = useState('');
+    const [email, setEmail] = useState('');
+    const [toestemmingBenadering, setToestemmingBenadering] = useState(true);
+    const [voorkeurBenadering, setVoorkeurBenadering] = useState('');
+    const [aandoening, setAandoening] = useState('');
+    const [beperking, setBeperking] = useState('');
+    const [adres, setAdres] = useState('');
 
-    const handleRegistreer = (event) => {
+    const handleRegistreer = async (event) => {
         event.preventDefault();
-        console.log('Formulier verzonden met datum:', selectedDate);
+        console.log('Formulier verzonden');
+      
+        try {
+          const response = await fetch("https://ablox.azurewebsites.net/api/User/RegisterUser", {
+            method: "POST",
+            body: JSON.stringify({
+                obj: {}, // of alles in obj plaatsen of obj niet als requirement verwachten aan de API kant
+                adres: adres,
+                telefoon: telefoon,
+                toestemmingBenadering: toestemmingBenadering,
+                voorkeurBenadering: voorkeurBenadering,
+                achternaam: achternaam, 
+                voornaam: voornaam,
+                email: email, 
+                aandoening: aandoening,
+                beperking: beperking,
+                identityHash: 'a', // moet nog een default voor komen 
+                password: password, 
+                provider: 'a', // moet nog een default voor komen 
+                role: 'a', // moet nog een default voor komen 
+            }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8"
+            }
+          });
+      
+          if (response.status === 200) {
+            const { token } = await response.json();
+            window.localStorage.setItem("token", token);
+            navigate("/dashboard/onderzoek");
+          } else {
+            console.error("Gebruikersnaam en/of wachtwoord kloppen niet");
+          }
+        } catch (error) {
+          console.error("An error occurred during login process:", error);
+        }
     };
 
     const handleTogglePassword = () => {
         setShowPassword(!showPassword);  
+    };
+
+    const handleToestemmingBenadering = (event) => {
+        setToestemmingBenadering(event.target.checked);  
     };
 
     const beperkingen = [
@@ -67,6 +114,7 @@ function Registreer() {
                                 aria-label='Email verplicht'
                                 className='hover:border-b-4 border-orange-500 peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] focus:border-gray-900'
                                 placeholder=''
+                                onChange={(event) => setEmail(event.target.value)}
                             />
                             <label
                                 htmlFor='email'
@@ -82,9 +130,10 @@ function Registreer() {
                                 type={showPassword ? "text" : "password"}
                                 className="hover:border-b-4 border-orange-500 peer h-full w-full rounded-[7px] border border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                                 placeholder=" "
+                                onChange={(event) => setPassword(event.target.value)}
                             />
                             <label
-                                htmlFor='wachtwoord'
+                                htmlFor='password'
                                 aria-required='true'
                                 className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
                                 Wachtwoord (verplicht)
@@ -107,6 +156,7 @@ function Registreer() {
                                 aria-label='voornaam verplicht'
                                 className='hover:border-b-4 border-orange-500 peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] focus:border-gray-900'
                                 placeholder=''
+                                onChange={(event) => setVoornaamn(event.target.value)}
                             />
                             <label
                                 htmlFor='voornaam'
@@ -122,6 +172,7 @@ function Registreer() {
                                 aria-label='achternaam'
                                 className='hover:border-b-4 border-orange-500 peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] focus:border-gray-900'
                                 placeholder=''
+                                onChange={(event) => setAchternaam(event.target.value)}
                             />
                             <label
                                 htmlFor='achternaam'
@@ -140,6 +191,7 @@ function Registreer() {
                                 aria-label='postcode'
                                 className='hover:border-b-4 border-orange-500 peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] focus:border-gray-900'
                                 placeholder=''
+                                onChange={(event) => setAdres(event.target.value)}
                             />
                             <label
                                 htmlFor='postcode'
@@ -155,6 +207,7 @@ function Registreer() {
                                 aria-label='telefoonnummer'
                                 className='hover:border-b-4 border-orange-500 peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] focus:border-gray-900'
                                 placeholder=''
+                                onChange={(event) => setTelefoon(event.target.value)}
                             />
                             <label
                                 htmlFor='telefoonnummer'
@@ -189,7 +242,7 @@ function Registreer() {
                         <div className="shadow bg-orange-100 rounded-md relative flex flex-col md:flex-row w-full md:w-1/2 min-w-[200px] pb-0">
                             <h2 className='text-slate-900 mb-4 md:mb-0 md:mr-4'>Mogen commerciële partijen je benaderen?</h2>
                             <div className='flex'>
-                                <Checkbox {...label} defaultChecked color="success" />
+                                <Checkbox {...label} checked={toestemmingBenadering} color="success" onChange={handleToestemmingBenadering}/>
                             </div>
                         </div>
                     </div>
@@ -203,6 +256,7 @@ function Registreer() {
                                     row
                                     aria-labelledby="demo-row-radio-buttons-group-label"
                                     name="row-radio-buttons-group"
+                                    onChange={(event) => setVoorkeurBenadering(event.target.value)}
                                 >
                                     <FormControlLabel value="Telefonisch" control={<Radio />} label="Telefonisch" />
                                     <FormControlLabel value="Via portal" control={<Radio />} label="Via portal" />
@@ -242,6 +296,7 @@ function Registreer() {
                             renderInput={(params) => (
                                 <TextField {...params} label="Beperkingen" placeholder="" />
                             )}
+                            onChange={(event, value) => setBeperking(value)}
                         />
                     </div>
 
@@ -276,6 +331,7 @@ function Registreer() {
                             renderInput={(params) => (
                                 <TextField {...params} label="Beperkingen" placeholder="" />
                             )}
+                            onChange={(event, value) => setAandoening(value)}
                         />
                     </div>
                     
