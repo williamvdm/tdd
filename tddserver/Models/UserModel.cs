@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace tdd.Server.Models
 {
@@ -46,5 +47,6 @@ namespace tdd.Server.Models
 
         public LocatieModel Adres { get; set; }
 
+        public List<OnderzoekModel> Onderzoeken { get; set; }
     }
 }

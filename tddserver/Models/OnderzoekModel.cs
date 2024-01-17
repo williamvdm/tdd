@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace tdd.Server.Models
 {
@@ -30,5 +31,7 @@ namespace tdd.Server.Models
         public TrackingGegevensModel? TrackingGegevens { get; set; }
         
         public OpdrachtModel? Opdracht { get; set; }
+
+        public List<UserModel> Deelnemers { get; set; }
     }
 }
