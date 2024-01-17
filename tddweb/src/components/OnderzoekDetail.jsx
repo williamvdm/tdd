@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaCalendarAlt, FaGift, FaInfoCircle, FaSpinner } from 'react-icons/fa';
 
 function OnderzoekDetail() {
     const { onderzoekid } = useParams();
@@ -33,7 +32,6 @@ function OnderzoekDetail() {
             {onderzoekData && (
                 <>
                     <div className="mb-4 flex items-center">
-                        <FaInfoCircle className="text-3xl mr-2" />
                         <div>
                             <h1 className="text-4xl mb-2">{onderzoekData.titel}</h1>
                             {isOnderzoekLoading && (
@@ -44,7 +42,6 @@ function OnderzoekDetail() {
                     <div>
                         <div className="mb-4">
                             <div className="flex items-center">
-                                <FaInfoCircle className="mr-2" />
                                 <strong>Beschrijving:</strong>
                             </div>
                             {onderzoekData.beschrijving}
@@ -52,7 +49,6 @@ function OnderzoekDetail() {
                         {onderzoekData.bedrijfMail && (
                             <div className="mb-4">
                                 <div className="flex items-center">
-                                    <FaInfoCircle className="mr-2" />
                                     <strong>Uitgevoerd door:</strong>
                                 </div>
                                 {onderzoekData.bedrijfMail}
@@ -60,21 +56,18 @@ function OnderzoekDetail() {
                         )}
                         <div className="mb-4">
                             <div className="flex items-center">
-                                <FaCalendarAlt className="mr-2" />
                                 <strong>Begindatum:</strong>
                             </div>
                             {onderzoekData.begindatum}
                         </div>
                         <div className="mb-4">
                             <div className="flex items-center">
-                                <FaCalendarAlt className="mr-2" />
                                 <strong>Einddatum:</strong>
                             </div>
                             {onderzoekData.einddatum}
                         </div>
                         <div className="mb-4">
                             <div className=" flex items-center">
-                                <FaGift className="mr-2" />
                                 <strong>Beloning:</strong>
                             </div>
                             {onderzoekData.beloningBeschrijving}
