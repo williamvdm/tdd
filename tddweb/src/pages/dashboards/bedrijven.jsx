@@ -37,6 +37,7 @@ const Onderzoek = () => {
         }
     }, []);
 
+
     // TODO Fetch onderzoeken
 
     return (
