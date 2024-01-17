@@ -31,6 +31,10 @@ namespace tdd.Server.Controllers
         {
             var locaties = _context.Locaties.ToList();
 
+            if(locaties == null) {
+                return NotFound("Geen locatie gevonden");
+            }
+
             return Ok(locaties);
         }
     }

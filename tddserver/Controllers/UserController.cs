@@ -34,6 +34,9 @@ namespace tdd.Server.Controllers
 
             var users = await _context.Users.ToListAsync();
 
+            if(users == null) {
+                return NotFound("Geen gebruikers gevonden");
+            }
 
             return Ok(users);
         }
@@ -49,7 +52,7 @@ namespace tdd.Server.Controllers
 
             if (user == null)
             {
-                return BadRequest("Gebruiker bestaat niet");
+                return NotFound("Gebruiker bestaat niet");
             }
 
             return Ok(user);
@@ -67,36 +70,34 @@ namespace tdd.Server.Controllers
 
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == obj.Email && u.Password == obj.Password);
 
-            if (user != null)
-            {
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes("Xëí²]Ã½ö3ð,åòiôñÐã:ßn¦ét¬ÆP)Æ6|4RÐ¤²ónóÿR[8ÔÃø¯®?1/¿sÜíÿmN`Å/e!Ïf§6à2úMÏÉÒì¡.tpÁH+XZ°úwk5Vóíìò¯±÷elBÖâ·mtTÁÎq(êï`¥Ñ-î¨èVOÙñÂX©8v");
+            // If statement omgedraaid om het gelijk te maken met alle andere NotFound/BadRequest checks
+            if (user == null) {
+                return NotFound("Gebruikersnaam of wachtwoord is ongeldig.");
+            }
 
-                var tokenDescriptor = new SecurityTokenDescriptor
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes("Xëí²]Ã½ö3ð,åòiôñÐã:ßn¦ét¬ÆP)Æ6|4RÐ¤²ónóÿR[8ÔÃø¯®?1/¿sÜíÿmN`Å/e!Ïf§6à2úMÏÉÒì¡.tpÁH+XZ°úwk5Vóíìò¯±÷elBÖâ·mtTÁÎq(êï`¥Ñ-î¨èVOÙñÂX©8v");
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
                 {
-                    Subject = new ClaimsIdentity(new Claim[]
-                    {
-                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                        new Claim(ClaimTypes.Email, user.Email),
-                        new Claim(ClaimTypes.GivenName, user.Voornaam),
-                        new Claim(ClaimTypes.Surname, user.Achternaam),
-                        new Claim(ClaimTypes.MobilePhone, user.Telefoon ?? ""),
-                        new Claim(ClaimTypes.DateOfBirth, user.IsAdult ? "Adult" : "NotAdult"),
-                        new Claim(ClaimTypes.Role, user.Role),
-                    }),
-                    Expires = DateTime.UtcNow.AddHours(1),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-                };
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.GivenName, user.Voornaam),
+                    new Claim(ClaimTypes.Surname, user.Achternaam),
+                    new Claim(ClaimTypes.MobilePhone, user.Telefoon ?? ""),
+                    new Claim(ClaimTypes.DateOfBirth, user.IsAdult ? "Adult" : "NotAdult"),
+                    new Claim(ClaimTypes.Role, user.Role),
+                }),
+                Expires = DateTime.UtcNow.AddHours(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
 
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-                var tokenString = tokenHandler.WriteToken(token);
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = tokenHandler.WriteToken(token);
 
-                return Ok(new { token = tokenString });
-            }
-            else
-            {
-                return BadRequest("Gebruikersnaam of wachtwoord is ongeldig.");
-            }
+            return Ok(new { token = tokenString });
         }
 
         // Route: /api/User/RegisterUser
