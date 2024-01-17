@@ -1,7 +1,9 @@
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Nav() {
+function Nav() {
     return (
+<<<<<<< HEAD
         <nav class="shadow p-4">
             <div class="container mx-auto flex justify-between items-center">
                 <Link to="/" className="text-black text-lg font-bold text-2xl">Ablox</Link>
@@ -18,7 +20,16 @@ export default function Nav() {
                     </li>
                     <li><Link to="/chat" className="text-black hover:underline-offset-8 hover:underline">Chat</Link></li>
                 </ul>
+=======
+        <nav className="shadow-md mb-6 p-4 bg-accessblue">
+            <div className="container mx-auto flex justify-between items-center">
+                <Link to="/" className="text-white text-lg font-bold text-2xl" aria-label="Logo van Ablox">
+                    Ablox
+                </Link>
+>>>>>>> develop
             </div>
         </nav>
     );
-}
+};
+
+export default Nav;

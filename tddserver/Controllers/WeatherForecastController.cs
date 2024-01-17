@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace tdd_stichtingaccessibility.Server.Controllers
+namespace tdd.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]

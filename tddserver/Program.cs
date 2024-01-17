@@ -4,7 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using tdd.Server.Context;
 
-namespace tdd_stichtingaccessibility.Server
+namespace tdd.Server
 {
     public class Program
     {
@@ -16,6 +16,15 @@ namespace tdd_stichtingaccessibility.Server
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddCors(
+                options =>
+                {
+                    options.AddPolicy("AllowAll", builder =>
+                    {
+                        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                    });
+                }
+            );
 
             // TOOD: Authentictie juist implementeren
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -38,9 +47,10 @@ namespace tdd_stichtingaccessibility.Server
 
             // Database contexts
             builder.Services.AddDbContext<DatabaseContext>(); // <-- general database context
-            builder.Services.AddDbContext<UserContext>(); // <-- context specifiek voor Users en authenticatie
 
             var app = builder.Build();
+
+            app.UseCors("AllowAll");
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
