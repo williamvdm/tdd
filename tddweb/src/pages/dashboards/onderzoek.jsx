@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import OnderzoekInfoModal from "../../components/OnderzoekInfoModal";
+import ProfileEditModal from "../../components/ProfileEditModal";
 import { jwtDecode } from "jwt-decode";
 import { Link } from 'react-router-dom';
 
-const Onderzoek = () => {
+function Onderzoek() {
     const [onderzoeken, setOnderzoeken] = useState(null);
     const [searchInput, setSearchInput] = useState('');
     const [searchedOnderzoeken, setSearchedOnderzoeken] = useState(null);
     const [selectedOnderzoek, setSelectedOnderzoek] = useState(null);
     const [isOnderzoekenLoading, setIsOnderzoekenLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isProfileEditModalOpen, setIsProfileEditModalOpen] = useState(false);
+
     const token = localStorage.getItem("token")
     let decodedToken = null;
     if (token) {
@@ -24,6 +27,14 @@ const Onderzoek = () => {
     const closeModal = () => {
         setSelectedOnderzoek(null);
         setIsModalOpen(false);
+    };
+
+    const openProfileEditModal = () => {
+        setIsProfileEditModalOpen(true);
+    };
+
+    const closeProfileEditModal = () => {
+        setIsProfileEditModalOpen(false);
     };
 
     // Search input filteren
@@ -70,6 +81,13 @@ const Onderzoek = () => {
                         closeModal={closeModal}
                     />
                 )}
+
+                {isProfileEditModalOpen && (
+                    <ProfileEditModal
+                        user={decodedToken}
+                        closeModal={closeProfileEditModal}
+                    />
+                )}
                 {/* Profiel container */}
                 <div className="m-2 flex-grow">
                     <div className="flex flex-col items-center p-4 mb-4 rounded-lg bg-white p-6 border border-gray min-w-[300px] w-full">
@@ -83,8 +101,7 @@ const Onderzoek = () => {
                                 />
                                 <h3 className="mb-10">{decodedToken.given_name} {decodedToken.family_name}</h3>
                                 <button
-                                    data-modal-target="profile-edit-modal"
-                                    data-modal-toggle="profile-edit-modal"
+                                    onClick={openProfileEditModal}
                                     className="text-gray-500 outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessblue w-1/7"
                                     aria-label="Bewerk profielgegevens"
                                 >

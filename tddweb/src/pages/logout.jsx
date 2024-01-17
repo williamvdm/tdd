@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-const LogOut = () => {
+export default function LogOut() {
   useEffect(() => {
     localStorage.removeItem('token');
     window.location.href = '/';
@@ -8,5 +8,3 @@ const LogOut = () => {
 
   return null;
 };
-
-export default LogOut;

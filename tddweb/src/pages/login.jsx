@@ -2,7 +2,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 
-function Login() {
+export default function Login() {
     let navigate = useNavigate();
     
     const [email, setEmail] = useState('');
@@ -103,4 +103,3 @@ function Login() {
     );
 }
 
-export default Login;

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Index from "../pages";
 
 export default function OnderzoekVragenlijst() {
     const { onderzoekid } = useParams();

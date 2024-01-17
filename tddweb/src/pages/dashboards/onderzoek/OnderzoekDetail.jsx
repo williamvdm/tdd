@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function OnderzoekDetail() {
+export default function OnderzoekDetail() {
     const { onderzoekid } = useParams();
     const [onderzoekData, setOnderzoekData] = useState(null)
     const [isOnderzoekLoading, setIsOnderzoekLoading] = useState(true)
@@ -86,5 +86,3 @@ function OnderzoekDetail() {
         </div>
     );
 };
-
-export default OnderzoekDetail;
