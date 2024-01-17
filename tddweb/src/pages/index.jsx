@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function Index() {
+export default function Index() {
   return (
     <>
       <div className='flex justify-center'>
@@ -41,5 +41,3 @@ function Index() {
     </>
   );
 };
-
-export default Index;
