@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Index from "../pages";
 
 export default function OnderzoekVragenlijst() {
     const { onderzoekid } = useParams();
     const [onderzoekVragen, setOnderzoekVragen] = useState();
+    const [antwoorden, setAntwoorden] = useState([]);
 
     useEffect(() => {
         try {
@@ -26,10 +28,10 @@ export default function OnderzoekVragenlijst() {
     return (
         <>
             {onderzoekVragen == null && <h1>Vragen laden...</h1>}
-            {onderzoekVragen && onderzoekVragen.map((vraag) => (
+            {onderzoekVragen && onderzoekVragen.map((vraag, index) => (
                 <>
                     <div className="card shadow-md p-4 mb-4 rounded-lg bg-white p-6 border border-gray transition ease-in-out min-w-full" key={vraag.vraagID}>
-                        <h3 className="text-2xl py-10">{vraag.vraag}</h3>
+                        <h3 className="text-2xl py-10">{index + 1}. {vraag.vraag}</h3>
                         <form className="flex flex-row p-4 mb-4 rounded-lg bg-white p-6 border border-gray w-full">
                             <input
                                 id={vraag.vraagid}
