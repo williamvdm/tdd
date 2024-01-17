@@ -47,7 +47,7 @@ namespace tdd.Server.Controllers
 
             if (user == null)
             {
-                return BadRequest("Gebruiker bestaat niet");
+                return NotFound("Gebruiker bestaat niet");
             }
 
             return Ok(user);

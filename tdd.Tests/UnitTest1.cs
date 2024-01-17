@@ -101,8 +101,19 @@ public class UserControllerTests
 
         var db = new FakeDb(options);
         var controller = new UserController(db);
-        var user = new UserModel { Id = Guid.NewGuid(), Email = "test@example.com" };
+        var user = new UserModel {
+            Id = Guid.NewGuid(),
+            Email = "iemand@example.com",
+            Voornaam = "Piet",
+            Achternaam = "Krediet",
+            IdentityHash = "woont hier niet",
+            Password = "passkees",
+            Provider = "google",
+            Role = "ervaringsdeskundige"
+        };
+
         db.Users.Add(user);
+        await db.SaveChangesAsync();
 
         // Act
         IActionResult result = await controller.GetUserByIdAsync(user.Id.ToString());
@@ -130,6 +141,6 @@ public class UserControllerTests
         IActionResult result = await controller.GetUserByIdAsync(Guid.NewGuid().ToString());
 
         // Assert
-        Assert.IsType<BadRequestObjectResult>(result);
+        Assert.IsType<NotFoundObjectResult>(result);
     }
 }
