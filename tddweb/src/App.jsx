@@ -15,6 +15,7 @@ import OnderzoekDetail from './pages/dashboards/onderzoek/OnderzoekDetail.jsx';
 import OnderzoekVragenlijst from './pages/dashboards/onderzoek/OnderzoekVragenlijst.jsx';
 import AuthRoute from './components/AuthRouting.jsx';
 import LogOut from './pages/logout';
+import Registreer from './pages/registreer.jsx';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<LogOut />} />
+          <Route path="/registreer" element={<Registreer />} />
           <Route
             path="/portaal/*"
             element={<AuthRoute element={<Ervaringsdeskundige />} />}
