@@ -161,6 +161,10 @@ namespace tdd.Server.Controllers
                 .Where(onderzoek => onderzoek.BedrijfMail == bedrijfsmail)
                 .ToListAsync();
 
+            if(onderzoeken == null) {
+                return NotFound("Bedrijf niet gevonden");
+            }
+
             return Ok(onderzoeken);
         }
 
@@ -171,6 +175,10 @@ namespace tdd.Server.Controllers
         {
             var contactpersonen = _context.Onderzoeken.Where(onderzoek => onderzoek.Id.ToString() == id).ToList();
 
+            if(contactpersonen == null) {
+                return NotFound("Contactpersoon niet gevonden");
+            }
+
             return Ok(contactpersonen);
         }
 
@@ -180,6 +188,10 @@ namespace tdd.Server.Controllers
         public async Task<IActionResult> GetTrackingGegevens([FromRoute] string id)
         {
             var onderzoek = _context.Onderzoeken.Where(onderzoek => onderzoek.Id.ToString() == id).First();
+
+            if(onderzoek == null) {
+                return NotFound("Tracking gegevens niet gevonden");
+            }
 
             return Ok(onderzoek.TrackingGegevens?.Data);
         }
@@ -192,6 +204,10 @@ namespace tdd.Server.Controllers
             var vragen = _context.Vragen
                 .Where(vraag => vraag.OnderzoekID.Equals(Guid.Parse(onderzoekid)))
                 .ToList();
+
+            if(vragen == null) {
+                return NotFound("Vragen niet gevonden");
+            }
 
             return Ok(vragen);
         }

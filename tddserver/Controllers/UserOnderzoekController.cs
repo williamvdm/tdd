@@ -123,6 +123,10 @@ namespace tdd.Server.Controllers
                 ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve
             };
 
+            if(!users.Any()) {
+                return NotFound("Geen users gevonden");
+            }
+
             foreach (var currentUser in users)
             {
                 var user = await _context.Users.Include(o => o.Onderzoeken).Where((user) => user.Id.ToString() == currentUser.Id.ToString()).SingleOrDefaultAsync();
@@ -135,6 +139,10 @@ namespace tdd.Server.Controllers
                 {
                     deelnemers.Add(user);
                 }
+            }
+
+            if(!deelnemers.Any()) {
+                return NotFound("Geen deelnemers gevonden");
             }
 
             var serializedOnderzoekenUsers = JsonSerializer.Serialize(deelnemers, options);
