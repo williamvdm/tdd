@@ -15,6 +15,7 @@ import OnderzoekDetail from './pages/dashboards/onderzoek/OnderzoekDetail.jsx';
 import OnderzoekVragenlijst from './pages/dashboards/onderzoek/OnderzoekVragenlijst.jsx';
 import AuthRoute from './components/AuthRouting.jsx';
 import LogOut from './pages/logout';
+import Bedrijf from './pages/dashboards/bedrijf.jsx';
 
 function App() {
   return (
@@ -26,11 +27,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<LogOut />} />
           <Route
-            path="/portaal/*"
-            element={<AuthRoute element={<Ervaringsdeskundige />} />}
-          />
-          <Route
-            path="/dashboard/*"
+            path="/dashboard/onderzoek"
             element={<AuthRoute element={<Onderzoek />} />}
           />
           <Route
@@ -42,8 +39,8 @@ function App() {
             element={<AuthRoute element={<OnderzoekVragenlijst />} />}
           />
           <Route
-            path="/chat"
-            element={<AuthRoute element={<Chat />} />}
+            path="/dashboard/bedrijf"
+            element={<AuthRoute element={<Bedrijf />} />}
           />
         </Routes>
       </div>

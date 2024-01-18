@@ -21,10 +21,10 @@ export default function Index() {
             <p className='m-2 mb-8'>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
             </p>
-            <a
-              className='w-full bg-accessorange text-white py-2 px-4 rounded outline-none hover:outline-solid hover:outline-2 hover:outline-accessorange'>
-              Naar bedrijvenportaal
-            </a>
+            <Link to="/dashboard/bedrijf"
+              className='w-full bg-accessorange hover: text-white py-2 px-4 rounded outline-none hover:outline-solid hover:outline-2 hover:outline-accessorange'>
+              Naar onderzoeksportaal
+            </Link>
           </div>
           <div className='flex-1 rounded-lg bg-white shadow p-6 hover:shadow-lg transition ease-in-out border-t-4 border-accessgreen'>
             <h1 className='text-xl m-2 font-bold text-center mb-8'>Beheerdersportaal</h1>

@@ -157,7 +157,9 @@ namespace tdd.Server.Controllers
         [Route("bedrijf/{bedrijfsmail}")]
         public async Task<IActionResult> GetOnderzoekenVanBedrijf([FromRoute] string bedrijfsmail)
         {
-            var onderzoeken = _context.Onderzoeken.Where(onderzoek => onderzoek.BedrijfMail == bedrijfsmail).ToListAsync();
+            var onderzoeken = await _context.Onderzoeken
+                .Where(onderzoek => onderzoek.BedrijfMail == bedrijfsmail)
+                .ToListAsync();
 
             return Ok(onderzoeken);
         }
