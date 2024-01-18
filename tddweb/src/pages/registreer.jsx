@@ -46,15 +46,17 @@ function Registreer() {
             method: "POST",
             body: JSON.stringify({
                 obj: {}, // of alles in obj plaatsen of obj niet als requirement verwachten aan de API kant
-                adres: adres,
+                adres: {
+                    PostCode: adres
+                },
                 telefoon: telefoon,
                 toestemmingBenadering: toestemmingBenadering,
                 voorkeurBenadering: voorkeurBenadering,
                 achternaam: achternaam, 
                 voornaam: voornaam,
                 email: email, 
-                aandoening: aandoening,
-                beperking: beperking,
+                aandoening: [],
+                beperking: [],
                 identityHash: 'a', // moet nog een default voor komen 
                 password: password, 
                 provider: 'a', // moet nog een default voor komen 

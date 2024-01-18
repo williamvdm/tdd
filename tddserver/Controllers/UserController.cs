@@ -100,7 +100,7 @@ namespace tdd.Server.Controllers
         // Route: /api/User/RegisterUser
         [HttpPost]
         [Route("RegisterUser")]
-        public async Task<IActionResult> RegisterUserAsync(UserModel obj)
+        public async Task<IActionResult> RegisterUserAsync(UserModel user)
         {
             if (!ModelState.IsValid)
             {
@@ -109,12 +109,12 @@ namespace tdd.Server.Controllers
 
             UserModel postUser = new UserModel();
             postUser.Id = Guid.NewGuid();
-            postUser.Achternaam = obj.Achternaam;
-            postUser.Voornaam = obj.Voornaam;
-            postUser.Password = obj.Password;
-            postUser.Telefoon = obj.Telefoon ?? "";
+            postUser.Achternaam = user.Achternaam;
+            postUser.Voornaam = user.Voornaam;
+            postUser.Password = user.Password;
+            postUser.Telefoon = user.Telefoon ?? "";
 
-            if (await _context.Users.AnyAsync(user => user.Email == obj.Email))
+            if (await _context.Users.AnyAsync(user => user.Email == user.Email))
             {
                 return BadRequest("Email bestaat al");
             }
@@ -124,23 +124,23 @@ namespace tdd.Server.Controllers
                 return BadRequest("Voornaam-achternaam combinatie bestaat al, dus als je niet Jan Jansen heet, hoepel dan maar op");
             }
 
-            postUser.Email = obj.Email;
-            postUser.ToestemmingBenadering = obj.ToestemmingBenadering;
-            postUser.Provider = obj.Provider;
-            postUser.IdentityHash = obj.IdentityHash;
-            postUser.Role = obj.Role;
+            postUser.Email = user.Email;
+            postUser.ToestemmingBenadering = user.ToestemmingBenadering;
+            postUser.Provider = user.Provider;
+            postUser.IdentityHash = user.IdentityHash;
+            postUser.Role = user.Role;
 
-            if (obj.IsAdult || obj.Beperking.Any((b) => b.BeperkingNaam.Contains("verstandelijke beperking")))
+            if (user.IsAdult || user.Beperking.Any((b) => b.BeperkingNaam.Contains("verstandelijke beperking")))
             {
-                postUser.IsAdult = obj.IsAdult;
-                postUser.Verzorger = obj.Verzorger;
+                postUser.IsAdult = user.IsAdult;
+                postUser.Verzorger = user.Verzorger;
             }
 
-            postUser.VoorkeurBenadering = obj.VoorkeurBenadering;
-            postUser.Aandoening = obj.Aandoening;
-            postUser.Beperking = obj.Beperking;
-            postUser.Beschikbaarheid = obj.Beschikbaarheid;
-            postUser.Adres = obj.Adres;
+            postUser.VoorkeurBenadering = user.VoorkeurBenadering;
+            postUser.Aandoening = user.Aandoening;
+            postUser.Beperking = user.Beperking;
+            postUser.Beschikbaarheid = user.Beschikbaarheid;
+            postUser.Adres = user.Adres;
 
             _context.Users.Add(postUser);
             await _context.SaveChangesAsync();
