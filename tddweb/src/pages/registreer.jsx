@@ -1,6 +1,8 @@
 import { GoogleLogin } from '@react-oauth/google';
 import { useState } from 'react';
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
+import { useNavigate } from "react-router-dom";
+import React, { useEffect } from 'react';
 
 //MUI
 
@@ -20,6 +22,8 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 function Registreer() {
+    let navigate = useNavigate();
+
     const [showPassword, setShowPassword] = useState(false);  
     const [selectedDate, handleDateChange] = useState(null);
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -42,25 +46,53 @@ function Registreer() {
         console.log('Formulier verzonden');
       
         try {
-          const response = await fetch("https://ablox.azurewebsites.net/api/User/RegisterUser", {
+          const response = await fetch("http://localhost/api/User/RegisterUser", {
             method: "POST",
             body: JSON.stringify({
-                obj: {}, // of alles in obj plaatsen of obj niet als requirement verwachten aan de API kant
-                adres: {
-                    PostCode: adres
-                },
+                // id: "0",
+                password: password, 
+                voornaam: voornaam,
+                achternaam: achternaam, 
+                email: email,
                 telefoon: telefoon,
                 toestemmingBenadering: toestemmingBenadering,
                 voorkeurBenadering: voorkeurBenadering,
-                achternaam: achternaam, 
-                voornaam: voornaam,
-                email: email, 
-                aandoening: [],
-                beperking: [],
-                identityHash: 'a', // moet nog een default voor komen 
-                password: password, 
                 provider: 'a', // moet nog een default voor komen 
+                identityHash: 'a', // moet nog een default voor komen 
                 role: 'a', // moet nog een default voor komen 
+                isAdult: true,
+                verzorger: {
+                    "VerzorgerId": 0,
+                    "VerzorgerEmail": "string",
+                    "VerzorgerTelefoon": "0612345678"
+                },
+                aandoening: [
+                    {
+                        "aandoeningId": 0,
+                        "aandoeningNaam": "string"
+                    }
+                ],
+                beperking: [
+                    {
+                        "beperkingId": 0,
+                        "beperkingNaam": "string"
+                    }
+                ],
+                beschikbaarheid: [
+                    {
+                        "beschikbaarheidId": 0,
+                        "begintijd": "2024-01-18T15:48:14.638Z",
+                        "eindtijd": "2024-01-18T15:48:14.638Z"
+                    }
+                ],
+                adres: {
+                    locatieID: 0,
+                    postCode: "string",
+                    plaatsNaam: "string",
+                    straatNaam: "string",
+                    huisnummer: 0
+                },
+                onderzoeken: []
             }),
             headers: {
               "Content-type": "application/json; charset=UTF-8"
@@ -68,9 +100,8 @@ function Registreer() {
           });
       
           if (response.status === 200) {
-            const { token } = await response.json();
-            window.localStorage.setItem("token", token);
-            navigate("/dashboard/onderzoek");
+            window.localStorage.setItem("token", response.token);
+            navigate("/login");
           } else {
             console.error("Gebruikersnaam en/of wachtwoord kloppen niet");
           }
