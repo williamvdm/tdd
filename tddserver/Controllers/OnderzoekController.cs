@@ -152,6 +152,25 @@ namespace tdd.Server.Controllers
             return Ok(onderzoek);
         }
 
+
+        // Route: /api/Onderzoek/{onderzoekid}/delete
+        [HttpDelete]
+        [Route("{onderzoekid}/delete")]
+        public async Task<IActionResult> DeleteBedrijf([FromRoute] string onderzoekid)
+        {
+            var onderzoek = await _context.Onderzoeken.FirstOrDefaultAsync(onderzoek => onderzoek.Id == onderzoekid);
+
+            if (onderzoek == null)
+            {
+                return NotFound("Onderzoek niet gevonden.");
+            }
+
+            _context.Onderzoeken.Remove(onderzoek);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
         // Route: api/onderzoek/bedrijf/{bedrijfsmail}
         [HttpGet]
         [Route("bedrijf/{bedrijfsmail}")]
