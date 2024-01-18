@@ -16,7 +16,7 @@ namespace tdd.Server.Controllers
     {
         private readonly DbContextInterface _context;
 
-        public OnderzoekController(DbContextInterface context)
+        public OnderzoekController(DatabaseContext context)
         {
             _context = context;
         }

@@ -17,7 +17,7 @@ namespace tdd.Server.Controllers
     {
         private readonly DbContextInterface _context;
 
-        public UserController(DbContextInterface context)
+        public UserController(DatabaseContext context)
         {
             _context = context;
         }
@@ -114,9 +114,9 @@ namespace tdd.Server.Controllers
             postUser.Password = user.Password;
             postUser.Telefoon = user.Telefoon ?? "";
 
-            if (await _context.Users.AnyAsync(user => user.Email == user.Email))
+            if (await _context.Users.AnyAsync(user => user.Email == postUser.Email))
             {
-                return BadRequest("Email bestaat al");
+                return BadRequest("Kutzooi: email bestaat al.");
             }
 
             if (await _context.Users.AnyAsync(user => user.Voornaam == postUser.Voornaam && user.Achternaam == postUser.Achternaam))

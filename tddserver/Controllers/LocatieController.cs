@@ -19,7 +19,7 @@ namespace tdd.Server.Controllers
     {
         private readonly DbContextInterface _context;
 
-        public LocatieController(DbContextInterface context)
+        public LocatieController(DatabaseContext context)
         {
             _context = context;
         }
