@@ -116,6 +116,11 @@ export default function Bedrijf() {
                 <div className="m-2 flex-grow">
                     <div className="p-4 mb-4 rounded-lg bg-white p-6 border border-gray min-w-full w-full">
                         <h2 className="mb-4 text-center">Lopende onderzoeken</h2>
+                        <div className="flex justify-end">
+                        <Link to="#" className="bg-accessgreen outline-none hover:outline-solid hover:outline-2 mb-5 hover:outline-accessgreen text-white p-2 px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessgreen w-[100px]">
+                            Creeren
+                        </Link>
+                        </div>
                         <div className="flex flex-row">
                             <form className="flex flex-row p-4 mb-4 rounded-lg bg-white p-6 border border-gray w-full">
                                 <input
@@ -142,16 +147,16 @@ export default function Bedrijf() {
                                     <button
                                         className="mr-2 outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue text-black p-2 px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessblue"
                                         aria-label={`Bekijk onderzoek ${onderzoek.titel}`}
-                                        
+
                                     >
                                         Verwijder
                                     </button>
                                     <button
                                         className="bg-accessorange outline-none hover:outline-solid hover:outline-2 hover:outline-accessorange text-white p-2 px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessorange"
                                         aria-label={`Bekijk onderzoek ${onderzoek.titel}`}
-                                        
+
                                     >
-                                       Bewerk
+                                        Bewerk
                                     </button>
                                 </div>
                             </div>
