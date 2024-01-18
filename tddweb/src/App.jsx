@@ -16,6 +16,7 @@ import OnderzoekVragenlijst from './pages/dashboards/onderzoek/OnderzoekVragenli
 import AuthRoute from './components/AuthRouting.jsx';
 import LogOut from './pages/logout';
 import Bedrijf from './pages/dashboards/bedrijf.jsx';
+import OnderzoekCreate from './pages/dashboards/bedrijf/OnderzoekCreate.jsx';
 
 function App() {
   return (
@@ -29,6 +30,10 @@ function App() {
           <Route
             path="/dashboard/onderzoek"
             element={<AuthRoute element={<Onderzoek />} />}
+          />
+          <Route
+            path="/onderzoek/create"
+            element={<AuthRoute element={<OnderzoekCreate />} />}
           />
           <Route
             path="/onderzoek/:onderzoekid"

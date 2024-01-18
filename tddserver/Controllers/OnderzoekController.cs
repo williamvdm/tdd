@@ -158,7 +158,7 @@ namespace tdd.Server.Controllers
         [Route("{onderzoekid}/delete")]
         public async Task<IActionResult> DeleteBedrijf([FromRoute] string onderzoekid)
         {
-            var onderzoek = await _context.Onderzoeken.FirstOrDefaultAsync(onderzoek => onderzoek.Id == onderzoekid);
+            var onderzoek = await _context.Onderzoeken.FirstOrDefaultAsync(onderzoek => onderzoek.Id.ToString() == onderzoekid);
 
             if (onderzoek == null)
             {

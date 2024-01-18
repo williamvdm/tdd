@@ -48,7 +48,32 @@ export default function Bedrijf() {
         }
     }, [searchInput, onderzoeken]);
 
-    // Fetch lijst met onderzoeken
+    useEffect(() => {
+        
+    })
+
+    async function handleDelete(onderzoekid) {
+        try {
+            const response = await fetch(`http://localhost/api/Onderzoek/${onderzoekid}/delete`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json; charset=UTF-8",
+                },
+            });
+    
+            if (!response.ok) {
+                console.log(response);
+                throw new Error(`Failed to delete onderzoek with ID ${onderzoekid}`);
+            }
+
+            console.log(`Onderzoek with ID ${onderzoekid} successfully deleted.`);
+            location.reload();
+        } catch (error) {
+            console.error("Error during delete operation:", error);
+        }
+    }
+
+    // Fetch lijst met onderzoeken van ingelogde bedrijf
     useEffect(() => {
         try {
             console.log("begin fetch");
@@ -117,9 +142,9 @@ export default function Bedrijf() {
                     <div className="p-4 mb-4 rounded-lg bg-white p-6 border border-gray min-w-full w-full">
                         <h2 className="mb-4 text-center">Lopende onderzoeken</h2>
                         <div className="flex justify-end">
-                        <Link to="#" className="bg-accessgreen outline-none hover:outline-solid hover:outline-2 mb-5 hover:outline-accessgreen text-white p-2 px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessgreen w-[100px]">
-                            Creeren
-                        </Link>
+                            <Link to="/onderzoek/create" className="bg-accessgreen outline-none hover:outline-solid hover:outline-2 mb-5 hover:outline-accessgreen text-white p-2 px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessgreen w-[100px]">
+                                Creeren
+                            </Link>
                         </div>
                         <div className="flex flex-row">
                             <form className="flex flex-row p-4 mb-4 rounded-lg bg-white p-6 border border-gray w-full">
@@ -147,7 +172,7 @@ export default function Bedrijf() {
                                     <button
                                         className="mr-2 outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue text-black p-2 px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessblue"
                                         aria-label={`Bekijk onderzoek ${onderzoek.titel}`}
-
+                                        onClick={() => handleDelete(onderzoek.id)}
                                     >
                                         Verwijder
                                     </button>
