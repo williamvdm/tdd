@@ -11,8 +11,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bafae754-2e4b-4f31-a964-0fab20c451af" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.tdd_stichtingaccessibility/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tdd_stichtingaccessibility/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tdd.Tests/UnitTest1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tdd.Tests/UnitTest1.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tddserver/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tddserver/Controllers/UserController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tddweb/src/components/Nav.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/tddweb/src/components/Nav.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +26,7 @@
     <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/efcore/e017dc125bef2f604f85befd8ff27544a5a67c38/src/EFCore/DbSet.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="Toolset" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -40,7 +40,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "unittests",
+    "git-widget-placeholder": "develop",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -54,9 +54,9 @@
       "postgresql"
     ],
     "rider.external.source.directories": [
-      "C:\\Users\\William\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
-      "C:\\Users\\William\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
-      "C:\\Users\\William\\AppData\\Local\\Symbols\\src"
+      "C:\\Users\\Will\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\Will\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\Will\\AppData\\Local\\Symbols\\src"
     ]
   }
 }]]></component>
@@ -142,8 +142,6 @@
       <workItem from="1704625822200" duration="2294000" />
       <workItem from="1704628748033" duration="442000" />
       <workItem from="1704711687422" duration="741000" />
-      <workItem from="1705420894741" duration="3047000" />
-      <workItem from="1705508126375" duration="335000" />
     </task>
     <servers />
   </component>

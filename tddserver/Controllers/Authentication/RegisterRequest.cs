@@ -1,6 +1,6 @@
-﻿namespace tdd.Server.Controllers.Authentication;
+﻿namespace tdd.Server.Controllers;
 
 public class RegisterRequest
 {
-
+    
 }

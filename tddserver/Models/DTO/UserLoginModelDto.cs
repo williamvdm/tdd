@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace tdd.Server.Models.DTO
+namespace tdd.Server.Models
 {
     public class UserLoginModelDto
     {

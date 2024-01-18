@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using tdd.Server.Context;
 using tdd.Server.Models;
+using tdd.Server.Extensions;
+using Microsoft.AspNetCore.Identity;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
@@ -15,9 +17,9 @@ namespace tdd.Server.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly DbContextInterface _context;
+        private readonly DatabaseContext _context;
 
-        public UserController(DbContextInterface context)
+        public UserController(DatabaseContext context)
         {
             _context = context;
         }
@@ -47,7 +49,7 @@ namespace tdd.Server.Controllers
 
             if (user == null)
             {
-                return NotFound("Gebruiker bestaat niet");
+                return BadRequest("Gebruiker bestaat niet");
             }
 
             return Ok(user);

@@ -133,7 +133,7 @@ function Onderzoek() {
                         {isOnderzoekenLoading == false && searchedOnderzoeken.length == 0 && <h3>Geen zoekresultaten...</h3>}
                         {searchedOnderzoeken && searchedOnderzoeken.map((onderzoek) => (
                             <div
-                                className="card shadow-md p-4 mb-4 rounded-lg bg-white p-6 border border-gray transition ease-in-out min-w-full w-full"
+                                className="card shadow-md p-4 mb-4 rounded-lg bg-white p-6 border border-gray transition ease-in-out min-w-full"
                                 key={onderzoek.id}
                             >
                                 <div className="flex flex-col">
