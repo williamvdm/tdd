@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 export default function OnderzoekCreate() {
-    let navigate = useNavigate();
+  let navigate = useNavigate();
+
 
   const [onderzoekData, setOnderzoekData] = useState({
     titel: "string",
@@ -44,8 +46,10 @@ export default function OnderzoekCreate() {
       );
 
       if (response.status === 200) {
-        const { onderzoekid } = useParams();
-        navigate(`/onderzoek/edit?onderzoekid=${onderzoekid}`);
+        response.json().then((result) => {
+          const id = result.id;
+          navigate(`/onderzoek/edit?onderzoekid=${id}`);
+        });
       } else {
         console.error("Iets klopt niet");
       }
@@ -81,7 +85,7 @@ export default function OnderzoekCreate() {
         <label>
           Bedrijf E-mail:
           <input
-            type="email"  
+            type="email"
             name="bedrijfMail"
             className="border-gray-300 border p-2 rounded"
             value={onderzoekData.bedrijfMail}

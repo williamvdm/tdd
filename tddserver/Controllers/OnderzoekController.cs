@@ -192,7 +192,7 @@ namespace tdd.Server.Controllers
             _context.Add(postOnderzoek);
             await _context.SaveChangesAsync();
 
-            return Ok(onderzoek);
+            return Ok(postOnderzoek);
         }
 
 
