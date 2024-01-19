@@ -111,7 +111,7 @@ namespace tdd.Server.Controllers
                 return NotFound("Onderzoek of vraag niet gevonden.");
             }
 
-            if (vragen.Count() == null)
+            if (_context.Vragen == null)
             {
                 vragen = new List<VraagModel>();
             }
