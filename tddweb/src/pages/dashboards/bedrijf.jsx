@@ -52,11 +52,11 @@ export default function Bedrijf() {
     useEffect(() => {
         try {
             console.log("begin fetch");
-            fetch("http://localhost/api/Onderzoek/bedrijf/jumbo@jumbo.nl")
+            fetch("https://ablox.azurewebsites.net/api/Onderzoek")
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);
-                    setOnderzoeken(data);
+                    setOnderzoeken(data.filter(item => item.bedrijfMail == decodedToken.email));
                     setSearchedOnderzoeken(data);
                     setIsOnderzoekenLoading(false);
                 })
