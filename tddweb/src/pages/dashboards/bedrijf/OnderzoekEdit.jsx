@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function OnderzoekCreate() {
+export default function OnderzoekEdit() {
     let navigate = useNavigate();
 
   const [onderzoekData, setOnderzoekData] = useState({
@@ -44,7 +44,7 @@ export default function OnderzoekCreate() {
       );
 
       if (response.status === 200) {
-        navigate("/onderzoek/edit");
+        navigate("/dashboard/bedrijf");
       } else {
         console.error("Iets klopt niet");
       }

@@ -11,7 +11,7 @@ export default function OnderzoekDetail() {
     useEffect(() => {
         try {
             console.log("Begin fetch");
-            fetch(`https://ablox.azurewebsites.net/api/Onderzoek/${onderzoekid}`)
+            fetch(`http://localhost/api/Onderzoek/${onderzoekid}`)
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);

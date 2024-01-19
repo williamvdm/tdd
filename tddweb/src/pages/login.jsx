@@ -13,7 +13,7 @@ export default function Login() {
         console.log('Formulier verzonden');
       
         try {
-          const response = await fetch("https://ablox.azurewebsites.net/api/User/LoginUser", {
+          const response = await fetch("http://localhost/api/User/LoginUser", {
             method: "POST",
             body: JSON.stringify({
               email: email,
