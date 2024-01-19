@@ -44,7 +44,8 @@ export default function OnderzoekCreate() {
       );
 
       if (response.status === 200) {
-        navigate("/onderzoek/edit");
+        const { onderzoekid } = useParams();
+        navigate(`/onderzoek/edit?onderzoekid=${onderzoekid}`);
       } else {
         console.error("Iets klopt niet");
       }
