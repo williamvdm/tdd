@@ -12,7 +12,7 @@ namespace tdd.Server.Context
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             // TODO: Connection string naar secret
-            options.UseNpgsql("Host=abloxdatabase.postgres.database.azure.com;Database=tdddb;Username=abloxroot;Password=passlauwillannak123!;Port=5432;SSL Mode=Require;Trust Server Certificate=true");
+            options.UseNpgsql("Host=tdddb.postgres.database.azure.com;Database=tdddb;Username=abloxroot;Password=passlauwillannak123!;Port=5432;SSL Mode=Require;Trust Server Certificate=true");
 
         }
 
