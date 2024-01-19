@@ -24,7 +24,7 @@ const OnderzoekInfoModal = ({ onderzoek, closeModal }) => {
 
     async function linkOnderzoekUser() {
         try {
-            const response = await fetch(`https://ablox.azurewebsites.net/api/UserOnderzoek/register/UserOnderzoek/${decodedToken.nameid}/onderzoek/${onderzoek.id}`, {
+            const response = await fetch(`http://localhost/api/UserOnderzoek/register/UserOnderzoek/${decodedToken.nameid}/onderzoek/${onderzoek.id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

@@ -54,7 +54,7 @@ function Onderzoek() {
     useEffect(() => {
         try {
             console.log("begin fetch");
-            fetch("https://ablox.azurewebsites.net/api/Onderzoek")
+            fetch("http://localhost/api/Onderzoek")
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);

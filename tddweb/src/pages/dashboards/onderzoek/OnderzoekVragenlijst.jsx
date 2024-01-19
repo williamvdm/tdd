@@ -9,7 +9,7 @@ export default function OnderzoekVragenlijst() {
     useEffect(() => {
         try {
             console.log("Begin fetch");
-            fetch(`https://ablox.azurewebsites.net/api/Onderzoek/${onderzoekid}/vragen  `)
+            fetch(`http://localhost/api/Onderzoek/${onderzoekid}/vragen  `)
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);
