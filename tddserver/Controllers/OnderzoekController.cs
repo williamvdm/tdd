@@ -91,6 +91,49 @@ namespace tdd.Server.Controllers
             }
         }
 
+        // Route: /api/onderzoek/{onderzoekid}/vraag/delete/{vraagid}
+        [HttpDelete]
+        [Route("{id}/vraag/delete/{vraagid}")]
+        public async Task<IActionResult> DeleteQuestionFromOnderzoek([FromRoute] string id, [FromRoute] string vraagid)
+        {
+
+            var vragen = _context.Vragen
+                .Where(vraag => vraag.OnderzoekID.ToString() == id && vraag.VraagID.ToString() == vraagid)
+                .ToList();
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (vragen == null)
+            {
+                return NotFound("Onderzoek of vraag niet gevonden.");
+            }
+
+            if (_context.Vragen == null)
+            {
+                vragen = new List<VraagModel>();
+            }
+
+            var vraag = _context.Vragen.Where((vraag) => vraag.VraagID.ToString() == vraagid).First();
+
+            _context.Vragen.Remove(vraag);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                // Handle concurrency conflict, for example, return a conflict response.
+                // You can log the exception details for further investigation.
+                return Conflict("Concurrency conflict. The entity has been modified by another user.");
+            }
+        }
+
+
         // Route: /api/onderzoek/{onderzoekid}/vraag/{vraagid}/antwoord/{antwoordid}
         [HttpGet]
         [Route("{id}/vraag/{vraagid}/antwoord/{antwoordid}")]
@@ -149,7 +192,26 @@ namespace tdd.Server.Controllers
             _context.Add(postOnderzoek);
             await _context.SaveChangesAsync();
 
-            return Ok(onderzoek);
+            return Ok(postOnderzoek);
+        }
+
+
+        // Route: /api/Onderzoek/{onderzoekid}/delete
+        [HttpDelete]
+        [Route("{onderzoekid}/delete")]
+        public async Task<IActionResult> DeleteBedrijf([FromRoute] string onderzoekid)
+        {
+            var onderzoek = await _context.Onderzoeken.FirstOrDefaultAsync(onderzoek => onderzoek.Id.ToString() == onderzoekid);
+
+            if (onderzoek == null)
+            {
+                return NotFound("Onderzoek niet gevonden.");
+            }
+
+            _context.Onderzoeken.Remove(onderzoek);
+            await _context.SaveChangesAsync();
+
+            return Ok();
         }
 
         // Route: api/onderzoek/bedrijf/{bedrijfsmail}

@@ -23,7 +23,7 @@ export default function Index() {
             </p>
             <Link to="/dashboard/bedrijf"
               className='w-full bg-accessorange hover: text-white py-2 px-4 rounded outline-none hover:outline-solid hover:outline-2 hover:outline-accessorange'>
-              Naar onderzoeksportaal
+              Naar bedrijvenportaal
             </Link>
           </div>
           <div className='flex-1 rounded-lg bg-white shadow p-6 hover:shadow-lg transition ease-in-out border-t-4 border-accessgreen'>
