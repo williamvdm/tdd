@@ -100,13 +100,12 @@ function Registreer() {
           });
       
           if (response.status === 200) {
-            window.localStorage.setItem("token", response.token);
             navigate("/login");
           } else {
             console.error("Gebruikersnaam en/of wachtwoord kloppen niet");
           }
         } catch (error) {
-          console.error("An error occurred during login process:", error);
+          console.error("An error occurred during register process:", error);
         }
     };
 

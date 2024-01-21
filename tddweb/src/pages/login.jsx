@@ -90,6 +90,8 @@ export default function Login() {
                             type='submit'
                             className='w-full bg-accessorange text-white py-2 px-4 rounded outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue'
                         >Inloggen</button>
+                        <a href='/registreer'>Registreren als panellid</a><br></br>
+                        <a href='/registreerbedrijf'>Registreren als bedrijf</a>
                     </div>
                 </form>
                 <div className='scheiding mb-4 md:mb-6 lg:mb-8 xl:mb-8 border-b-2 border-black text-center' role='seperator' aria-label='Scheidingstekst'>

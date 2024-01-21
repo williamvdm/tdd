@@ -65,7 +65,7 @@ namespace tdd.Server.Controllers
                     Informatie = bedrijf.Informatie,
                     Locatie = bedrijf.Locatie,
                     Link = bedrijf.Link,
-                    Verified = false,
+                    Verified = true,
                     Provider = bedrijf.Provider,
                 };
 
