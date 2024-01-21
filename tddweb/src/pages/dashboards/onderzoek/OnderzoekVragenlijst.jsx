@@ -6,6 +6,7 @@ export default function OnderzoekVragenlijst() {
     const [onderzoekVragen, setOnderzoekVragen] = useState();
     const [antwoorden, setAntwoorden] = useState([]);
 
+    // Haal alle vragen op van het onderzoek waaraan je deelneemt
     useEffect(() => {
         try {
             console.log("Begin fetch");

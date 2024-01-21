@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import React from 'react';
 
+// Profiel bewerken modal NIET AF
 const ProfileEditModal = ({ user, closeModal }) => {
     const modalRef = useRef(null);
     const [formData, setFormData] = useState({

@@ -82,9 +82,7 @@ export default function Login() {
                                 </label>
                             </div>
                         </div>
-
                     </div>
-
                     <div>
                         <button
                             type='submit'

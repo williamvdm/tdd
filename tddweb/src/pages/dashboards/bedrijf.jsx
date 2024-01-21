@@ -3,6 +3,7 @@ import { jwtDecode } from "jwt-decode";
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
+// Dashboard van bedrijf
 export default function Bedrijf() {
     const [onderzoeken, setOnderzoeken] = useState(null);
     const [searchInput, setSearchInput] = useState('');
@@ -55,6 +56,7 @@ export default function Bedrijf() {
         
     })
 
+    // Een onderzoek verwijderen (werkt alleen wanneer er geen vragen meer in een onderzoek zitten)
     async function handleDelete(onderzoekid) {
         try {
             const response = await fetch(`http://localhost/api/Onderzoek/${onderzoekid}/delete`, {

@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
 
+// Modal die opent met alle informatie over het onderzoek
 const OnderzoekInfoModal = ({ onderzoek, closeModal }) => {
     const modalRef = useRef(null);
 

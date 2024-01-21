@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 
+// Onderzoek bewerken pagina
 export default function OnderzoekEdit() {
   const { onderzoekid } = useParams();
   const [vraag, setVraag] = useState("");
@@ -32,6 +33,8 @@ export default function OnderzoekEdit() {
     }
   }, [onderzoekid]);
 
+
+  // Een vraag toevoegen aan een onderzoek die je hebt geselecteerd
   const handleAddQuestion = async (event) => {
     event.preventDefault();
 
@@ -67,6 +70,8 @@ export default function OnderzoekEdit() {
     }
   };
 
+
+  // Een vraar verwijderen van het geselecteerde onderzoek
   const handleDeleteQuestion = async (vraagID) => {
     try {
       const response = await fetch(

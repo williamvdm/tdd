@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navigate, Route } from 'react-router-dom';
 
+// Routing wanneer je niet bent ingelogd
 const AuthRoute = ({ element }) => {
   const isAuthenticated = localStorage.getItem('token') !== null;
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
-
+// Pagina om een onferzoek aan te maken
 export default function OnderzoekCreate() {
   let navigate = useNavigate();
 
@@ -11,7 +11,6 @@ export default function OnderzoekCreate() {
   if (token) {
     decodedToken = jwtDecode(token);
   }
-
 
   const [onderzoekData, setOnderzoekData] = useState({
     titel: "",
@@ -36,6 +35,7 @@ export default function OnderzoekCreate() {
     }));
   };
 
+  // Onderzoek aanmaken met de input fields van de pagina
   const handleCreate = async (event) => {
     event.preventDefault();
     console.log("Formulier verzonden");

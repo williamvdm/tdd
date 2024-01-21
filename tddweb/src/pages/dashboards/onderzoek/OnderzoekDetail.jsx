@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// Details van een specifiek onderzoek ophalen waar je aan kunt deelnemen
 export default function OnderzoekDetail() {
     const { onderzoekid } = useParams();
     const [onderzoekData, setOnderzoekData] = useState(null)
