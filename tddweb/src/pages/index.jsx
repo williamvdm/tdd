@@ -4,7 +4,22 @@ import { Link } from 'react-router-dom';
 export default function Index() {
   return (
     <>
-      <div className='flex justify-center'>
+
+     {/* Header */}
+     <div className=" -mt-10 relative">
+        <img
+          src="..\assets\banner.jpg"
+          alt="Banner"
+          className="w-full object-cover"
+          style={{ height: '90vh', filter: 'brightness(55%) blur(1px)' }}
+        />
+        <div className="absolute top-1/2 left-10 transform -translate-y-1/2 text-white p-4">
+          <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold">Stichting Accessibility</h1>
+          <p className="text-lg md:text-xl lg:text-2xl mt-2">Lorem Impsum Ador Levit</p>
+        </div>
+      </div>
+
+      <div className='flex justify-center mt-20'>
         <div className='w-full max-w-screen-lg flex space-x-8'>
           <div className='flex-1 rounded-lg bg-white shadow p-6 hover:shadow-lg transition ease-in-out border-t-4 border-accessblue'>
             <h1 className='text-xl m-2 font-bold text-center mb-8'>Onderzoeksportaal</h1>
@@ -36,6 +51,21 @@ export default function Index() {
               Naar beheerdersportaal
             </a>
           </div>
+        </div>
+      </div>
+
+
+       {/* Header */}
+       <div className="relative">
+        <img
+          src="..\assets\banner.jpg"
+          alt="Banner"
+          className="w-full object-cover"
+          style={{ height: '90vh', filter: 'brightness(55%) blur(1px)' }}
+        />
+        <div className="absolute top-1/2 left-10 transform -translate-y-1/2 text-white p-4">
+          <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold">Stichting Accessibility</h1>
+          <p className="text-lg md:text-xl lg:text-2xl mt-2">Lorem Impsum Ador Levit</p>
         </div>
       </div>
     </>
