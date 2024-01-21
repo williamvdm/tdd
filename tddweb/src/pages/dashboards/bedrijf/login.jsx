@@ -1,9 +1,8 @@
 import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
-import { jwtDecode } from "jwt-decode";
 
-export default function Login() {
+export default function LoginBedrijf() {
     let navigate = useNavigate();
 
     const [email, setEmail] = useState('');
@@ -14,7 +13,7 @@ export default function Login() {
         console.log('Formulier verzonden');
 
         try {
-            const response = await fetch("http://localhost/api/Auth/LoginUser", {
+            const response = await fetch("http://localhost/api/Bedrijf/LoginBedrijf", {
                 method: "POST",
                 body: JSON.stringify({
                     email: email,
@@ -28,21 +27,12 @@ export default function Login() {
             if (response.status === 200) {
                 const { token } = await response.json();
                 window.localStorage.setItem("token", token);
-
-                const decodedToken = jwtDecode(token);
-
-                const userType = decodedToken.type;
-
-                if (userType === "gebruiker") {
-                    navigate("/dashboard/onderzoek");
-                } else if (userType === "bedrijf") {
-                    navigate("/dashboard/bedrijf");
-                }
+                navigate("/dashboard/bedrijf");
             } else {
                 console.error("Gebruikersnaam en/of wachtwoord kloppen niet");
             }
         } catch (error) {
-            console.error(error);
+            console.error("An error occurred during login process:", error);
         }
     };
 
@@ -64,7 +54,7 @@ export default function Login() {
                                     htmlFor='gebruikersnaam'
                                     aria-required='true'
                                     class="flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate peer-placeholder-shown:text-blue-gray-500 leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-md after:border-t peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-gray-500 peer-focus:text-gray-900 before:border-blue-gray-200 peer-focus:before:!border-gray-900 after:border-blue-gray-200 peer-focus:after:!border-gray-900">
-                                    Gebruikersnaam (verplicht)
+                                    Bedrijfsmail
                                 </label>
                             </div>
                         </div>
@@ -78,7 +68,7 @@ export default function Login() {
                                     placeholder=" " />
                                 <label
                                     class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                                    Wachtwoord (verplicht)
+                                    Wachtwoord
                                 </label>
                             </div>
                         </div>
@@ -92,21 +82,6 @@ export default function Login() {
                         >Inloggen</button>
                     </div>
                 </form>
-                <div className='scheiding mb-4 md:mb-6 lg:mb-8 xl:mb-8 border-b-2 border-black text-center' role='seperator' aria-label='Scheidingstekst'>
-                    <span className='scheiding-tekst bg-white px-10 text-1.5rem'>of gebruik Google Login:</span>
-                </div>
-                <div className='mb-4 md:mb-6 lg:mb-8 xl:mb-10 w-800 mx-auto'>
-                    <GoogleLogin
-
-                        theme="filled_blue"
-                        onSuccess={credentialResponse => {
-                            console.log(credentialResponse);
-                        }}
-                        onError={() => {
-                            console.log('Het inloggen is niet gelukt.');
-                        }}
-                    />
-                </div>
             </div>
         </div>
     );

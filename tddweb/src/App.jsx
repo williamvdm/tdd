@@ -7,8 +7,6 @@ import Nav from './components/Nav.jsx'
 // Pages
 import Index from './pages/index.jsx';
 import Login from './pages/login.jsx';
-import Ervaringsdeskundige from './pages/ervaringsdeskundige.jsx';
-import Bedrijven from './pages/bedrijven.jsx'
 import Onderzoek from './pages/dashboards/onderzoek.jsx';
 import Chat from './pages/chat.jsx';
 import Registreer from './pages/registreer.jsx';
@@ -19,6 +17,7 @@ import LogOut from './pages/logout';
 import Bedrijf from './pages/dashboards/bedrijf.jsx';
 import OnderzoekCreate from './pages/dashboards/bedrijf/OnderzoekCreate.jsx';
 import OnderzoekEdit from './pages/dashboards/bedrijf/OnderzoekEdit.jsx';
+import LoginBedrijf from './pages/dashboards/bedrijf/login.jsx';
 
 
 function App() {
@@ -29,6 +28,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/bedrijflogin" element={<LoginBedrijf />} />
           <Route path="/registreer" element={<Registreer />} />
           <Route path="/logout" element={<LogOut />} />
           <Route
@@ -39,9 +39,9 @@ function App() {
             path="/onderzoek/create"
             element={<AuthRoute element={<OnderzoekCreate />} />}
           />
-          <Route
-            path="/onderzoek/edit"
-            element={<AuthRoute element={<OnderzoekEdit />} />}
+          <Route 
+            path="/onderzoek/edit/:onderzoekid" 
+            element={<OnderzoekEdit />} 
           />
           <Route
             path="/onderzoek/:onderzoekid"

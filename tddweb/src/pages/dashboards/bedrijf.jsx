@@ -54,7 +54,7 @@ export default function Bedrijf() {
 
     async function handleDelete(onderzoekid) {
         try {
-            const response = await fetch(`http://localhost/api/Onderzoek/${onderzoekid}/delete`, {
+            const response = await fetch(`http://localhost/api/Onderzoek/bedrijf/${decodedToken.nameid}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json; charset=UTF-8",
@@ -63,13 +63,13 @@ export default function Bedrijf() {
     
             if (!response.ok) {
                 console.log(response);
-                throw new Error(`Failed to delete onderzoek with ID ${onderzoekid}`);
+                throw new Error(`Kon niet verwijderen met ID ${onderzoekid}`);
             }
 
-            console.log(`Onderzoek with ID ${onderzoekid} successfully deleted.`);
+            console.log(`Onderzoek ${onderzoekid} verwijdert`);
             location.reload();
         } catch (error) {
-            console.error("Error during delete operation:", error);
+            console.error("Error tijdens delete", error);
         }
     }
 
@@ -77,7 +77,7 @@ export default function Bedrijf() {
     useEffect(() => {
         try {
             console.log("begin fetch");
-            fetch("http://localhost/api/Onderzoek/bedrijf/jumbo@jumbo.nl")
+            fetch(`http://localhost/api/Onderzoek/bedrijf/${decodedToken.email}`)
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);
@@ -122,7 +122,7 @@ export default function Bedrijf() {
                                     className="rounded-full border border-gray w-40"
                                     alt="Profile"
                                 />
-                                <h3 className="mb-10">Jumbo</h3>
+                                <h3 className="mb-10">{decodedToken.Informatie}</h3>
                                 <button
                                     onClick={openProfileEditModal}
                                     className="text-gray-500 outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessblue w-1/7"

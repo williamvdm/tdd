@@ -5,6 +5,11 @@ using tdd.Server.Context;
 using tdd.Server.Models;
 using tdd.Server.Extensions;
 using tdd.Server.Models.DTO;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Newtonsoft.Json;
 
 namespace tdd.Server.Controllers
 {
@@ -34,35 +39,67 @@ namespace tdd.Server.Controllers
             return Ok(bedrijf);
         }
 
-        // Route: /api/Bedrijf/registreer
+        // Route: /api/Bedrijf/RegisterBedrijf
         [HttpPost]
-        [Route("registreer")]
-        public async Task<IActionResult> RegistreerBedrijf(BedrijfModelDTO obj)
+        [Route("RegisterBedrijf")]
+        public async Task<IActionResult> BedrijfRegister(BedrijfModelDTO bedrijf)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            BedrijfModel postBedrijf = new BedrijfModel();
-            postBedrijf.Provider = obj.Provider;
-            postBedrijf.Password = obj.Password;
-            postBedrijf.Bedrijfsmail = obj.Bedrijfsmail;
-            postBedrijf.Verified = obj.Verified;
-            postBedrijf.Locatie = obj.Locatie;
-            postBedrijf.Informatie = obj.Informatie;
-            postBedrijf.Link = obj.Link;
-
-            if (await _context.Bedrijven.AnyAsync(bedrijf => bedrijf.Bedrijfsmail == obj.Bedrijfsmail))
+            try
             {
-                return BadRequest("Email bestaat al");
+                var existingBedrijf = await _context.Bedrijven.FirstOrDefaultAsync(b => b.Bedrijfsmail == bedrijf.Bedrijfsmail);
+
+                if (existingBedrijf != null)
+                {
+                    return BadRequest("email bestaat al.");
+                }
+
+                BedrijfModel postBedrijf = new BedrijfModel
+                {
+                    Bedrijfsmail = bedrijf.Bedrijfsmail,
+                    Password = bedrijf.Password,
+                    Informatie = bedrijf.Informatie,
+                    Locatie = bedrijf.Locatie,
+                    Link = bedrijf.Link,
+                    Verified = false,
+                    Provider = bedrijf.Provider,
+                };
+
+                _context.Bedrijven.Add(postBedrijf);
+                await _context.SaveChangesAsync();
+
+                // Generate JWT token
+                var bedrijfTokenHandler = new JwtSecurityTokenHandler();
+                var bedrijfKey = Encoding.ASCII.GetBytes("Xëí²]Ã½ö3ð,åòiôñÐã:ßn¦ét¬ÆP)Æ6|4RÐ¤²ónóÿR[8ÔÃø¯®?1/¿sÜíÿmN`Å/e!Ïf§6à2úMÏÉÒì¡.tpÁH+XZ°úwk5Vóíìò¯±÷elBÖâ·mtTÁÎq(êï`¥Ñ-î¨èVOÙñÂX©8v");
+                var bedrijfTokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
+                        new Claim(ClaimTypes.Email, postBedrijf.Bedrijfsmail),
+                        new Claim("Informatie", postBedrijf.Informatie),
+                        new Claim("Locatie", JsonConvert.SerializeObject(postBedrijf.Locatie)),
+                        new Claim("Link", postBedrijf.Link),
+
+                    }),
+                    Expires = DateTime.UtcNow.AddHours(1),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(bedrijfKey), SecurityAlgorithms.HmacSha256Signature)
+                };
+
+                var bedrijfToken = bedrijfTokenHandler.CreateToken(bedrijfTokenDescriptor);
+                var bedrijfTokenString = bedrijfTokenHandler.WriteToken(bedrijfToken);
+
+                return Ok(new { Token = bedrijfTokenString });
             }
-
-            _context.Bedrijven.Add(postBedrijf);
-            await _context.SaveChangesAsync();
-
-            return Created();
+                catch (Exception exception)
+            {
+                return StatusCode(500, $"Internal server error {exception}");
+            }
         }
+
 
         // Route: /api/Bedrijf/{bedrijfsmail}/delete
         [HttpDelete]

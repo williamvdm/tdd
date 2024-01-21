@@ -1,24 +1,31 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 
 export default function OnderzoekCreate() {
   let navigate = useNavigate();
 
+  const token = localStorage.getItem("token")
+    let decodedToken = null;
+    if (token) {
+        decodedToken = jwtDecode(token);
+    }
+
 
   const [onderzoekData, setOnderzoekData] = useState({
-    titel: "string",
-    beschrijving: "string",
-    bedrijfMail: "string",
+    titel: "Voer een titel in",
+    beschrijving: "Voer een beschrijving in",
+    bedrijfMail: decodedToken.email,
     begindatum: "2024-01-18",
     einddatum: "2024-01-18",
     locatie: {
-      postCode: "string",
-      plaatsNaam: "string",
-      straatNaam: "string",
+      postCode: "1234AB",
+      plaatsNaam: "Voer plaatsnaam in",
+      straatNaam: "Voer straatnaam in",
       huisnummer: 0,
     },
-    beloningBeschrijving: "string",
+    beloningBeschrijving: "Geef een beloning op",
   });
 
   const handleInputChange = (e) => {
@@ -48,7 +55,7 @@ export default function OnderzoekCreate() {
       if (response.status === 200) {
         response.json().then((result) => {
           const id = result.id;
-          navigate(`/onderzoek/edit?onderzoekid=${id}`);
+          navigate(`/onderzoek/edit/${id}`);
         });
       } else {
         console.error("Iets klopt niet");
@@ -78,17 +85,6 @@ export default function OnderzoekCreate() {
             name="beschrijving"
             className="border-gray-300 border p-2 rounded"
             value={onderzoekData.beschrijving}
-            onChange={handleInputChange}
-          />
-        </label>
-        <br />
-        <label>
-          Bedrijf E-mail:
-          <input
-            type="email"
-            name="bedrijfMail"
-            className="border-gray-300 border p-2 rounded"
-            value={onderzoekData.bedrijfMail}
             onChange={handleInputChange}
           />
         </label>
@@ -190,7 +186,7 @@ export default function OnderzoekCreate() {
           />
         </label>
         <br />
-        <button type="submit" className="mr-2 outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue text-black p-2 px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessblue">Create Onderzoek</button>
+        <button type="submit" className="mr-2 outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue text-black p-2 px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessblue">Verder</button>
       </form>
     </div>
   );
