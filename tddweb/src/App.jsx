@@ -17,7 +17,6 @@ import LogOut from './pages/logout';
 import Bedrijf from './pages/dashboards/bedrijf.jsx';
 import OnderzoekCreate from './pages/dashboards/bedrijf/OnderzoekCreate.jsx';
 import OnderzoekEdit from './pages/dashboards/bedrijf/OnderzoekEdit.jsx';
-import LoginBedrijf from './pages/dashboards/bedrijf/login.jsx';
 import RegistreerBedrijf from './pages/registreerbedrijf.jsx';
 
 
@@ -29,7 +28,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/bedrijflogin" element={<LoginBedrijf />} />
           <Route path="/registreer" element={<Registreer />} />
           <Route path="/registreerbedrijf" element={<RegistreerBedrijf />} />
           <Route path="/logout" element={<LogOut />} />
