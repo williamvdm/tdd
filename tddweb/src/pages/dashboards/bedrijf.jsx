@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export default function Bedrijf() {
     const [onderzoeken, setOnderzoeken] = useState(null);
@@ -10,6 +11,8 @@ export default function Bedrijf() {
     const [isOnderzoekenLoading, setIsOnderzoekenLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isProfileEditModalOpen, setIsProfileEditModalOpen] = useState(false);
+
+    let navigate = useNavigate();
 
     const token = localStorage.getItem("token")
     let decodedToken = null;
@@ -71,6 +74,10 @@ export default function Bedrijf() {
         } catch (error) {
             console.error("Error tijdens delete", error);
         }
+    }
+
+    async function handleEdit(onderzoekid) {
+        navigate(`/onderzoek/edit/${onderzoekid}`);
     }
 
     // Fetch lijst met onderzoeken van ingelogde bedrijf
@@ -179,6 +186,7 @@ export default function Bedrijf() {
                                     <button
                                         className="bg-accessorange outline-none hover:outline-solid hover:outline-2 hover:outline-accessorange text-white p-2 px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessorange"
                                         aria-label={`Bekijk onderzoek ${onderzoek.titel}`}
+                                        onClick={() => handleEdit(onderzoek.id)}
 
                                     >
                                         Bewerk

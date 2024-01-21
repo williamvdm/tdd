@@ -1,60 +1,136 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 
 export default function OnderzoekEdit() {
-    const { onderzoekid } = useParams();
-    const [vraag, setVraag] = useState("");
-    const navigate = useNavigate();
+  const { onderzoekid } = useParams();
+  const [vraag, setVraag] = useState("");
+  const [questions, setQuestions] = useState([]);
+  const navigate = useNavigate();
 
-    const handleAddQuestion = async (event) => {
-        event.preventDefault();
-        console.log("Formulier verzonden");
+  const fetchQuestions = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost/api/Onderzoek/${onderzoekid}/vragen`
+      );
 
-        // Check if onderzoekid is defined before making the API request
-        if (onderzoekid) {
-            try {
-                const response = await fetch(
-                    `http://localhost/api/Onderzoek/${onderzoekid}/vraag/add`,
-                    {
-                        method: "POST",
-                        body: JSON.stringify({
-                            vraagID: 0,
-                            onderzoekID: onderzoekid,
-                            vraag: vraag,
-                            antwoorden: []
-                        }),
-                        headers: {
-                            "Content-type": "application/json; charset=UTF-8",
-                        },
-                    }
-                );
-            } catch (error) {
-                console.error("Verbinding met endpoint mislukt", error);
-            }
+      if (response.ok) {
+        const data = await response.json();
+        setQuestions(data);
+      } else {
+        console.error("Failed to fetch questions");
+      }
+    } catch (error) {
+      console.error("Connection to the endpoint failed", error);
+    }
+  };
+
+  useEffect(() => {
+    if (onderzoekid) {
+      fetchQuestions();
+    } else {
+      console.error("onderzoekid is undefined");
+    }
+  }, [onderzoekid]);
+
+  const handleAddQuestion = async (event) => {
+    event.preventDefault();
+
+    if (onderzoekid) {
+      try {
+        const response = await fetch(
+          `http://localhost/api/Onderzoek/${onderzoekid}/vraag/add`,
+          {
+            method: "POST",
+            body: JSON.stringify({
+              vraagID: 0,
+              onderzoekID: onderzoekid,
+              vraag: vraag,
+              antwoorden: [],
+            }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          }
+        );
+
+        if (response.ok) {
+          fetchQuestions();
+          setVraag("");
         } else {
-            console.error("onderzoekid is undefined");
+          console.error("Failed to add question");
         }
-    };
+      } catch (error) {
+        console.error("Connection to the endpoint failed", error);
+      }
+    } else {
+      console.error("onderzoekid is undefined");
+    }
+  };
 
-    return (
-        <div className="container mx-auto my-10 p-6 bg-white border border-gray-300 rounded-lg shadow-lg max-w-screen-md">
-            <h1>Onderzoek bewerken</h1>
-            <form onSubmit={handleAddQuestion}>
-                <label>
-                    Vraag:
-                    <input
-                        type="text"
-                        name="titel"
-                        className="border-gray-300 border p-2 rounded"
-                        value={vraag}
-                        onChange={(e) => setVraag(e.target.value)}
-                    />
-                </label>
-                <br />
-                <button type="submit" className="mr-2 outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue text-black p-2 px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessblue">Voeg toe</button>
-                <Link to="/dashboard/bedrijf" className="mr-2 outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue text-black p-2 px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessblue">Klaar</Link>
-            </form>
-        </div>
-    );
+  const handleDeleteQuestion = async (vraagID) => {
+    try {
+      const response = await fetch(
+        `http://localhost/api/Onderzoek/${onderzoekid}/vraag/delete/${vraagID}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (response.ok) {
+        fetchQuestions();
+      } else {
+        console.error("Failed to delete question");
+      }
+    } catch (error) {
+      console.error("Connection to the endpoint failed", error);
+    }
+  };
+
+  return (
+    <div className="container mx-auto my-10 p-6 bg-white border border-gray-300 rounded-lg shadow-lg max-w-screen-md">
+      <h1>Onderzoek bewerken</h1>
+      <form onSubmit={handleAddQuestion}>
+        <label>
+          Vraag:
+          <input
+            type="text"
+            name="titel"
+            className="border-gray-300 border p-2 rounded"
+            value={vraag}
+            onChange={(e) => setVraag(e.target.value)}
+          />
+        </label>
+        <br />
+        <button
+          type="submit"
+          className="mr-2 outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue text-black p-2 px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessblue"
+        >
+          Voeg toe
+        </button>
+        <Link
+          to="/dashboard/bedrijf"
+          className="mr-2 outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue text-black p-2 px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessblue"
+        >
+          Klaar
+        </Link>
+      </form>
+
+      <div className="mt-4">
+        <h2>Toegevoegde vragen:</h2>
+        <ul>
+          {questions.map((question) => (
+            <li key={question.vraagID}>
+              {question.vraag}
+              <button
+                onClick={() => handleDeleteQuestion(question.vraagID)}
+                className="ml-2 text-red-500"
+              >
+                x
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
 }
