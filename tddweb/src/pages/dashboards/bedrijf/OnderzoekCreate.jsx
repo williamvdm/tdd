@@ -7,25 +7,25 @@ export default function OnderzoekCreate() {
   let navigate = useNavigate();
 
   const token = localStorage.getItem("token")
-    let decodedToken = null;
-    if (token) {
-        decodedToken = jwtDecode(token);
-    }
+  let decodedToken = null;
+  if (token) {
+    decodedToken = jwtDecode(token);
+  }
 
 
   const [onderzoekData, setOnderzoekData] = useState({
-    titel: "Voer een titel in",
-    beschrijving: "Voer een beschrijving in",
+    titel: "",
+    beschrijving: "",
     bedrijfMail: decodedToken.email,
     begindatum: "2024-01-18",
     einddatum: "2024-01-18",
     locatie: {
-      postCode: "1234AB",
-      plaatsNaam: "Voer plaatsnaam in",
-      straatNaam: "Voer straatnaam in",
+      postCode: "",
+      plaatsNaam: "",
+      straatNaam: "",
       huisnummer: 0,
     },
-    beloningBeschrijving: "Geef een beloning op",
+    beloningBeschrijving: "",
   });
 
   const handleInputChange = (e) => {
@@ -186,8 +186,14 @@ export default function OnderzoekCreate() {
           />
         </label>
         <br />
-        <button type="submit" className="mr-2 outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue text-black p-2 px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessblue">Verder</button>
+        <button
+          type="submit"
+          className="mr-2 outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue text-black p-2 px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessblue"
+        >
+          Verder
+        </button>
       </form>
     </div>
   );
+
 }

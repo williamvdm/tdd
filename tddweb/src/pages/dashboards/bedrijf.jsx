@@ -57,7 +57,7 @@ export default function Bedrijf() {
 
     async function handleDelete(onderzoekid) {
         try {
-            const response = await fetch(`http://localhost/api/Onderzoek/bedrijf/${decodedToken.nameid}`, {
+            const response = await fetch(`http://localhost/api/Onderzoek/${onderzoekid}/delete`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json; charset=UTF-8",

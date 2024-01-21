@@ -88,42 +88,43 @@ export default function OnderzoekEdit() {
 
   return (
     <div className="container mx-auto my-10 p-6 bg-white border border-gray-300 rounded-lg shadow-lg max-w-screen-md">
-      <h1>Onderzoek bewerken</h1>
-      <form onSubmit={handleAddQuestion}>
-        <label>
+      <h1 className="text-2xl font-bold mb-4">Onderzoek bewerken</h1>
+      <form onSubmit={handleAddQuestion} className="mb-4">
+        <label className="block mb-2">
           Vraag:
           <input
             type="text"
             name="titel"
-            className="border-gray-300 border p-2 rounded"
+            className="border p-2 rounded w-full focus:outline-accessblue focus:border-accessblue"
             value={vraag}
             onChange={(e) => setVraag(e.target.value)}
           />
         </label>
-        <br />
-        <button
-          type="submit"
-          className="mr-2 outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue text-black p-2 px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessblue"
-        >
-          Voeg toe
-        </button>
-        <Link
-          to="/dashboard/bedrijf"
-          className="mr-2 outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue text-black p-2 px-4 rounded-lg transition ease-in-out flex items-center focus:outline-accessblue"
-        >
-          Klaar
-        </Link>
+        <div className="flex space-x-2">
+          <button
+            type="submit"
+            className="w-1/2 bg-accessblue text-white py-2 px-4 rounded outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue transition duration-300 ease-in-out"
+          >
+            Voeg toe
+          </button>
+          <Link
+            to="/dashboard/bedrijf"
+            className="w-1/2 bg-white text-black text-center py-2 px-4 rounded outline-none hover:outline-solid hover:outline-2 hover:outline-accessblue transition duration-300 ease-in-out"
+          >
+            Klaar
+          </Link>
+        </div>
       </form>
 
       <div className="mt-4">
-        <h2>Toegevoegde vragen:</h2>
+        <h2 className="text-lg font-semibold mb-2">Toegevoegde vragen:</h2>
         <ul>
           {questions.map((question) => (
-            <li key={question.vraagID}>
-              {question.vraag}
+            <li key={question.vraagID} className="flex items-center mb-2">
+              <span className="flex-1">{question.vraag}</span>
               <button
                 onClick={() => handleDeleteQuestion(question.vraagID)}
-                className="ml-2 text-red-500"
+                className="text-red-500"
               >
                 x
               </button>
